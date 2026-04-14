@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigationStore } from '@/store/navigationStore';
 import { useOrdersStore } from '@/store/ordersStore';
 import { useCRMStore } from '@/store/crmStore';
+import { useCRMAuthStore } from '@/store/crmAuthStore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -25,6 +26,7 @@ import {
   Filter,
   Edit,
   Eye,
+  LogOut,
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import {
@@ -73,6 +75,7 @@ const categoryData = [
 export function CRMDashboard() {
   const [activeSection, setActiveSection] = useState('dashboard');
   const { goToHome } = useNavigationStore();
+  const { logout } = useCRMAuthStore();
   const { orders, getMetrics: getOrderMetrics } = useOrdersStore();
   const { customers, automations, campaigns, getCustomerMetrics } = useCRMStore();
 
@@ -154,6 +157,17 @@ export function CRMDashboard() {
               <p className="text-xs text-stone-500">admin@hogarelegante.com</p>
             </div>
           </div>
+          <Button
+            variant="outline"
+            className="w-full mt-4"
+            onClick={() => {
+              logout();
+              goToHome();
+            }}
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Cerrar sesión CRM
+          </Button>
         </div>
       </aside>
 

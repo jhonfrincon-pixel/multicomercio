@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { Hero } from '@/sections/Hero';
 import { ProductCatalog } from '@/sections/ProductCatalog';
@@ -8,17 +9,37 @@ import { Footer } from '@/sections/Footer';
 import { AIChatbot } from '@/components/AIChatbot';
 import { Newsletter } from '@/components/Newsletter';
 import { CRMDashboard } from '@/crm/CRMDashboard';
+import { CRMAccessGate } from '@/crm/CRMAccessGate';
 import { useNavigationStore } from '@/store/navigationStore';
+import { useCRMAuthStore } from '@/store/crmAuthStore';
 import { getProductById } from '@/data/products';
 import { Toaster } from '@/components/ui/sonner';
 import type { View } from '@/types';
 
 function App() {
-  const { currentView, selectedProductId } = useNavigationStore();
+  const { currentView, selectedProductId, goToCRM } = useNavigationStore();
+  const { isAuthenticated } = useCRMAuthStore();
+
+  useEffect(() => {
+    const handleAdminShortcut = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'a') {
+        event.preventDefault();
+        goToCRM('dashboard');
+      }
+    };
+
+    window.addEventListener('keydown', handleAdminShortcut);
+    return () => {
+      window.removeEventListener('keydown', handleAdminShortcut);
+    };
+  }, [goToCRM]);
 
   const renderContent = () => {
     // CRM Views
     if (currentView.startsWith('crm')) {
+      if (!isAuthenticated) {
+        return <CRMAccessGate />;
+      }
       return <CRMDashboard />;
     }
 

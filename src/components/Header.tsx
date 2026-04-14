@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ShoppingCart, Home, Search, Menu, X, Heart, LayoutDashboard } from 'lucide-react';
+import { ShoppingCart, Home, Search, Menu, X, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCartStore } from '@/store/cartStore';
@@ -10,7 +10,7 @@ import { SearchBar } from './SearchBar';
 export function Header() {
   const totalItems = useCartStore((state) => state.getTotalItems());
   const wishlistCount = useWishlistStore((state) => state.getWishlistCount());
-  const { currentView, goToHome, goToCart, goToCRM } = useNavigationStore();
+  const { currentView, goToHome, goToCart } = useNavigationStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -65,13 +65,6 @@ export function Header() {
               className="text-sm font-medium text-stone-600 transition-colors hover:text-amber-700"
             >
               Contacto
-            </button>
-            <button
-              onClick={() => goToCRM()}
-              className="text-sm font-medium text-stone-600 transition-colors hover:text-amber-700 flex items-center gap-1"
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              CRM
             </button>
           </nav>
 
@@ -165,16 +158,6 @@ export function Header() {
                 className="text-left py-2 px-4 rounded-lg hover:bg-amber-50 text-stone-700"
               >
                 Contacto
-              </button>
-              <button
-                onClick={() => {
-                  goToCRM();
-                  setMobileMenuOpen(false);
-                }}
-                className="text-left py-2 px-4 rounded-lg hover:bg-amber-50 text-stone-700 flex items-center gap-2"
-              >
-                <LayoutDashboard className="w-4 h-4" />
-                CRM
               </button>
             </nav>
           </div>
