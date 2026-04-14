@@ -18,7 +18,7 @@ import type { View } from '@/types';
 
 function App() {
   const { currentView, selectedProductId, goToCRM } = useNavigationStore();
-  const { isAuthenticated } = useCRMAuthStore();
+  const { isAuthenticated, isAuthLoading, initializeAuth } = useCRMAuthStore();
 
   useEffect(() => {
     const handleAdminShortcut = (event: KeyboardEvent) => {
@@ -34,9 +34,20 @@ function App() {
     };
   }, [goToCRM]);
 
+  useEffect(() => {
+    initializeAuth();
+  }, [initializeAuth]);
+
   const renderContent = () => {
     // CRM Views
     if (currentView.startsWith('crm')) {
+      if (isAuthLoading) {
+        return (
+          <div className="min-h-[70vh] flex items-center justify-center">
+            <p className="text-stone-600">Verificando acceso...</p>
+          </div>
+        );
+      }
       if (!isAuthenticated) {
         return <CRMAccessGate />;
       }

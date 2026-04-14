@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
 import { useNavigationStore } from '@/store/navigationStore';
+import { isSupabaseConfigured } from '@/lib/supabase';
 
 export function CRMAccessGate() {
   const [email, setEmail] = useState('');
@@ -16,13 +17,13 @@ export function CRMAccessGate() {
   const { login } = useCRMAuthStore();
   const { goToCRM, goToHome } = useNavigationStore();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
 
-    const isValid = login(email, password);
+    const result = await login(email, password);
 
-    if (isValid) {
+    if (result.success) {
       toast.success('Acceso autorizado al CRM');
       goToCRM('dashboard');
       setPassword('');
@@ -30,7 +31,7 @@ export function CRMAccessGate() {
       return;
     }
 
-    toast.error('Credenciales incorrectas');
+    toast.error(result.message ?? 'Credenciales incorrectas');
     setIsSubmitting(false);
   };
 
@@ -83,6 +84,11 @@ export function CRMAccessGate() {
           <p className="text-xs text-stone-500 mt-4">
             Tip: puedes abrir esta pantalla con el atajo <span className="font-medium">Ctrl + Shift + A</span>.
           </p>
+          {!isSupabaseConfigured && (
+            <p className="text-xs text-amber-700 mt-2">
+              Supabase no está configurado. Se usa acceso local temporal con variables `VITE_ADMIN_EMAIL` y `VITE_ADMIN_PASSWORD`.
+            </p>
+          )}
         </CardContent>
       </Card>
     </div>

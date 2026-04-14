@@ -111,35 +111,41 @@ export function Checkout() {
 
   const handleCompleteOrder = async () => {
     setIsProcessing(true);
-    
-    // Simulate processing
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Simulate processing
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const orderItems = items.map((item) => ({
-      product: item.product,
-      quantity: item.quantity,
-      price: item.product.price,
-    }));
+      const orderItems = items.map((item) => ({
+        product: item.product,
+        quantity: item.quantity,
+        price: item.product.price,
+      }));
 
-    const order = createOrder(orderItems);
-    addOrder(order);
-    syncFromOrder(order);
+      const order = createOrder(orderItems);
+      await addOrder(order);
+      await syncFromOrder(order);
 
-    // Add loyalty points
-    if (currentMember) {
-      const points = getPointsForPurchase(subtotal);
-      addPoints(currentMember.email, points, 'Compra completada');
+      // Add loyalty points
+      if (currentMember) {
+        const points = getPointsForPurchase(subtotal);
+        addPoints(currentMember.email, points, 'Compra completada');
+      }
+
+      setCompletedOrderId(order.id);
+      setOrderComplete(true);
+      clearCart();
+      resetCheckout();
+
+      toast.success('¡Pedido completado exitosamente!', {
+        description: `Orden #${order.id}`,
+      });
+    } catch (error) {
+      toast.error('No se pudo completar el pedido', {
+        description: error instanceof Error ? error.message : 'Intenta nuevamente',
+      });
+    } finally {
+      setIsProcessing(false);
     }
-
-    setCompletedOrderId(order.id);
-    setOrderComplete(true);
-    clearCart();
-    resetCheckout();
-    setIsProcessing(false);
-
-    toast.success('¡Pedido completado exitosamente!', {
-      description: `Orden #${order.id}`,
-    });
   };
 
   if (items.length === 0 && !orderComplete) {

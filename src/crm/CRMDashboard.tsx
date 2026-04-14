@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigationStore } from '@/store/navigationStore';
 import { useOrdersStore } from '@/store/ordersStore';
 import { useCRMStore } from '@/store/crmStore';
@@ -75,9 +75,14 @@ const categoryData = [
 export function CRMDashboard() {
   const [activeSection, setActiveSection] = useState('dashboard');
   const { goToHome } = useNavigationStore();
-  const { logout } = useCRMAuthStore();
-  const { orders, getMetrics: getOrderMetrics } = useOrdersStore();
-  const { customers, automations, campaigns, getCustomerMetrics } = useCRMStore();
+  const { logout, userEmail } = useCRMAuthStore();
+  const { orders, fetchOrders, getMetrics: getOrderMetrics } = useOrdersStore();
+  const { customers, automations, campaigns, loadCRMData, getCustomerMetrics } = useCRMStore();
+
+  useEffect(() => {
+    fetchOrders();
+    loadCRMData();
+  }, [fetchOrders, loadCRMData]);
 
   const orderMetrics = getOrderMetrics();
   const customerMetrics = getCustomerMetrics();
@@ -154,14 +159,14 @@ export function CRMDashboard() {
             </div>
             <div>
               <p className="font-medium text-stone-800">Admin</p>
-              <p className="text-xs text-stone-500">admin@hogarelegante.com</p>
+              <p className="text-xs text-stone-500">{userEmail ?? 'admin@hogarelegante.com'}</p>
             </div>
           </div>
           <Button
             variant="outline"
             className="w-full mt-4"
-            onClick={() => {
-              logout();
+            onClick={async () => {
+              await logout();
               goToHome();
             }}
           >
