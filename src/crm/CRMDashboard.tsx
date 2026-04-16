@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigationStore } from '@/store/navigationStore';
 import { useOrdersStore } from '@/store/ordersStore';
 import { useCRMStore } from '@/store/crmStore';
@@ -36,6 +36,8 @@ import {
   Trash2,
   Copy,
   ImagePlus,
+  Download,
+  Upload,
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import {
@@ -123,8 +125,8 @@ export function CRMDashboard() {
   return (
     <div className="min-h-screen bg-stone-50 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-stone-200 flex-shrink-0">
-        <div className="p-6">
+      <aside className="w-64 bg-white border-r border-stone-200 flex-shrink-0 flex flex-col h-screen sticky top-0">
+        <div className="p-6 flex-1 overflow-y-auto">
           <button
             onClick={goToHome}
             className="flex items-center gap-2 text-stone-600 hover:text-amber-700 transition-colors mb-8"
@@ -164,7 +166,7 @@ export function CRMDashboard() {
           </nav>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-stone-200">
+        <div className="p-6 border-t border-stone-200 bg-white">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-stone-200 rounded-full flex items-center justify-center">
               <span className="font-semibold text-stone-600">A</span>
@@ -402,11 +404,12 @@ function DashboardOverview({
 
 // Inventory Management Section
 function InventorySection() {
-  const { products, updateProduct, deleteProduct } = useProductsStore();
+  const { products, addProduct, updateProduct, deleteProduct } = useProductsStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const filtered = products.filter(p => 
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -438,6 +441,93 @@ function InventorySection() {
     setIsModalOpen(true);
   };
 
+  const handleExportCSV = () => {
+    const headers = ['ID', 'Nombre', 'Categoría', 'Precio', 'Estado', 'Etiqueta'];
+    const csvData = products.map(p => [
+      p.id,
+      `"${p.name.replace(/"/g, '""')}"`, // Escapar comillas dobles
+      p.category,
+      p.price.toFixed(2),
+      p.inStock ? 'En Stock' : 'Agotado',
+      p.badge || ''
+    ].join(','));
+    
+    const csvContent = [headers.join(','), ...csvData].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `inventario_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success('Inventario exportado con éxito');
+  };
+
+  const handleImportCSV = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const content = event.target?.result as string;
+        const rows = content.split(/\r?\n/).filter(row => row.trim() !== '');
+        
+        if (rows.length <= 1) {
+          toast.error('El archivo está vacío o no tiene el formato correcto');
+          return;
+        }
+
+        // Ignorar encabezado y procesar filas
+        const dataRows = rows.slice(1);
+        let importedCount = 0;
+
+        dataRows.forEach(row => {
+          // Regex para separar por comas respetando el contenido entre comillas
+          const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+          
+          if (columns.length >= 4) {
+            const name = columns[1]?.replace(/^"|"$/g, '').replace(/""/g, '"');
+            const category = columns[2] || 'Muebles';
+            const price = parseFloat(columns[3]) || 0;
+
+            const newProduct: Product = {
+              id: `PRD-IMG-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+              name: name || 'Producto Importado',
+              category: category as any,
+              price: price,
+              shortDescription: 'Producto cargado mediante importación masiva.',
+              description: 'Este producto fue importado masivamente. Por favor, edita los detalles para mejorar su conversión.',
+              images: ['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80'],
+              features: ['Calidad garantizada', 'Diseño moderno'],
+              benefits: [{ title: 'Durabilidad', description: 'Materiales resistentes.', icon: 'shield' }],
+              specifications: { 'Estado': 'Nuevo' },
+              rating: 5,
+              reviewCount: 0,
+              reviews: [],
+              inStock: columns[4]?.includes('Stock') || true,
+              tags: [category.toLowerCase()],
+              badge: columns[5]?.replace(/^"|"$/g, '') || undefined
+            };
+
+            addProduct(newProduct);
+            importedCount++;
+          }
+        });
+
+        toast.success(`¡Importación completada!`, {
+          description: `Se han añadido ${importedCount} productos al inventario.`
+        });
+      } catch (error) {
+        toast.error('Error al procesar el archivo CSV');
+        console.error(error);
+      }
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -445,13 +535,30 @@ function InventorySection() {
           <h2 className="text-2xl font-bold text-stone-800">Inventario</h2>
           <p className="text-stone-600">Gestiona precios, stock y catálogo</p>
         </div>
-        <Button 
-          className="bg-amber-600 hover:bg-amber-700 text-white"
-          onClick={handleOpenAdd}
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Añadir Producto
-        </Button>
+        <div className="flex gap-3">
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleImportCSV} 
+            accept=".csv" 
+            className="hidden" 
+          />
+          <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
+            <Upload className="w-4 h-4 mr-2" />
+            Importar CSV
+          </Button>
+          <Button variant="outline" onClick={handleExportCSV}>
+            <Download className="w-4 h-4 mr-2" />
+            Exportar CSV
+          </Button>
+          <Button 
+            className="bg-amber-600 hover:bg-amber-700 text-white"
+            onClick={handleOpenAdd}
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Añadir Producto
+          </Button>
+        </div>
       </div>
 
       {/* Modal para añadir/editar producto */}
