@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { products, categories } from '@/data/products';
+import { categories } from '@/data/products';
 import { useNavigationStore } from '@/store/navigationStore';
 import { useCartStore } from '@/store/cartStore';
 import { useWishlistStore } from '@/store/wishlistStore';
+import { useProductsStore } from '@/store/productsStore';
 import { ShoppingCart, Eye, Star, Sofa, Lightbulb, Utensils, Palette, Zap, Grid, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -21,6 +22,7 @@ const iconMap: Record<string, React.ElementType> = {
 
 export function ProductCatalog() {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const { products } = useProductsStore();
   const { goToProduct } = useNavigationStore();
   const addToCart = useCartStore((state) => state.addToCart);
   const { toggleWishlist, isInWishlist } = useWishlistStore();

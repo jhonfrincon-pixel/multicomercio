@@ -3,10 +3,14 @@ import { useNavigationStore } from '@/store/navigationStore';
 import { useOrdersStore } from '@/store/ordersStore';
 import { useCRMStore } from '@/store/crmStore';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
+import { useProductsStore } from '@/store/productsStore';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import type { Product } from '@/types';
 import {
   LayoutDashboard,
   Users,
@@ -27,6 +31,11 @@ import {
   Edit,
   Eye,
   LogOut,
+  Plus,
+  X,
+  Trash2,
+  Copy,
+  ImagePlus,
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import {
@@ -48,6 +57,7 @@ const menuItems = [
   { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
   { id: 'customers', name: 'Clientes', icon: Users },
   { id: 'orders', name: 'Pedidos', icon: ShoppingBag },
+  { id: 'inventory', name: 'Inventario', icon: Package },
   { id: 'automations', name: 'Automatizaciones', icon: Zap },
   { id: 'campaigns', name: 'Campañas', icon: Mail },
   { id: 'analytics', name: 'Analytics', icon: BarChart3 },
@@ -95,6 +105,8 @@ export function CRMDashboard() {
         return <CustomersSection customers={customers} />;
       case 'orders':
         return <OrdersSection orders={orders} />;
+      case 'inventory':
+        return <InventorySection />;
       case 'automations':
         return <AutomationsSection automations={automations} />;
       case 'campaigns':
@@ -385,6 +397,363 @@ function DashboardOverview({
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+// Inventory Management Section
+function InventorySection() {
+  const { products, updateProduct, deleteProduct } = useProductsStore();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const filtered = products.filter(p => 
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    p.category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handlePriceChange = (id: string, newPrice: string) => {
+    const price = parseFloat(newPrice);
+    if (!isNaN(price)) {
+      updateProduct(id, { price });
+    }
+  };
+
+  const handleOpenAdd = () => {
+    setEditingProduct(null);
+    setIsEditMode(false);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEdit = (product: Product) => {
+    setEditingProduct(product);
+    setIsEditMode(true);
+    setIsModalOpen(true);
+  };
+
+  const handleDuplicate = (product: Product) => {
+    setEditingProduct(product);
+    setIsEditMode(false);
+    setIsModalOpen(true);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-stone-800">Inventario</h2>
+          <p className="text-stone-600">Gestiona precios, stock y catálogo</p>
+        </div>
+        <Button 
+          className="bg-amber-600 hover:bg-amber-700 text-white"
+          onClick={handleOpenAdd}
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Añadir Producto
+        </Button>
+      </div>
+
+      {/* Modal para añadir/editar producto */}
+      <ProductFormModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        productToEdit={editingProduct} 
+        isEditMode={isEditMode}
+      />
+
+      <Card>
+        <CardHeader>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+            <Input 
+              placeholder="Buscar por nombre o categoría..." 
+              className="pl-10" 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-stone-200">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Producto</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Categoría</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Precio ($)</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Estado</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((product) => (
+                  <tr key={product.id} className="border-b border-stone-100 hover:bg-stone-50">
+                    <td className="py-3 px-4">
+                      <div className="flex items-center gap-3">
+                        <img src={product.images[0]} alt="" className="w-10 h-10 rounded-lg object-cover" />
+                        <span className="font-medium text-stone-800">{product.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-4 text-stone-600">{product.category}</td>
+                    <td className="py-3 px-4">
+                      <Input 
+                        type="number" 
+                        className="w-24 h-8"
+                        defaultValue={product.price}
+                        onBlur={(e) => handlePriceChange(product.id, e.target.value)}
+                      />
+                    </td>
+                    <td className="py-3 px-4">
+                      <Badge className={product.inStock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}>
+                        {product.inStock ? 'En Stock' : 'Agotado'}
+                      </Badge>
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="sm" onClick={() => handleOpenEdit(product)}>
+                          <Edit className="w-4 h-4 text-amber-600" />
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => handleDuplicate(product)}>
+                          <Copy className="w-4 h-4 text-blue-600" />
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => deleteProduct(product.id)}>
+                          <Trash2 className="w-4 h-4 text-red-500" />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// Componente Modal de Formulario Profesional
+function ProductFormModal({ 
+  isOpen, 
+  onClose, 
+  productToEdit,
+  isEditMode
+}: { 
+  isOpen: boolean; 
+  onClose: () => void;
+  productToEdit?: Product | null;
+  isEditMode: boolean;
+}) {
+  const { addProduct, updateProduct } = useProductsStore();
+  const [images, setImages] = useState<string[]>(['']);
+  
+  useEffect(() => {
+    if (isOpen) {
+      setImages(productToEdit ? [...productToEdit.images] : ['']);
+    }
+  }, [isOpen, productToEdit]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    
+    const productData: any = {
+      name: formData.get('name') as string,
+      category: formData.get('category') as string,
+      price: parseFloat(formData.get('price') as string),
+      originalPrice: formData.get('originalPrice') ? parseFloat(formData.get('originalPrice') as string) : undefined,
+      shortDescription: formData.get('shortDescription') as string,
+      description: formData.get('description') as string,
+      images: images.filter(img => img.trim() !== ''),
+      badge: formData.get('badge') as string || undefined,
+      ...(isEditMode ? {} : {
+        id: `PRD-${Date.now()}`,
+        features: productToEdit?.features || [
+          'Material de alta calidad',
+          'Diseño ergonómico exclusivo',
+          'Garantía extendida incluida'
+        ],
+        benefits: productToEdit?.benefits || [
+          { title: 'Calidad Premium', description: 'Materiales seleccionados para durar.', icon: 'shield' }
+        ],
+        specifications: productToEdit?.specifications || {
+          'Estado': 'Nuevo',
+          'Origen': 'Importado'
+        },
+        rating: productToEdit?.rating || 5,
+        reviewCount: 0,
+        reviews: [],
+        inStock: true,
+        tags: productToEdit?.tags || [(formData.get('category') as string).toLowerCase()],
+      })
+    };
+
+    if (productData.originalPrice && productData.price > productData.originalPrice) {
+      toast.error('Error de validación', {
+        description: 'El precio de venta no puede ser mayor al precio original.',
+      });
+      return;
+    }
+
+    if (isEditMode && productToEdit) {
+      updateProduct(productToEdit.id, productData);
+      toast.success('¡Producto actualizado con éxito!');
+    } else {
+      addProduct(productData);
+      toast.success(productToEdit ? '¡Variante creada con éxito!' : '¡Producto creado con éxito!');
+    }
+
+    onClose();
+  };
+
+  const addImageField = () => setImages([...images, '']);
+  const removeImageField = (index: number) => setImages(images.filter((_, i) => i !== index));
+  const updateImage = (index: number, val: string) => {
+    const newImgs = [...images];
+    newImgs[index] = val;
+    setImages(newImgs);
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"
+          >
+            <div className="p-6 border-b border-stone-100 flex items-center justify-between bg-stone-50/50">
+              <div>
+                <h3 className="text-xl font-bold text-stone-800">
+                  {isEditMode ? 'Editar Producto' : productToEdit ? 'Duplicar Producto' : 'Nuevo Producto'}
+                </h3>
+                <p className="text-sm text-stone-500">Completa los detalles para publicar en la tienda</p>
+              </div>
+              <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-6">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Nombre del Producto</Label>
+                  <Input 
+                    id="name" 
+                    name="name" 
+                    defaultValue={isEditMode ? productToEdit?.name : productToEdit ? `${productToEdit.name} (Copia)` : ''}
+                    placeholder="Ej: Sofá Nórdico Minimal" 
+                    required 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="category">Categoría</Label>
+                  <select 
+                    name="category" 
+                    defaultValue={productToEdit?.category || 'Muebles'}
+                    className="w-full h-10 px-3 rounded-md border border-stone-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  >
+                    <option value="Muebles">Muebles</option>
+                    <option value="Iluminación">Iluminación</option>
+                    <option value="Cocina">Cocina</option>
+                    <option value="Decoración">Decoración</option>
+                    <option value="Electrodomésticos">Electrodomésticos</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="price">Precio de Venta ($)</Label>
+                  <Input 
+                    id="price" 
+                    name="price" 
+                    type="number" 
+                    step="0.01" 
+                    defaultValue={productToEdit?.price} 
+                    placeholder="0.00" 
+                    required 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="originalPrice">Precio Original ($)</Label>
+                  <Input 
+                    id="originalPrice" 
+                    name="originalPrice" 
+                    type="number" 
+                    step="0.01" 
+                    defaultValue={productToEdit?.originalPrice} 
+                    placeholder="Opcional" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="badge">Badge (Etiqueta)</Label>
+                  <Input 
+                    id="badge" 
+                    name="badge" 
+                    defaultValue={productToEdit?.badge} 
+                    placeholder="Ej: Nuevo, -20%" 
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="shortDescription">Descripción Corta (SEO)</Label>
+                <Input 
+                  id="shortDescription" 
+                  name="shortDescription" 
+                  defaultValue={productToEdit?.shortDescription} 
+                  placeholder="Breve resumen para el catálogo" 
+                  required 
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description">Descripción Detallada</Label>
+                <textarea 
+                  id="description" 
+                  name="description" 
+                  rows={4}
+                  defaultValue={productToEdit?.description}
+                  className="w-full p-3 rounded-md border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  placeholder="Describe las maravillas de este producto..."
+                  required
+                />
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <Label>URLs de Imágenes</Label>
+                  <Button type="button" variant="ghost" size="sm" onClick={addImageField} className="text-amber-600 text-xs">
+                    <ImagePlus className="w-4 h-4 mr-1" /> Añadir otra
+                  </Button>
+                </div>
+                {images.map((url, idx) => (
+                  <div key={idx} className="flex gap-2">
+                    <Input value={url} onChange={(e) => updateImage(idx, e.target.value)} placeholder="https://unsplash.com/..." required={idx === 0} />
+                    {idx > 0 && (
+                      <Button type="button" variant="ghost" size="icon" onClick={() => removeImageField(idx)}>
+                        <Trash2 className="w-4 h-4 text-red-400" />
+                      </Button>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
+                <Button type="button" variant="outline" onClick={onClose} className="flex-1">Cancelar</Button>
+                <Button type="submit" className="flex-1 bg-amber-600 hover:bg-amber-700 text-white">
+                  {isEditMode ? 'Guardar Cambios' : productToEdit ? 'Crear Variante' : 'Publicar Producto'}
+                </Button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -805,5 +1174,3 @@ function SettingsSection() {
     </div>
   );
 }
-
-import { Label } from '@/components/ui/label';
