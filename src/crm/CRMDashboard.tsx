@@ -28,6 +28,7 @@ import {
   ChevronRight,
   Search,
   Filter,
+  AlertTriangle,
   Edit,
   Eye,
   LogOut,
@@ -90,11 +91,47 @@ export function CRMDashboard() {
   const { logout, userEmail } = useCRMAuthStore();
   const { orders, fetchOrders, getMetrics: getOrderMetrics } = useOrdersStore();
   const { customers, automations, campaigns, loadCRMData, getCustomerMetrics } = useCRMStore();
+  const { products } = useProductsStore();
+
+  // Estado para evitar notificaciones repetidas en la misma sesión
+  const [notifiedProducts, setNotifiedProducts] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchOrders();
     loadCRMData();
   }, [fetchOrders, loadCRMData]);
+
+  // Lógica de Automatización: Notificación Push y In-App para Stock Bajo
+  useEffect(() => {
+    // Solicitar permiso para notificaciones push reales
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+
+    products.forEach(product => {
+      if (product.stock < 5 && !notifiedProducts.has(product.id)) {
+        // 1. Notificación In-App (Toast)
+        toast.error(`¡Alerta de Stock Crítico!`, {
+          description: `El producto "${product.name}" solo tiene ${product.stock} unidades disponibles.`,
+          duration: 10000,
+          action: {
+            label: 'Ver Inventario',
+            onClick: () => setActiveSection('inventory')
+          }
+        });
+
+        // 2. Notificación Push del Navegador
+        if ("Notification" in window && Notification.permission === "granted") {
+          new Notification("⚠️ Alerta de Inventario", {
+            body: `Stock bajo: ${product.name} (${product.stock} un.)`,
+            icon: product.images[0]
+          });
+        }
+
+        setNotifiedProducts(prev => new Set(prev).add(product.id));
+      }
+    });
+  }, [products, notifiedProducts]);
 
   const orderMetrics = getOrderMetrics();
   const customerMetrics = getCustomerMetrics();
@@ -110,7 +147,7 @@ export function CRMDashboard() {
       case 'inventory':
         return <InventorySection />;
       case 'automations':
-        return <AutomationsSection automations={automations} />;
+        return <AutomationsSection automations={automations} products={products} />;
       case 'campaigns':
         return <CampaignsSection campaigns={campaigns} />;
       case 'analytics':
@@ -209,6 +246,10 @@ function DashboardOverview({
   customerMetrics: ReturnType<ReturnType<typeof useCRMStore['getState']>['getCustomerMetrics']>;
 }) {
   const { orders } = useOrdersStore();
+  const { products } = useProductsStore();
+
+  const lowStockProducts = products.filter(p => p.stock < 5);
+
   const stats = [
     {
       title: 'Ventas Totales',
@@ -589,6 +630,7 @@ function InventorySection() {
                   <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Producto</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Categoría</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Precio ($)</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Stock</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Estado</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-stone-500">Acciones</th>
                 </tr>
@@ -612,8 +654,13 @@ function InventorySection() {
                       />
                     </td>
                     <td className="py-3 px-4">
-                      <Badge className={product.inStock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}>
-                        {product.inStock ? 'En Stock' : 'Agotado'}
+                      <span className={`font-mono font-bold ${product.stock < 5 ? 'text-red-600' : 'text-stone-600'}`}>
+                        {product.stock}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <Badge className={product.stock > 0 ? (product.stock < 5 ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700') : 'bg-red-100 text-red-700'}>
+                        {product.stock === 0 ? 'Agotado' : product.stock < 5 ? 'Stock Bajo' : 'Disponible'}
                       </Badge>
                     </td>
                     <td className="py-3 px-4">
@@ -1042,13 +1089,28 @@ function OrdersSection({ orders }: { orders: any[] }) {
 }
 
 // Automations Section
-function AutomationsSection({ automations }: { automations: any[] }) {
+function AutomationsSection({ automations, products }: { automations: any[], products: Product[] }) {
+  // Simulamos que la alerta de stock es una automatización de sistema activa
+  const systemAutomations = [
+    {
+      id: 'stock-alert-system',
+      name: 'Notificación de Stock Bajo',
+      trigger: 'Stock < 5 unidades',
+      isActive: true,
+      runCount: products.filter(p => p.stock < 5).length,
+      lastRun: new Date().toISOString(),
+      isSystem: true
+    }
+  ];
+
+  const allAutomations = [...systemAutomations, ...automations];
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-stone-800">Automatizaciones</h2>
-          <p className="text-stone-600">Crea flujos automáticos para tu tienda</p>
+          <p className="text-stone-600">Reglas y flujos de trabajo inteligentes</p>
         </div>
         <Button className="bg-amber-600 hover:bg-amber-700 text-white">
           <Zap className="w-4 h-4 mr-2" />
@@ -1057,7 +1119,7 @@ function AutomationsSection({ automations }: { automations: any[] }) {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {automations.length === 0 ? (
+        {allAutomations.length === 0 ? (
           <Card className="col-span-2">
             <CardContent className="py-12 text-center">
               <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -1075,12 +1137,15 @@ function AutomationsSection({ automations }: { automations: any[] }) {
             </CardContent>
           </Card>
         ) : (
-          automations.map((automation) => (
+          allAutomations.map((automation) => (
             <Card key={automation.id}>
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="font-semibold text-stone-800">{automation.name}</h3>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-stone-800">{automation.name}</h3>
+                      {automation.isSystem && <Badge className="bg-amber-100 text-amber-700 text-[10px]">Sistema</Badge>}
+                    </div>
                     <p className="text-sm text-stone-500">Trigger: {automation.trigger}</p>
                   </div>
                   <Badge className={automation.isActive ? 'bg-green-100 text-green-700' : 'bg-stone-100 text-stone-700'}>
