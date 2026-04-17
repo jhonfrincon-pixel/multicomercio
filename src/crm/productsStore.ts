@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/crm/supabase';
 import type { Product } from '@/types';
 
 interface ProductsState {
@@ -16,27 +16,26 @@ export const useProductsStore = create<ProductsState>((set) => ({
   isLoading: false,
 
   fetchProducts: async () => {
+    if (!supabase) return;
     set({ isLoading: true });
-    const { data, error } = await supabase
-      .from('products')
-      .select('*')
-      .order('name');
-    
-    if (error) {
-      console.error('Error fetching products:', error);
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('name');
+      
+      if (error) {
+        console.error('Error fetching products:', error);
+        throw error;
+      }
+      set({ products: data || [] });
+    } finally {
       set({ isLoading: false });
-      throw error;
     }
-    set({ products: data || [], isLoading: false });
   },
 
   addProduct: async (product) => {
-    const { error } = await supabase
-      .from('products')
-      .insert([product]);
-    
-    if (error) throw error;
-    set((state) => ({ products: [...state.products, product] }));
+    if (!supabase) return;
     set({ isLoading: true });
     try {
       const { data, error } = await supabase
@@ -44,7 +43,7 @@ export const useProductsStore = create<ProductsState>((set) => ({
         .insert([product])
         .select()
         .single();
-      
+
       if (error) throw error;
       if (data) {
         set((state) => ({ products: [...state.products, data as Product] }));
@@ -55,15 +54,7 @@ export const useProductsStore = create<ProductsState>((set) => ({
   },
 
   updateProduct: async (id, updates) => {
-    const { error } = await supabase
-      .from('products')
-      .update(updates)
-      .eq('id', id);
-    
-    if (error) throw error;
-    set((state) => ({
-      products: state.products.map((p) => (p.id === id ? { ...p, ...updates } : p)),
-    }));
+    if (!supabase) return;
     set({ isLoading: true });
     try {
       const { data, error } = await supabase
@@ -72,7 +63,7 @@ export const useProductsStore = create<ProductsState>((set) => ({
         .eq('id', id)
         .select()
         .single();
-      
+
       if (error) throw error;
       if (data) {
         set((state) => ({
@@ -85,22 +76,14 @@ export const useProductsStore = create<ProductsState>((set) => ({
   },
 
   deleteProduct: async (id) => {
-    const { error } = await supabase
-      .from('products')
-      .delete()
-      .eq('id', id);
-    
-    if (error) throw error;
-    set((state) => ({
-      products: state.products.filter((p) => p.id !== id),
-    }));
+    if (!supabase) return;
     set({ isLoading: true });
     try {
       const { error } = await supabase
         .from('products')
         .delete()
         .eq('id', id);
-      
+
       if (error) throw error;
       set((state) => ({
         products: state.products.filter((p) => p.id !== id),
