@@ -9,11 +9,8 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-amber-800 rounded-lg flex items-center justify-center">
-                <Home className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">
-                HogarElegante
+              <span className="text-2xl font-bold text-white">
+                Livo
               </span>
             </div>
             <p className="text-stone-400 mb-6 leading-relaxed">
@@ -130,7 +127,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                <span>hola@hogarelegante.com</span>
+                <span>hola@livo.com</span>
               </li>
             </ul>
           </div>
@@ -142,7 +139,7 @@ export function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-stone-500">
-              © 2024 HogarElegante. Todos los derechos reservados.
+              © 2024 Livo. Todos los derechos reservados.
             </p>
             <div className="flex items-center gap-4">
               <img

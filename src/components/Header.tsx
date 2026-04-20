@@ -19,12 +19,9 @@ export function Header() {
       <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <button onClick={goToHome} className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-amber-800 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition-transform">
-              <Home className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-amber-700 to-amber-900 bg-clip-text text-transparent hidden sm:block">
-              HogarElegante
+          <button onClick={goToHome} className="flex items-center gap-2">
+            <span className="text-2xl font-bold bg-gradient-to-r from-amber-700 to-amber-900 bg-clip-text text-transparent">
+              Livo
             </span>
           </button>
 

@@ -16,7 +16,7 @@ export function Hero() {
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80"
-          alt="Hogar elegante"
+          alt="Livo"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-stone-900/80 via-stone-900/50 to-transparent" />
@@ -44,9 +44,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
           >
-            Transforma tu Hogar en un{' '}
+            Hazlo simple,{' '}
             <span className="bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">
-              Espacio Único
+              hazlo Livo
             </span>
           </motion.h1>
 

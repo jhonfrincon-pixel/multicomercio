@@ -13,7 +13,7 @@ interface Message {
   timestamp: Date;
 }
 
-const WELCOME_MESSAGE = `¡Hola! 👋 Soy tu asistente de ventas de **HogarElegante**.
+const WELCOME_MESSAGE = `¡Hola! 👋 Soy tu asistente de ventas de **Livo**.
 
 Estoy aquí para ayudarte a encontrar los mejores productos para tu hogar. Puedo:
 
@@ -118,7 +118,7 @@ export function AIChatbot() {
 
     // Despedida
     if (lowerMsg.match(/adiós|bye|gracias|hasta luego/)) {
-      return `¡Gracias por contactarnos! 😊\n\nSi necesitas más ayuda, no dudes en escribirme. ¡Que tengas un excelente día!\n\n🏠 **HogarElegante** - Transformando hogares`;
+      return `¡Gracias por contactarnos! 😊\n\nSi necesitas más ayuda, no dudes en escribirme. ¡Que tengas un excelente día!\n\n✨ **Livo** - Hazlo simple, hazlo Livo`;
     }
 
     // Respuesta por defecto
@@ -303,7 +303,7 @@ export function AIChatbot() {
                 </Button>
               </div>
               <p className="text-xs text-stone-400 text-center mt-2">
-                Powered by HogarElegante AI 🤖
+                Powered by Livo AI 🤖
               </p>
             </div>
           </motion.div>
