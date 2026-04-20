@@ -4,6 +4,7 @@ import { useOrdersStore } from '@/store/ordersStore';
 import { useCRMStore } from '@/store/crmStore';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
 import { useProductsStore } from '@/store/productsStore';
+import { useBrandStore } from '../store/brandStore';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,6 +20,7 @@ import {
   Mail,
   BarChart3,
   Settings,
+  Palette,
   ArrowLeft,
   TrendingUp,
   TrendingDown,
@@ -63,6 +65,7 @@ const menuItems = [
   { id: 'automations', name: 'Automatizaciones', icon: Zap },
   { id: 'campaigns', name: 'Campañas', icon: Mail },
   { id: 'analytics', name: 'Analytics', icon: BarChart3 },
+  { id: 'branding', name: 'Personalización', icon: Palette },
   { id: 'settings', name: 'Configuración', icon: Settings },
 ];
 
@@ -91,6 +94,8 @@ export function CRMDashboard() {
   const { orders, fetchOrders, getMetrics: getOrderMetrics } = useOrdersStore();
   const { customers, automations, campaigns, loadCRMData, getCustomerMetrics } = useCRMStore();
   const { products } = useProductsStore();
+  const { config: brand } = useBrandStore();
+
 
   // Estado para evitar notificaciones repetidas en la misma sesión
   const [notifiedProducts, setNotifiedProducts] = useState<Set<string>>(new Set());
@@ -151,6 +156,8 @@ export function CRMDashboard() {
         return <CampaignsSection campaigns={campaigns} />;
       case 'analytics':
         return <AnalyticsSection />;
+      case 'branding':
+        return <SettingsSection />;
       case 'settings':
         return <SettingsSection />;
       default:
@@ -177,7 +184,7 @@ export function CRMDashboard() {
             </div>
             <div>
               <h1 className="font-bold text-stone-800">CRM</h1>
-              <p className="text-xs text-stone-500">Livo</p>
+              <p className="text-xs text-stone-500">{brand.name}</p>
             </div>
           </div>
 
@@ -1286,6 +1293,7 @@ function AnalyticsSection() {
 
 // Settings Section
 function SettingsSection() {
+  const { config: brandData, updateBrandConfig } = useBrandStore();
   return (
     <div className="space-y-6">
       <div>
@@ -1301,11 +1309,26 @@ function SettingsSection() {
           <CardContent className="space-y-4">
             <div>
               <Label>Nombre de la Tienda</Label>
-              <Input defaultValue="Livo" />
+              <Input 
+                defaultValue={brandData.name} 
+                onChange={(e) => updateBrandConfig({ name: e.target.value })}
+              />
             </div>
             <div>
-              <Label>Email de Contacto</Label>
-              <Input defaultValue="hola@livo.com" />
+              <Label>Eslogan de la Marca</Label>
+              <Input defaultValue={brandData.slogan} />
+            </div>
+            <div>
+              <Label>WhatsApp / Contacto</Label>
+              <Input defaultValue={brandData.whatsapp} />
+            </div>
+            <div>
+              <Label>Color Primario</Label>
+              <Input 
+                type="color"
+                defaultValue={brandData.primary_color}
+                onChange={(e) => updateBrandConfig({ primary_color: e.target.value })}
+              />
             </div>
             <div>
               <Label>Teléfono</Label>

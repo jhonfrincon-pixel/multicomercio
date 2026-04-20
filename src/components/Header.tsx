@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import { ShoppingCart, Home, Search, Menu, X, Heart } from 'lucide-react';
+import { ShoppingCart, Search, Menu, X, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCartStore } from '@/store/cartStore';
 import { useWishlistStore } from '@/store/wishlistStore';
 import { useNavigationStore } from '@/store/navigationStore';
+import { useBrandStore } from '../store/brandStore';
 import { SearchBar } from './SearchBar';
 
 export function Header() {
   const totalItems = useCartStore((state) => state.getTotalItems());
   const wishlistCount = useWishlistStore((state) => state.getWishlistCount());
   const { currentView, goToHome, goToCart } = useNavigationStore();
+  const { config } = useBrandStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -20,8 +22,8 @@ export function Header() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <button onClick={goToHome} className="flex items-center gap-2">
-            <span className="text-2xl font-bold bg-gradient-to-r from-amber-700 to-amber-900 bg-clip-text text-transparent">
-              Livo
+            <span className="text-2xl font-bold bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(to right, ${config.primary_color}, ${config.color_palette.monochromatic[2]})` }}>
+              {config.name}
             </span>
           </button>
 

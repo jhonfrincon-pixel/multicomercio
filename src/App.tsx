@@ -12,6 +12,7 @@ import { CRMDashboard } from '@/crm/CRMDashboard';
 import { CRMAccessGate } from '@/crm/CRMAccessGate';
 import { useNavigationStore } from '@/store/navigationStore';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
+import { useBrandStore } from '@/store/brandStore';
 import { getProductById } from '@/data/products';
 import { Toaster } from '@/components/ui/sonner';
 import type { View } from '@/types';
@@ -19,6 +20,34 @@ import type { View } from '@/types';
 function App() {
   const { currentView, selectedProductId, goToCRM } = useNavigationStore();
   const { isAuthenticated, isAuthLoading, initializeAuth } = useCRMAuthStore();
+  
+  // Lógica de Marca dinámica desde Supabase
+  const { 
+    config: brandData, 
+    isLoading, 
+    loadBrandConfig: fetchBrandConfig 
+  } = useBrandStore();
+
+  // Sincronización inicial de datos y auth
+  useEffect(() => {
+    fetchBrandConfig();
+    initializeAuth();
+  }, [fetchBrandConfig, initializeAuth]);
+
+  // Actualización dinámica de identidad (Title, Favicon, Estilos)
+  useEffect(() => {
+    if (brandData) {
+      // Metadatos
+      document.title = `${brandData.name} - ${brandData.slogan}`;
+      const favicon = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+      if (favicon && brandData.favicon_url) {
+        favicon.href = brandData.favicon_url;
+      }
+
+      // Inyección de variables CSS para branding dinámico
+      document.documentElement.style.setProperty('--primary-color', brandData.primary_color);
+    }
+  }, [brandData]);
 
   useEffect(() => {
     const handleAdminShortcut = (event: KeyboardEvent) => {
@@ -34,9 +63,17 @@ function App() {
     };
   }, [goToCRM]);
 
-  useEffect(() => {
-    initializeAuth();
-  }, [initializeAuth]);
+  // Pantalla de carga mientras se recupera el "Cerebro" de Supabase
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+        <div className="w-12 h-12 border-4 border-stone-100 border-t-amber-600 rounded-full animate-spin mb-4" />
+        <p className="text-stone-500 font-medium animate-pulse">
+          Personalizando tu experiencia...
+        </p>
+      </div>
+    );
+  }
 
   const renderContent = () => {
     // CRM Views
