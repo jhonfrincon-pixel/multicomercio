@@ -1,4 +1,4 @@
-# Multicomercio
+# Livo
 
 E-commerce en React + Vite con CRM protegido por login de administrador y persistencia en Supabase.
 

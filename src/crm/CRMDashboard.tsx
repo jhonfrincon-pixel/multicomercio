@@ -177,7 +177,7 @@ export function CRMDashboard() {
             </div>
             <div>
               <h1 className="font-bold text-stone-800">CRM</h1>
-              <p className="text-xs text-stone-500">HogarElegante</p>
+              <p className="text-xs text-stone-500">Livo</p>
             </div>
           </div>
 
@@ -209,7 +209,7 @@ export function CRMDashboard() {
             </div>
             <div>
               <p className="font-medium text-stone-800">Admin</p>
-              <p className="text-xs text-stone-500">{userEmail ?? 'admin@hogarelegante.com'}</p>
+              <p className="text-xs text-stone-500">{userEmail ?? 'admin@livo.com'}</p>
             </div>
           </div>
           <Button
@@ -1301,11 +1301,11 @@ function SettingsSection() {
           <CardContent className="space-y-4">
             <div>
               <Label>Nombre de la Tienda</Label>
-              <Input defaultValue="HogarElegante" />
+              <Input defaultValue="Livo" />
             </div>
             <div>
               <Label>Email de Contacto</Label>
-              <Input defaultValue="hola@hogarelegante.com" />
+              <Input defaultValue="hola@livo.com" />
             </div>
             <div>
               <Label>Teléfono</Label>

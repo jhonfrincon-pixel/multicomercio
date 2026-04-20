@@ -25,7 +25,7 @@ export function Newsletter() {
 
     setIsSubmitting(false);
     setIsSubscribed(true);
-    toast.success('¡Bienvenido a HogarElegante!', {
+    toast.success('¡Bienvenido a Livo!', {
       description: 'Tu código de descuento ha sido enviado a tu email',
     });
   };
