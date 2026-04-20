@@ -28,7 +28,6 @@ import {
   ChevronRight,
   Search,
   Filter,
-  AlertTriangle,
   Edit,
   Eye,
   LogOut,
@@ -109,10 +108,10 @@ export function CRMDashboard() {
     }
 
     products.forEach(product => {
-      if (product.stock < 5 && !notifiedProducts.has(product.id)) {
+      if (product.inStock < 5 && !notifiedProducts.has(product.id)) {
         // 1. Notificación In-App (Toast)
         toast.error(`¡Alerta de Stock Crítico!`, {
-          description: `El producto "${product.name}" solo tiene ${product.stock} unidades disponibles.`,
+          description: `El producto "${product.name}" solo tiene ${product.inStock} unidades disponibles.`,
           duration: 10000,
           action: {
             label: 'Ver Inventario',
@@ -123,7 +122,7 @@ export function CRMDashboard() {
         // 2. Notificación Push del Navegador
         if ("Notification" in window && Notification.permission === "granted") {
           new Notification("⚠️ Alerta de Inventario", {
-            body: `Stock bajo: ${product.name} (${product.stock} un.)`,
+            body: `Stock bajo: ${product.name} (${product.inStock} un.)`,
             icon: product.images[0]
           });
         }
@@ -246,9 +245,7 @@ function DashboardOverview({
   customerMetrics: ReturnType<ReturnType<typeof useCRMStore['getState']>['getCustomerMetrics']>;
 }) {
   const { orders } = useOrdersStore();
-  const { products } = useProductsStore();
-
-  const lowStockProducts = products.filter(p => p.stock < 5);
+ 
 
   const stats = [
     {
@@ -489,7 +486,7 @@ function InventorySection() {
       `"${p.name.replace(/"/g, '""')}"`, // Escapar comillas dobles
       p.category,
       p.price.toFixed(2),
-      p.inStock ? 'En Stock' : 'Agotado',
+      p.inStock > 0 ? 'En Stock' : 'Agotado',
       p.badge || ''
     ].join(','));
     
@@ -547,7 +544,7 @@ function InventorySection() {
               rating: 5,
               reviewCount: 0,
               reviews: [],
-              inStock: columns[4]?.includes('Stock') || true,
+              inStock: columns[4]?.includes('Stock') ? 10 : 0,
               tags: [category.toLowerCase()],
               badge: columns[5]?.replace(/^"|"$/g, '') || undefined
             };
@@ -654,13 +651,13 @@ function InventorySection() {
                       />
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`font-mono font-bold ${product.stock < 5 ? 'text-red-600' : 'text-stone-600'}`}>
-                        {product.stock}
+                      <span className={`font-mono font-bold ${product.inStock < 5 ? 'text-red-600' : 'text-stone-600'}`}>
+                        {product.inStock}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <Badge className={product.stock > 0 ? (product.stock < 5 ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700') : 'bg-red-100 text-red-700'}>
-                        {product.stock === 0 ? 'Agotado' : product.stock < 5 ? 'Stock Bajo' : 'Disponible'}
+                      <Badge className={product.inStock > 0 ? (product.inStock < 5 ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700') : 'bg-red-100 text-red-700'}>
+                        {product.inStock === 0 ? 'Agotado' : product.inStock < 5 ? 'Stock Bajo' : 'Disponible'}
                       </Badge>
                     </td>
                     <td className="py-3 px-4">
@@ -738,7 +735,7 @@ function ProductFormModal({
         rating: productToEdit?.rating || 5,
         reviewCount: 0,
         reviews: [],
-        inStock: true,
+        inStock: 10,
         tags: productToEdit?.tags || [(formData.get('category') as string).toLowerCase()],
       })
     };
@@ -1097,7 +1094,7 @@ function AutomationsSection({ automations, products }: { automations: any[], pro
       name: 'Notificación de Stock Bajo',
       trigger: 'Stock < 5 unidades',
       isActive: true,
-      runCount: products.filter(p => p.stock < 5).length,
+      runCount: products.filter(p => p.inStock < 5).length,
       lastRun: new Date().toISOString(),
       isSystem: true
     }

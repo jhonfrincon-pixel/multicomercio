@@ -13,7 +13,7 @@ export interface Product {
   reviews: Review[];
   rating: number;
   reviewCount: number;
-  inStock: boolean;
+  inStock: number;
   tags: string[];
   badge?: string;
 }

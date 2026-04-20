@@ -87,8 +87,7 @@ export const products: Product[] = [
     ],
     rating: 4.7,
     reviewCount: 128,
-    stock: 12,
-    inStock: true,
+    inStock: 12,
     tags: ['sillón', 'muebles', 'relax', 'masaje', 'sala'],
     badge: 'Más Vendido'
   },
@@ -168,8 +167,7 @@ export const products: Product[] = [
     ],
     rating: 4.8,
     reviewCount: 86,
-    stock: 3,
-    inStock: true,
+    inStock: 3,
     tags: ['lámpara', 'iluminación', 'diseño', 'arco', 'decoración'],
     badge: 'Oferta Especial'
   },
@@ -258,8 +256,7 @@ export const products: Product[] = [
     ],
     rating: 4.6,
     reviewCount: 203,
-    stock: 15,
-    inStock: true,
+    inStock: 15,
     tags: ['cocina', 'ollas', 'sartenes', 'utensilios', 'antiadherente'],
     badge: '-30%'
   },
@@ -338,8 +335,7 @@ export const products: Product[] = [
     ],
     rating: 4.9,
     reviewCount: 67,
-    stock: 4,
-    inStock: true,
+    inStock: 4,
     tags: ['espejo', 'decoración', 'dorado', 'pared', 'elegante']
   },
   {
@@ -428,8 +424,7 @@ export const products: Product[] = [
     ],
     rating: 4.5,
     reviewCount: 312,
-    stock: 2,
-    inStock: true,
+    inStock: 2,
     tags: ['aspiradora', 'robot', 'inteligente', 'limpieza', 'automático'],
     badge: 'Tecnología'
   },
@@ -508,8 +503,7 @@ export const products: Product[] = [
     ],
     rating: 4.8,
     reviewCount: 45,
-    stock: 20,
-    inStock: true,
+    inStock: 20,
     tags: ['jarrón', 'cerámica', 'artesanal', 'decoración', 'único']
   }
 ];
