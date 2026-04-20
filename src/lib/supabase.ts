@@ -1,7 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://ypusjagimdtjszzvlef.supabase.co';
-const supabaseAnonKey = 'sb_publishable_WTBYxezBcuKaew6nTN0J4w_rGOxisCP';
+// Estas líneas permiten que Vercel use las llaves secretas que pusimos en su panel
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
