@@ -41,8 +41,29 @@ export function FooterSettings() {
   }, [loadSettings]);
 
   useEffect(() => {
-    if (settings) {
-      setFormData(settings);
+    if (settings && settings.quick_links && settings.contact_info) {
+      setFormData({
+        quick_links: {
+          enlaces_rapidos: settings.quick_links.enlaces_rapidos || '#',
+          sobre_nosotros: settings.quick_links.sobre_nosotros || '#',
+          catalogo_productos: settings.quick_links.catalogo_productos || '#',
+          ofertas_especiales: settings.quick_links.ofertas_especiales || '#',
+          blog_decoracion: settings.quick_links.blog_decoracion || '#',
+          preguntas_frecuentes: settings.quick_links.preguntas_frecuentes || '#',
+          atencion_cliente: settings.quick_links.atencion_cliente || '#',
+          mi_cuenta: settings.quick_links.mi_cuenta || '#',
+          seguimiento_pedidos: settings.quick_links.seguimiento_pedidos || '#',
+          politica_devoluciones: settings.quick_links.politica_devoluciones || '',
+          terminos_condiciones: settings.quick_links.terminos_condiciones || '',
+          politica_privacidad: settings.quick_links.politica_privacidad || '',
+          contacto: settings.quick_links.contacto || '#',
+        },
+        contact_info: {
+          direccion: settings.contact_info.direccion || 'Av. Principal 1234',
+          telefono: settings.contact_info.telefono || '+52 (55) 1234-5678',
+          email: settings.contact_info.email || 'hola@livo.com',
+        },
+      });
     }
   }, [settings]);
 

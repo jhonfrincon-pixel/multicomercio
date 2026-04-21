@@ -60,8 +60,34 @@ export const useFooterSettingsStore = create<FooterSettingsState>((set) => ({
         throw error;
       }
 
-      if (data) {
-        set({ settings: data, isLoading: false });
+      if (data && data.quick_links && data.contact_info) {
+        // Validar que los datos tengan la estructura correcta
+        const validatedData: FooterSettings = {
+          id: data.id,
+          quick_links: {
+            enlaces_rapidos: data.quick_links.enlaces_rapidos || '#',
+            sobre_nosotros: data.quick_links.sobre_nosotros || '#',
+            catalogo_productos: data.quick_links.catalogo_productos || '#',
+            ofertas_especiales: data.quick_links.ofertas_especiales || '#',
+            blog_decoracion: data.quick_links.blog_decoracion || '#',
+            preguntas_frecuentes: data.quick_links.preguntas_frecuentes || '#',
+            atencion_cliente: data.quick_links.atencion_cliente || '#',
+            mi_cuenta: data.quick_links.mi_cuenta || '#',
+            seguimiento_pedidos: data.quick_links.seguimiento_pedidos || '#',
+            politica_devoluciones: data.quick_links.politica_devoluciones || '',
+            terminos_condiciones: data.quick_links.terminos_condiciones || '',
+            politica_privacidad: data.quick_links.politica_privacidad || '',
+            contacto: data.quick_links.contacto || '#',
+          },
+          contact_info: {
+            direccion: data.contact_info.direccion || 'Av. Principal 1234',
+            telefono: data.contact_info.telefono || '+52 (55) 1234-5678',
+            email: data.contact_info.email || 'hola@livo.com',
+          },
+          created_at: data.created_at,
+          updated_at: data.updated_at,
+        };
+        set({ settings: validatedData, isLoading: false });
       } else {
         set({ settings: DEFAULT_SETTINGS, isLoading: false });
       }
@@ -69,6 +95,7 @@ export const useFooterSettingsStore = create<FooterSettingsState>((set) => ({
       console.error('Error loading footer settings:', error);
       set({ 
         error: error instanceof Error ? error.message : 'Error al cargar configuración',
+        settings: DEFAULT_SETTINGS,
         isLoading: false 
       });
     }

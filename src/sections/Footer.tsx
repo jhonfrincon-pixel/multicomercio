@@ -12,16 +12,17 @@ export function Footer() {
   }, [loadSettings]);
 
   const handlePolicyClick = (policyType: string, title: string) => {
-    if (settings?.quick_links[policyType as keyof typeof settings.quick_links]) {
+    const content = settings?.quick_links?.[policyType as keyof typeof settings.quick_links];
+    if (content && typeof content === 'string' && content.trim() !== '') {
       setSelectedPolicy({
         title,
-        content: settings.quick_links[policyType as keyof typeof settings.quick_links] as string
+        content
       });
     }
   };
 
   const getLink = (key: string) => {
-    return settings?.quick_links[key as keyof typeof settings.quick_links] || '#';
+    return settings?.quick_links?.[key as keyof typeof settings.quick_links] || '#';
   };
 
   const getContactInfo = () => {
