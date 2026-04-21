@@ -1,8 +1,42 @@
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useFooterSettingsStore } from '@/store/footerSettingsStore';
+import { PolicyModal } from '@/components/PolicyModal';
 
 export function Footer() {
+  const { settings, loadSettings } = useFooterSettingsStore();
+  const [selectedPolicy, setSelectedPolicy] = useState<{ title: string; content: string } | null>(null);
+
+  useEffect(() => {
+    loadSettings();
+  }, [loadSettings]);
+
+  const handlePolicyClick = (policyType: string, title: string) => {
+    if (settings?.quick_links[policyType as keyof typeof settings.quick_links]) {
+      setSelectedPolicy({
+        title,
+        content: settings.quick_links[policyType as keyof typeof settings.quick_links] as string
+      });
+    }
+  };
+
+  const getLink = (key: string) => {
+    return settings?.quick_links[key as keyof typeof settings.quick_links] || '#';
+  };
+
+  const getContactInfo = () => {
+    return settings?.contact_info || {
+      direccion: 'Av. Principal 1234',
+      telefono: '+52 (55) 1234-5678',
+      email: 'hola@livo.com'
+    };
+  };
+
+  const contactInfo = getContactInfo();
+
   return (
-    <footer className="bg-stone-900 text-stone-300">
+    <>
+      <footer className="bg-stone-900 text-stone-300">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -50,27 +84,27 @@ export function Footer() {
             <h3 className="text-white font-semibold text-lg mb-6">Enlaces Rápidos</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <a href={getLink('sobre_nosotros')} className="hover:text-amber-500 transition-colors">
                   Sobre Nosotros
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <a href={getLink('catalogo_productos')} className="hover:text-amber-500 transition-colors">
                   Catálogo de Productos
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <a href={getLink('ofertas_especiales')} className="hover:text-amber-500 transition-colors">
                   Ofertas Especiales
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <a href={getLink('blog_decoracion')} className="hover:text-amber-500 transition-colors">
                   Blog de Decoración
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <a href={getLink('preguntas_frecuentes')} className="hover:text-amber-500 transition-colors">
                   Preguntas Frecuentes
                 </a>
               </li>
@@ -82,29 +116,38 @@ export function Footer() {
             <h3 className="text-white font-semibold text-lg mb-6">Atención al Cliente</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <a href={getLink('mi_cuenta')} className="hover:text-amber-500 transition-colors">
                   Mi Cuenta
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <a href={getLink('seguimiento_pedidos')} className="hover:text-amber-500 transition-colors">
                   Seguimiento de Pedidos
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <button 
+                  onClick={() => handlePolicyClick('politica_devoluciones', 'Política de Devoluciones')}
+                  className="text-left hover:text-amber-500 transition-colors"
+                >
                   Política de Devoluciones
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <button 
+                  onClick={() => handlePolicyClick('terminos_condiciones', 'Términos y Condiciones')}
+                  className="text-left hover:text-amber-500 transition-colors"
+                >
                   Términos y Condiciones
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-amber-500 transition-colors">
+                <button 
+                  onClick={() => handlePolicyClick('politica_privacidad', 'Política de Privacidad')}
+                  className="text-left hover:text-amber-500 transition-colors"
+                >
                   Política de Privacidad
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -115,19 +158,15 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                <span>
-                  Av. Principal 1234
-                  <br />
-                  Ciudad de México, CP 01000
-                </span>
+                <span>{contactInfo.direccion}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                <span>+52 (55) 1234-5678</span>
+                <span>{contactInfo.telefono}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                <span>hola@livo.com</span>
+                <span>{contactInfo.email}</span>
               </li>
             </ul>
           </div>
@@ -162,5 +201,13 @@ export function Footer() {
         </div>
       </div>
     </footer>
+      
+      <PolicyModal
+        isOpen={!!selectedPolicy}
+        onClose={() => setSelectedPolicy(null)}
+        title={selectedPolicy?.title || ''}
+        content={selectedPolicy?.content || ''}
+      />
+    </>
   );
 }
