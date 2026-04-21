@@ -49,29 +49,23 @@ export const useCRMAuthStore = create<CRMAuthState>((set) => ({
   },
 
   login: async (email, password) => {
-    console.log('Intento de login:', { email, isSupabaseConfigured, hasSupabase: !!supabase });
-    
     if (!isSupabaseConfigured || !supabase) {
-      console.log('Usando autenticación local. Config:', { ADMIN_EMAIL, ADMIN_PASSWORD });
       const normalizedEmail = email.trim().toLowerCase();
       const valid = normalizedEmail === ADMIN_EMAIL.toLowerCase() && password === ADMIN_PASSWORD;
       if (!valid) {
-        return { success: false, message: 'Credenciales incorrectas (modo local)' };
+        return { success: false, message: 'Credenciales incorrectas' };
       }
       set({ isAuthenticated: true, userEmail: normalizedEmail });
       return { success: true };
     }
 
-    console.log('Usando autenticación Supabase');
     const { error } = await supabase.auth.signInWithPassword({
       email: email.trim(),
       password,
     });
     if (error) {
-      console.error('Error Supabase:', error);
       return { success: false, message: error.message };
     }
-    console.log('Login exitoso con Supabase');
     return { success: true };
   },
 
