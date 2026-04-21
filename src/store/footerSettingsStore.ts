@@ -103,6 +103,7 @@ export const useFooterSettingsStore = create<FooterSettingsState>((set) => ({
 
   updateSettings: async (updatedSettings) => {
     if (!supabase) {
+      console.error('Supabase client is null or undefined');
       set({ error: 'Supabase no está configurado' });
       return;
     }
@@ -110,40 +111,43 @@ export const useFooterSettingsStore = create<FooterSettingsState>((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const { data: existingSettings } = await supabase
+      console.log('Attempting to upsert footer settings:', updatedSettings);
+      
+      const result = await supabase
         .from('footer_settings')
-        .select('id')
+        .upsert({ 
+          id: 1, // ID fijo para asegurar una sola fila
+          ...DEFAULT_SETTINGS, 
+          ...updatedSettings 
+        }, {
+          onConflict: 'id'
+        })
+        .select()
         .single();
 
-      let result;
-      
-      if (existingSettings) {
-        // Update existing record
-        result = await supabase
-          .from('footer_settings')
-          .update(updatedSettings)
-          .eq('id', existingSettings.id)
-          .select()
-          .single();
-      } else {
-        // Create new record
-        result = await supabase
-          .from('footer_settings')
-          .insert({ ...DEFAULT_SETTINGS, ...updatedSettings })
-          .select()
-          .single();
-      }
-
       if (result.error) {
+        console.error('Supabase upsert error:', result.error);
+        console.error('Error details:', {
+          message: result.error.message,
+          details: result.error.details,
+          hint: result.error.hint,
+          code: result.error.code
+        });
         throw result.error;
       }
 
+      console.log('Upsert successful:', result.data);
       set({ 
         settings: result.data, 
         isLoading: false 
       });
     } catch (error) {
       console.error('Error updating footer settings:', error);
+      console.error('Error type:', typeof error);
+      console.error('Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : 'No stack trace'
+      });
       set({ 
         error: error instanceof Error ? error.message : 'Error al actualizar configuración',
         isLoading: false 
