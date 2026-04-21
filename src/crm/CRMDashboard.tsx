@@ -5,6 +5,7 @@ import { useCRMStore } from '@/store/crmStore';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
 import { useProductsStore } from '@/store/productsStore';
 import { useBrandStore } from '../store/brandStore';
+import { FooterSettings } from './FooterSettings';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,6 +41,7 @@ import {
   ImagePlus,
   Download,
   Upload,
+  Link,
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import {
@@ -67,6 +69,7 @@ const menuItems = [
   { id: 'analytics', name: 'Analytics', icon: BarChart3 },
   { id: 'branding', name: 'Personalización', icon: Palette },
   { id: 'settings', name: 'Configuración', icon: Settings },
+  { id: 'crm-footer', name: 'Configuración Footer', icon: Link },
 ];
 
 // Mock data for charts
@@ -160,6 +163,8 @@ export function CRMDashboard() {
         return <SettingsSection />;
       case 'settings':
         return <SettingsSection />;
+      case 'crm-footer':
+        return <FooterSettings />;
       default:
         return <DashboardOverview orderMetrics={orderMetrics} customerMetrics={customerMetrics} />;
     }
