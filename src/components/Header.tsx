@@ -22,7 +22,7 @@ export function Header() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <button onClick={goToHome} className="flex items-center gap-2">
-            <span className="text-2xl font-bold bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(to right, ${config.primary_color}, ${config.color_palette.monochromatic[2]})` }}>
+            <span className="text-2xl font-bold bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(to right, ${config.primary_color}, ${config.color_palette?.monochromatic?.[2] || '#92400e'})` }}>
               {config.name}
             </span>
           </button>
