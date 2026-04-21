@@ -39,6 +39,8 @@
     "@radix-ui/react-toggle-group": "^1.1.11",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@supabase/supabase-js": "^2.103.0",
+    "@tiptap/react": "^3.22.4",
+    "@tiptap/starter-kit": "^3.22.4",
     "ai": "^6.0.159",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
