@@ -6,6 +6,11 @@
     <title>Corrector de Postura Inteligente - Recupera tu Salud y Confianza</title>
     <meta name="description" content="Transforma tu salud con tecnología de postura inteligente. Entrena tu memoria muscular y elimina el dolor cervical. Paga al recibir en Colombia.">
     
+    <!-- Security Meta Tags -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Corrector de Postura Inteligente - Recupera tu Salud y Confianza">
@@ -17,6 +22,98 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        /* Password Protection Overlay */
+        .access-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .access-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .access-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .access-form h2 {
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .access-form p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .access-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .access-button {
+            width: 100%;
+            background: var(--vibrant-orange);
+            color: white;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .access-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.4);
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        /* Hide main content initially */
+        .main-content {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .main-content.visible {
+            opacity: 1;
+            pointer-events: auto;
         }
         
         body {
@@ -540,7 +637,20 @@
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
+    <!-- Password Protection Overlay -->
+    <div class="access-overlay" id="accessOverlay">
+        <div class="access-form">
+            <h2>ð Acceso Restringido</h2>
+            <p>Esta página es privada y solo accesible mediante autorización. Por favor ingresa la clave de acceso para continuar.</p>
+            <input type="password" class="access-input" id="accessPassword" placeholder="Ingresa la clave de acceso" maxlength="20">
+            <button class="access-button" id="accessButton">ACCEDER</button>
+            <div class="error-message" id="errorMessage">Clave incorrecta. Por favor intenta nuevamente.</div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden until access granted) -->
+    <div class="main-content" id="mainContent">
+        <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -792,6 +902,127 @@
 
     <!-- JavaScript -->
     <script>
+        // Password Protection System
+        (function() {
+            // Configuration - Change these values for your security
+            const VALID_PASSWORDS = ['postura2024', 'acceso123', 'bienestar2024', 'multicomercio'];
+            const VALID_TOKENS = ['token123abc', 'secure456def', 'access789ghi'];
+            const SESSION_KEY = 'landing_page_access';
+            const TOKEN_PARAM = 'token';
+            
+            // Check URL parameters for token
+            function checkUrlToken() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const token = urlParams.get(TOKEN_PARAM);
+                
+                if (token && VALID_TOKENS.includes(token)) {
+                    grantAccess();
+                    return true;
+                }
+                return false;
+            }
+            
+            // Check session storage for previous access
+            function checkSessionAccess() {
+                const hasAccess = sessionStorage.getItem(SESSION_KEY);
+                if (hasAccess === 'true') {
+                    grantAccess();
+                    return true;
+                }
+                return false;
+            }
+            
+            // Grant access to the landing page
+            function grantAccess() {
+                const overlay = document.getElementById('accessOverlay');
+                const mainContent = document.getElementById('mainContent');
+                
+                overlay.classList.add('hidden');
+                mainContent.classList.add('visible');
+                sessionStorage.setItem(SESSION_KEY, 'true');
+                
+                // Remove token from URL for security
+                if (window.location.search.includes(TOKEN_PARAM)) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete(TOKEN_PARAM);
+                    window.history.replaceState({}, document.title, url);
+                }
+            }
+            
+            // Validate password input
+            function validatePassword(password) {
+                return VALID_PASSWORDS.includes(password.toLowerCase());
+            }
+            
+            // Initialize access control
+            function initAccessControl() {
+                // Check for token in URL first
+                if (checkUrlToken()) {
+                    return;
+                }
+                
+                // Check for previous session access
+                if (checkSessionAccess()) {
+                    return;
+                }
+                
+                // If no access, show the password form
+                const accessButton = document.getElementById('accessButton');
+                const passwordInput = document.getElementById('accessPassword');
+                const errorMessage = document.getElementById('errorMessage');
+                
+                accessButton.addEventListener('click', function() {
+                    const password = passwordInput.value.trim();
+                    
+                    if (validatePassword(password)) {
+                        grantAccess();
+                    } else {
+                        errorMessage.style.display = 'block';
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                        
+                        // Hide error after 3 seconds
+                        setTimeout(() => {
+                            errorMessage.style.display = 'none';
+                        }, 3000);
+                    }
+                });
+                
+                // Allow Enter key to submit
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        accessButton.click();
+                    }
+                });
+                
+                // Focus on password input
+                passwordInput.focus();
+            }
+            
+            // Prevent right-click and developer tools (additional security)
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                // Prevent F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || 
+                    (e.ctrlKey && e.key === 'U')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initAccessControl);
+            } else {
+                initAccessControl();
+            }
+        })();
+        
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
@@ -937,5 +1168,6 @@
         // Start urgency timer when page loads
         window.addEventListener('load', createUrgencyTimer);
     </script>
+    </div> <!-- Close main-content div -->
 </body>
 </html>
