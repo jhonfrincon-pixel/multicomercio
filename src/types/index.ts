@@ -16,6 +16,18 @@ export interface Product {
   inStock: number;
   tags: string[];
   badge?: string;
+  tripwirePrice?: number;
+  orderBump?: {
+    name: string;
+    price: number;
+    originalPrice: number;
+  };
+  upsell?: {
+    name: string;
+    price: number;
+    originalPrice: number;
+    discount: number;
+  };
 }
 
 export interface Benefit {

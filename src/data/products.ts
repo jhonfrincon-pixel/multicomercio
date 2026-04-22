@@ -5,8 +5,8 @@ export const products: Product[] = [
     id: '1',
     name: 'Sillón Relax Premium',
     category: 'Muebles',
-    price: 899.99,
-    originalPrice: 1199.99,
+    price: 1899900,
+    originalPrice: 2599900,
     shortDescription: 'Sillón reclinable de cuero sintético con masaje integrado y función de calor.',
     description: 'Transforma tu sala de estar con el Sillón Relax Premium, diseñado para ofrecer el máximo confort. Este elegante sillón reclinable cuenta con tapizado de cuero sintético de alta calidad, sistema de masaje con 8 puntos de presión, función de calor lumbar regulable y reposapiés extensible. Su diseño ergonómico se adapta perfectamente a la curvatura natural de tu cuerpo, proporcionando soporte óptimo para largas horas de descanso.',
     images: [
@@ -95,8 +95,8 @@ export const products: Product[] = [
     id: '2',
     name: 'Lámpara de Pie Arco Moderna',
     category: 'Iluminación',
-    price: 349.99,
-    originalPrice: 449.99,
+    price: 699900,
+    originalPrice: 899900,
     shortDescription: 'Lámpara de pie con diseño de arco ajustable, perfecta para iluminar espacios amplios con estilo.',
     description: 'La Lámpara de Pie Arco Moderna es una pieza statement que elevará la estética de cualquier habitación. Su diseño icónico con base de mármol y brazo de arco ajustable permite dirigir la luz exactamente donde la necesitas. Ideal para salas de estar, lecturas o como luz ambiental. Incluye portalámparas compatible con bombillas LED E27 de hasta 60W.',
     images: [
@@ -175,8 +175,8 @@ export const products: Product[] = [
     id: '3',
     name: 'Set de Ollas Profesional 12 Piezas',
     category: 'Cocina',
-    price: 279.99,
-    originalPrice: 399.99,
+    price: 559900,
+    originalPrice: 799900,
     shortDescription: 'Set completo de ollas y sartenes con revestimiento antiadherente de titanio.',
     description: 'Eleva tu experiencia culinaria con el Set de Ollas Profesional 12 Piezas. Fabricadas con aluminio forjado de alta resistencia y revestimiento antiadherente de titanio libre de PFOA, estas ollas distribuyen el calor uniformemente para cocinar perfectamente cada vez. El set incluye ollas de diferentes tamaños, sartenes, cacerola y utensilios profesionales. Compatible con todas las superficies de cocción incluyendo inducción.',
     images: [
@@ -264,7 +264,7 @@ export const products: Product[] = [
     id: '4',
     name: 'Espejo Decorativo Dorado',
     category: 'Decoración',
-    price: 189.99,
+    price: 379900,
     shortDescription: 'Espejo redondo con marco dorado de metal, perfecto para dar amplitud y elegancia a cualquier espacio.',
     description: 'El Espejo Decorativo Dorado es la pieza perfecta para transformar cualquier habitación. Su diseño circular con marco de metal dorado cepillado añade un toque de glamour y sofisticación. El espejo de alta definición ofrece una reflexión nítida y real, ideal para recámaras, baños, entradas o salas de estar. Incluye sistema de montaje versátil para colgar horizontal o verticalmente.',
     images: [
@@ -342,8 +342,8 @@ export const products: Product[] = [
     id: '5',
     name: 'Aspiradora Robot Inteligente X5',
     category: 'Electrodomésticos',
-    price: 449.99,
-    originalPrice: 599.99,
+    price: 899900,
+    originalPrice: 1199900,
     shortDescription: 'Aspiradora robot con mapeo inteligente, control por app y succión de 3000Pa.',
     description: 'Olvídate de la limpieza diaria con la Aspiradora Robot Inteligente X5. Equipada con tecnología de mapeo láser LDS que crea un mapa preciso de tu hogar, navega eficientemente por todas las habitaciones evitando obstáculos. Su potente succión de 3000Pa elimina polvo, pelo de mascotas y escombros de cualquier superficie. Control total desde la app: programa horarios, define zonas restringidas y monitorea la limpieza en tiempo real. Compatible con Alexa y Google Assistant.',
     images: [
@@ -432,7 +432,7 @@ export const products: Product[] = [
     id: '6',
     name: 'Jarrón Cerámica Artesanal',
     category: 'Decoración',
-    price: 79.99,
+    price: 159900,
     shortDescription: 'Jarrón de cerámica hecho a mano con acabado mate, perfecto para flores secas o como pieza decorativa.',
     description: 'Añade un toque de artesanía y calidez a tu hogar con este Jarrón de Cerámica Artesanal. Cada pieza es única, moldeada y pintada a mano por artesanos locales. Su acabado mate en tonos tierra crea una estética orgánica y contemporánea que complementa cualquier estilo decorativo. Perfecto para arreglos florales, ramas secas o como escultura decorativa sobre mesas, repisas o chimeneas.',
     images: [
@@ -505,6 +505,108 @@ export const products: Product[] = [
     reviewCount: 45,
     inStock: 20,
     tags: ['jarrón', 'cerámica', 'artesanal', 'decoración', 'único']
+  },
+  {
+    id: '7',
+    name: 'Corrector de Postura Inteligente Livo Pro',
+    category: 'Salud y Bienestar',
+    price: 89900,
+    originalPrice: 140000,
+    shortDescription: 'El secreto tecnológico para una espalda recta sin fajas incómodas. Entrena tu cerebro y músculo con vibración inteligente.',
+    description: 'Descubre la revolución en corrección postural con el Corrector Inteligente Livo Pro. A diferencia de las fajas tradicionales que debilitan tus músculos, nuestro dispositivo utiliza tecnología de vibración inteligente para entrenar tu memoria muscular. Cuando te encorvas más de 25°, el sensor vibra suavemente recordándote corregir tu postura. Con 15 días de batería y diseño invisible bajo la ropa, es la solución definitiva para el dolor de espalda en la era digital.',
+    images: [
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80',
+      'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80',
+      'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80',
+      'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80'
+    ],
+    features: [
+      'Sensor inteligente con vibración a 25° de inclinación',
+      'Batería de larga duración (500mah - 15 días)',
+      'Diseño invisible bajo la ropa',
+      'Ajustable para 15kg a 95kg (unisex)',
+      'Material transpirable y hipoalergénico',
+      'Carga rápida USB-C incluida'
+    ],
+    benefits: [
+      {
+        title: 'Entrenamiento Muscular',
+        description: 'Crea memoria muscular natural sin depender de soportes externos.',
+        icon: 'dumbbell'
+      },
+      {
+        title: 'Tecnología Inteligente',
+        description: 'Vibración suave que te alerta justo cuando necesitas corregirte.',
+        icon: 'microchip'
+      },
+      {
+        title: 'Confort Total',
+        description: 'Solo 62g de peso, apenas lo sentirás durante el uso diario.',
+        icon: 'feather'
+      },
+      {
+        title: 'Resultados Rápidos',
+        description: 'Mejora notable en tu postura en solo 2-3 semanas de uso.',
+        icon: 'trending-up'
+      }
+    ],
+    specifications: {
+      'Peso': '62 gramos',
+      'Batería': '500mah / 3.7V',
+      'Autonomía': '15 días (8h/día de uso)',
+      'Material': 'Nailon elástico y plástico ABS',
+      'Rango de peso': '15kg - 95kg',
+      'Garantía': '30 días satisfacción o devolución'
+    },
+    reviews: [
+      {
+        id: 'r16',
+        author: 'María González',
+        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80',
+        rating: 5,
+        date: '2024-03-15',
+        title: '¡El mejor producto para mi espalda!',
+        content: 'Trabajo 8 horas frente al computador y el dolor era insoportable. Después de 3 semanas usando Livo, me mantengo recto sin esfuerzo. ¡Recomendado 100%!',
+        verified: true
+      },
+      {
+        id: 'r17',
+        author: 'Carlos Rodríguez',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
+        rating: 5,
+        date: '2024-02-28',
+        title: 'Cambió mi vida',
+        content: 'Mi hijo de 14 años tenía problemas de postura por el celular. Este dispositivo lo entrenó sin que se diera cuenta. Ahora se sienta naturalmente recto.',
+        verified: true
+      },
+      {
+        id: 'r18',
+        author: 'Ana Patricia',
+        avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80',
+        rating: 5,
+        date: '2024-01-20',
+        title: 'Pagué contraentrega y llegó perfecto',
+        content: 'Me encantó que pude pagar al recibir. El producto funciona de maravilla y el servicio es muy confiable. ¡Gracias Livo!',
+        verified: true
+      }
+    ],
+    rating: 4.9,
+    reviewCount: 2847,
+    inStock: 47,
+    tags: ['postura', 'salud', 'tecnología', 'dolor espalda', 'bienestar'],
+    badge: 'Más Vendido',
+    tripwirePrice: 67900,
+    orderBump: {
+      name: 'Protector de Pantalla + Funda Antipolvo',
+      price: 9990,
+      originalPrice: 24990
+    },
+    upsell: {
+      name: 'Pack Familiar (3 unidades)',
+      price: 201900,
+      originalPrice: 419700,
+      discount: 52
+    }
   }
 ];
 
@@ -514,7 +616,8 @@ export const categories = [
   { id: 'Iluminación', name: 'Iluminación', icon: 'lightbulb' },
   { id: 'Cocina', name: 'Cocina', icon: 'utensils' },
   { id: 'Decoración', name: 'Decoración', icon: 'palette' },
-  { id: 'Electrodomésticos', name: 'Electrodomésticos', icon: 'zap' }
+  { id: 'Electrodomésticos', name: 'Electrodomésticos', icon: 'zap' },
+  { id: 'Salud y Bienestar', name: 'Salud y Bienestar', icon: 'heart' }
 ];
 
 export const getProductById = (id: string): Product | undefined => {

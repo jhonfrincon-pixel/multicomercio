@@ -3,8 +3,10 @@ import { Header } from '@/components/Header';
 import { Hero } from '@/sections/Hero';
 import { ProductCatalog } from '@/sections/ProductCatalog';
 import { ProductLanding } from '@/sections/ProductLanding';
+import { ProductLandingFunnel } from '@/sections/ProductLandingFunnel';
 import { Cart } from '@/sections/Cart';
 import { Checkout } from '@/sections/Checkout';
+import { CheckoutColombia } from '@/sections/CheckoutColombia';
 import { Footer } from '@/sections/Footer';
 import { AIChatbot } from '@/components/AIChatbot';
 import { Newsletter } from '@/components/Newsletter';
@@ -13,6 +15,7 @@ import { CRMAccessGate } from '@/crm/CRMAccessGate';
 import { useNavigationStore } from '@/store/navigationStore';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
 import { useBrandStore } from '@/store/brandStore';
+import { useCartStore } from '@/store/cartStore';
 import { getProductById } from '@/data/products';
 import { Toaster } from '@/components/ui/sonner';
 import type { View } from '@/types';
@@ -20,6 +23,7 @@ import type { View } from '@/types';
 function App() {
   const { currentView, selectedProductId, goToCRM } = useNavigationStore();
   const { isAuthenticated, isAuthLoading, initializeAuth } = useCRMAuthStore();
+  const { items } = useCartStore();
   
   // Lógica de Marca dinámica desde Supabase
   const { 
@@ -96,6 +100,10 @@ function App() {
         if (selectedProductId) {
           const product = getProductById(selectedProductId);
           if (product) {
+            // Use funnel landing page for products with tripwire pricing
+            if (product.tripwirePrice) {
+              return <ProductLandingFunnel product={product} />;
+            }
             return <ProductLanding product={product} />;
           }
         }
@@ -109,7 +117,11 @@ function App() {
         return <Cart />;
 
       case 'checkout':
-        return <Checkout />;
+        // Use Colombia checkout for funnel products
+        const hasFunnelProducts = items.some(item => 
+          item.product.tripwirePrice || item.isUpsell || item.orderBump
+        );
+        return hasFunnelProducts ? <CheckoutColombia /> : <Checkout />;
 
       case 'home':
       default:
