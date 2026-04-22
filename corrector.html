@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrector de Postura Inteligente - El Secreto para una Espalda Recta</title>
+    <meta name="description" content="El secreto tecnológico para una espalda recta sin fajas incómodas. Entrena tu cerebro y músculo con vibración inteligente. Paga al recibir.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Corrector de Postura Inteligente - El Secreto para una Espalda Recta">
+    <meta property="og:description" content="El secreto tecnológico para una espalda recta sin fajas incómodas. Paga al recibir en Colombia.">
+    
+    <!-- CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #fff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Psychology-Based Colors */
+        :root {
+            --trust-blue: #1e3a8a; /* Confianza, seguridad */
+            --urgency-red: #dc2626; /* Urgencia, escasez */
+            --wealth-gold: #f59e0b; /* Valor, premium */
+            --action-orange: #FF6B35; /* Acción inmediata */
+            --success-green: #10b981; /* Confirmación, confianza */
+            --social-blue: #25d366; /* WhatsApp, social proof */
+            --authority-purple: #7c3aed; /* Autoridad, exclusividad */
+            --neutrality-gray: #f8f9fa; /* Foco en el contenido */
+            --text-dark: #1f2937; /* Legibilidad */
+        }
+        
+        /* Hero Section - Hook Principal */
+        .hero {
+            background: linear-gradient(135deg, var(--trust-blue), var(--authority-purple));
+            padding: 40px 0 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        
+        .cta-button {
+            background: var(--action-orange);
+            color: white;
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,107,53,0.4);
+        }
+        
+        /* Tripwire Pricing - Psychology of 9 */
+        .tripwire-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--wealth-gold);
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .tripwire-price::after {
+            content: '99';
+            font-size: 1.5rem;
+            vertical-align: super;
+            position: relative;
+            top: -10px;
+        }
+        
+        /* Order Bump Section */
+        .order-bump {
+            background: linear-gradient(135deg, var(--wealth-gold), #fbbf24);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 3px dashed var(--trust-blue);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .order-bump::before {
+            content: 'â OFERTA ESPECIAL';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--urgency-red);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        
+        .bump-checkbox {
+            width: 25px;
+            height: 25px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .bump-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .bump-text {
+            flex: 1;
+            color: var(--text-dark);
+        }
+        
+        .bump-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--trust-blue);
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+        
+        .bump-price-special {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--success-green);
+        }
+        
+        /* Upsell OTO Modal */
+        .upsell-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .upsell-modal.active {
+            display: flex;
+        }
+        
+        .upsell-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .upsell-timer {
+            background: var(--urgency-red);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .upsell-offer {
+            background: var(--authority-purple);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .upsell-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--wealth-gold);
+            margin: 20px 0;
+        }
+        
+        .upsell-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .upsell-yes {
+            background: var(--success-green);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        
+        .upsell-no {
+            background: var(--neutrality-gray);
+            color: var(--text-dark);
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        
+        /* Scarcity Elements */
+        .scarcity-bar {
+            background: var(--urgency-red);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scarcity-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 30%;
+            background: rgba(255,255,255,0.2);
+            animation: scarcityPulse 2s infinite;
+        }
+        
+        @keyframes scarcityPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Social Proof Counter */
+        .social-proof {
+            background: var(--light-gray);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid #e1e8ed;
+        }
+        
+        .units-counter {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+        }
+        
+        .units-text {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        /* Story Section - Puente de la Epifanía */
+        .story {
+            padding: 50px 0;
+            background: white;
+        }
+        
+        .story h2 {
+            font-size: 2rem;
+            color: var(--dark-blue);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .epiphany-bridge {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .problem-section {
+            background: #fee;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .problem-section h3 {
+            color: #e74c3c;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .solution-section {
+            background: #e8f5e8;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--success-green);
+        }
+        
+        .solution-section h3 {
+            color: var(--success-green);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .story-text p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        /* Offer Section */
+        .offer {
+            padding: 50px 0;
+            background: linear-gradient(135deg, var(--trust-blue), var(--authority-purple));
+            color: white;
+        }
+        
+        .offer h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        
+        .offer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .offer-card {
+            background: white;
+            color: #333;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .offer-card.featured {
+            border: 3px solid var(--vibrant-orange);
+            transform: scale(1.02);
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--vibrant-orange);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        
+        .offer-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--wealth-gold);
+            margin: 15px 0;
+        }
+        
+        .original-price {
+            font-size: 1.3rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 8px;
+        }
+        
+        .offer-features {
+            list-style: none;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .offer-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .offer-features li::before {
+            content: 'â';
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+        
+        /* WhatsApp Testimonials */
+        .testimonials {
+            padding: 50px 0;
+            background: var(--light-gray);
+        }
+        
+        .testimonials h2 {
+            font-size: 2rem;
+            color: var(--dark-blue);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        
+        .whatsapp-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .whatsapp-card {
+            background: #e5ddd5;
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .whatsapp-card::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid #e5ddd5;
+        }
+        
+        .whatsapp-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #d4c8bc;
+        }
+        
+        .whatsapp-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #25d366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .whatsapp-name {
+            font-weight: 600;
+            color: #075e54;
+        }
+        
+        .whatsapp-time {
+            font-size: 0.8rem;
+            color: #667786;
+            margin-left: auto;
+        }
+        
+        .whatsapp-message {
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+        
+        /* Checkout Form */
+        .checkout {
+            padding: 50px 0;
+            background: linear-gradient(135deg, var(--trust-blue), var(--authority-purple));
+            color: white;
+        }
+        
+        .checkout h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--turquoise);
+        }
+        
+        .submit-button {
+            width: 100%;
+            background: var(--action-orange);
+            color: white;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .submit-button:hover::before {
+            left: 100%;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.4);
+        }
+        
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .trust-badge-icon {
+            font-size: 1.3rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .form-container {
+                padding: 25px 20px;
+            }
+            
+            .trust-badges {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 30px 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .cta-button {
+                padding: 15px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section - Hook Principal -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>El Secreto Tecnológico para una Espalda Recta Sin Fajas Incómodas</h1>
+                <p class="hero-subtitle">Descubre cómo un pequeño sensor con vibración inteligente está reemplazando las fajas tradicionales que debilitan tus músculos</p>
+                <a href="#checkout" class="cta-button">¡QUIERO MI OFERTA EXCLUSIVA!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Counter -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="units-counter">
+                <span id="unitsCount">247</span> unidades vendidas hoy en Colombia
+            </div>
+            <div class="units-text">Últimas unidades disponibles con descuento del 40%</div>
+        </div>
+    </section>
+
+    <!-- Story Section - Puente de la Epifanía -->
+    <section class="story" id="story">
+        <div class="container">
+            <h2>El Puente de la Epifanía: Por Qué las Fajas Tradicionales te Fallan</h2>
+            
+            <div class="epiphany-bridge">
+                <div class="problem-section">
+                    <h3>ð El Problema: Las Fajas que "Ayudan" en Realidad te Perjudican</h3>
+                    <p>Las fajas tradicionales te dan una postura falsa. Te aprietan, te obligan a estar recto, pero...</p>
+                    <p><strong>DEBILITAN TUS MÚSCULOS.</strong> Tu cuerpo se vuelve dependiente del soporte externo y cuando te quitas la faja, vuelves a encorvarte peor que antes.</p>
+                    <p>Es como usar muletas para caminar cuando no las necesitas. Con el tiempo, tus piernas pierden fuerza.</p>
+                </div>
+                
+                <div class="solution-section">
+                    <h3>â La Solución: El Entrenador que Enseña a tu Cuerpo a Trabajar Solo</h3>
+                    <p>Nuestro sensor inteligente no te sostiene. <strong>TE ENTRENA.</strong></p>
+                    <p>Monitoriza tu postura a tiempo real. Cuando te encorvas más de 25°, vibra suavemente para recordarte que debes corregirte.</p>
+                    <p>Así tu cerebro crea memoria muscular. Tu cuerpo aprende la postura correcta NATURALMENTE, sin dependencias.</p>
+                    <p><strong>El resultado: Espalda recta incluso cuando no llevas el dispositivo.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scarcity Bar -->
+    <section class="scarcity-bar">
+        <div class="container">
+            <div>â¡ QUEDAN SÓLO 23 UNIDADES A ESTE PRECIO! â¡</div>
+        </div>
+    </section>
+
+    <!-- Offer Section - Tripwire Funnel -->
+    <section class="offer" id="offer">
+        <div class="container">
+            <h2>ð OFERTA TRIPWIRE - Rompe la Barrera de Compra</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">Precio tan bajo que no puedes decir que no</p>
+            
+            <div class="offer-grid">
+                <div class="offer-card">
+                    <div class="offer-badge">TRIPWIRE</div>
+                    <h3>Corrector Inteligente Pro</h3>
+                    <div class="original-price">Valor: $140.000</div>
+                    <div class="tripwire-price">$67</div>
+                    <ul class="offer-features">
+                        <li>Corrector Inteligente Pro</li>
+                        <li>Cable de Carga USB</li>
+                        <li>Guía Digital: 5 Ejercicios</li>
+                        <li>Envío Gratis Nacional</li>
+                        <li>Garantía Total de 30 días</li>
+                        <li>Ahorro del 52% ($72.900)</li>
+                    </ul>
+                    <a href="#checkout" class="cta-button">¡AGREGAR AL CARRITO!</a>
+                </div>
+            </div>
+            
+            <!-- Order Bump -->
+            <div class="order-bump">
+                <div class="bump-content">
+                    <div style="display: flex; align-items: center;">
+                        <input type="checkbox" id="orderBump" class="bump-checkbox" checked>
+                        <div class="bump-text">
+                            <strong>¡OFERTA ESPECIAL!</strong> Añade el Protector de Pantalla Inteligente + Funda Antipolvo por solo <span class="bump-price-special">$9.99</span>
+                            <div style="font-size: 0.9rem; margin-top: 5px;">¡Ahorra $15! Normalmente $24.99</div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="bump-price">$24.99</span>
+                        <span class="bump-price-special">$9.99</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>Mensajes de Clientes Reales en Colombia</h2>
+            
+            <div class="whatsapp-grid">
+                <div class="whatsapp-card">
+                    <div class="whatsapp-header">
+                        <div class="whatsapp-avatar">M</div>
+                        <div class="whatsapp-name">María González</div>
+                        <div class="whatsapp-time">10:23 AM</div>
+                    </div>
+                    <div class="whatsapp-message">
+                        ¡Llegó hoy mismo! Mi hijo ya no se encorva cuando estudia. El producto es increíble, casi no se siente y la vibración es perfecta para recordarle corregirse. ð
+                    </div>
+                </div>
+                
+                <div class="whatsapp-card">
+                    <div class="whatsapp-header">
+                        <div class="whatsapp-avatar">C</div>
+                        <div class="whatsapp-name">Carlos Rodríguez</div>
+                        <div class="whatsapp-time">2:45 PM</div>
+                    </div>
+                    <div class="whatsapp-message">
+                        Trabajo 8 horas frente al PC y el dolor era insoportable. Después de 2 semanas usando el dispositivo, me mantengo recto sin pensar. Lo mejor es que pagué al recibir. 100% confiable.
+                    </div>
+                </div>
+                
+                <div class="whatsapp-card">
+                    <div class="whatsapp-header">
+                        <div class="whatsapp-avatar">A</div>
+                        <div class="whatsapp-name">Ana Patricia</div>
+                        <div class="whatsapp-time">Ayer</div>
+                    </div>
+                    <div class="whatsapp-message">
+                        Compré el combo para mí y mi esposo. Los dos trabajamos desde casa y la diferencia se nota. Ya no despertamos con dolor de espalda. ¡Recomendado!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Form -->
+    <section class="checkout" id="checkout">
+        <div class="container">
+            <h2>¡Pide Ahora y Paga Solo Cuando Recibas!</h2>
+            
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">â</span>
+                    <span>Pago Contraentrega</span>
+                </div>
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">ð</span>
+                    <span>Envío Gratis</span>
+                </div>
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">â¡</span>
+                    <span>Garantía Livo</span>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo *</label>
+                        <input type="text" id="name" name="name" required placeholder="Ej: Juan Pérez González">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Celular (WhatsApp) *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Ej: 3001234567">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">Departamento y Ciudad *</label>
+                        <input type="text" id="city" name="city" required placeholder="Ej: Cundinamarca, Bogotá">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Dirección Completa *</label>
+                        <input type="text" id="address" name="address" required placeholder="Ej: Calle 123 #45-67, Apt 302, Barrio La Soledad">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product">Selecciona tu Oferta *</label>
+                        <select id="product" name="product" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="combo">ð COMBO FAMILIAR (2 unidades) - $149.900 COP</option>
+                            <option value="single">ð UNIDAD INDIVIDUAL - $89.900 COP</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">¡QUIERO MI PEDIDO Y PAGAR AL RECIBIR!</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upsell OTO Modal -->
+    <div class="upsell-modal" id="upsellModal">
+        <div class="upsell-content">
+            <div class="upsell-timer">â¡ OFERTA POR TIEMPO LIMITADO: 5:00</div>
+            <h2 style="color: var(--trust-blue); font-size: 2rem; margin-bottom: 20px;">¡ESPERA! Antes de irte...</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">¿Quieres <strong>TRIPLICAR</strong> tus resultados?</p>
+            
+            <div class="upsell-offer">
+                <h3 style="font-size: 1.5rem; margin-bottom: 15px;">ð OFERTA EXCLUSIVA ONE TIME</h3>
+                <p>Consigue <strong>3 Correctores Inteligentes Pro</strong> por el precio de 2</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Perfecto para toda la familia o para tener repuestos</p>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <div style="text-decoration: line-through; color: #999; font-size: 1.2rem;">Valor normal: $419.700</div>
+                <div class="upsell-price">$201.900</div>
+                <div style="color: var(--success-green); font-weight: 600;">¡Ahorra $217.800! (52% de descuento)</div>
+            </div>
+            
+            <div style="background: #fef3c7; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                <p style="margin: 0; font-size: 0.9rem;">â Incluye: 3 Correctores + 3 Cables + Guía Digital + Envío Express</p>
+            </div>
+            
+            <div class="upsell-buttons">
+                <button class="upsell-yes" onclick="acceptUpsell()">¡SÍ, QUIERO EL TRATO!</button>
+                <button class="upsell-no" onclick="declineUpsell()">No, gracias</button>
+            </div>
+            
+            <p style="font-size: 0.8rem; color: #666; margin-top: 20px;">Esta oferta nunca volverá a aparecer</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Tripwire Funnel JavaScript
+        let upsellTimer;
+        let upsellSeconds = 300; // 5 minutes
+        
+        // Units Counter Animation
+        function animateUnits() {
+            const counter = document.getElementById('unitsCount');
+            const target = 247;
+            let current = 200;
+            
+            const increment = () => {
+                if (current < target) {
+                    current += Math.random() * 3 + 1;
+                    if (current > target) current = target;
+                    counter.textContent = Math.floor(current);
+                    setTimeout(increment, Math.random() * 2000 + 1000);
+                } else {
+                    setTimeout(() => {
+                        current = 200;
+                        increment();
+                    }, 5000);
+                }
+            };
+            
+            increment();
+        }
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Order Bump Logic
+        document.getElementById('orderBump').addEventListener('change', function() {
+            updateTotalPrice();
+        });
+        
+        function updateTotalPrice() {
+            const bumpChecked = document.getElementById('orderBump').checked;
+            const productSelect = document.getElementById('product');
+            const basePrice = productSelect.value === 'combo' ? 149900 : 89900;
+            const bumpPrice = bumpChecked ? 9990 : 0;
+            const totalPrice = basePrice + bumpPrice;
+            
+            // Update price display if needed
+            console.log('Total price:', totalPrice);
+        }
+        
+        // Upsell Timer
+        function startUpsellTimer() {
+            const timerElement = document.querySelector('.upsell-timer');
+            
+            upsellTimer = setInterval(() => {
+                const minutes = Math.floor(upsellSeconds / 60);
+                const seconds = upsellSeconds % 60;
+                timerElement.textContent = `¡OFERTA POR TIEMPO LIMITADO: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                upsellSeconds--;
+                
+                if (upsellSeconds < 0) {
+                    clearInterval(upsellTimer);
+                    closeUpsell();
+                }
+            }, 1000);
+        }
+        
+        // Show Upsell Modal
+        function showUpsell() {
+            document.getElementById('upsellModal').classList.add('active');
+            startUpsellTimer();
+        }
+        
+        // Close Upsell Modal
+        function closeUpsell() {
+            document.getElementById('upsellModal').classList.remove('active');
+            if (upsellTimer) {
+                clearInterval(upsellTimer);
+            }
+        }
+        
+        // Accept Upsell
+        function acceptUpsell() {
+            closeUpsell();
+            // Update form with upsell selection
+            const productSelect = document.getElementById('product');
+            productSelect.value = 'upsell';
+            
+            // Show confirmation
+            const confirmation = document.createElement('div');
+            confirmation.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--success-green);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 10001;
+                font-weight: 600;
+            `;
+            confirmation.textContent = '¡Excelente! Has agregado la oferta especial a tu pedido.';
+            document.body.appendChild(confirmation);
+            
+            setTimeout(() => {
+                confirmation.remove();
+            }, 3000);
+        }
+        
+        // Decline Upsell
+        function declineUpsell() {
+            closeUpsell();
+            
+            // Show message about missing the offer
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--urgency-red);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 10001;
+                font-weight: 600;
+            `;
+            message.textContent = 'Has perdido la oferta especial para siempre.';
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
+        
+        // Form Validation with Tripwire Logic
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Check if order bump is selected
+            const bumpChecked = document.getElementById('orderBump').checked;
+            
+            // Basic validation
+            if (!data.name || !data.phone || !data.city || !data.address || !data.product) {
+                alert('Por favor completa todos los campos obligatorios.');
+                return;
+            }
+            
+            // Phone validation (Colombian format)
+            if (!/^3\d{9}$/.test(data.phone.replace(/\s/g, ''))) {
+                alert('Por favor ingresa un número de celular válido (10 dígitos, comenzando con 3).');
+                return;
+            }
+            
+            // Calculate total
+            let basePrice = 67000; // Tripwire price
+            if (data.product === 'combo') basePrice = 149900;
+            if (data.product === 'upsell') basePrice = 201900;
+            
+            const bumpPrice = bumpChecked ? 9990 : 0;
+            const totalPrice = basePrice + bumpPrice;
+            
+            // Show order summary
+            const orderSummary = `
+                === RESUMEN DE TU PEDIDO ===
+                Nombre: ${data.name}
+                Teléfono: ${data.phone}
+                Ciudad: ${data.city}
+                Dirección: ${data.address}
+                
+                ${data.product === 'upsell' ? '3 Correctores Inteligentes Pro' : data.product === 'combo' ? '2 Correctores Inteligentes Pro' : '1 Corrector Inteligente Pro'}
+                ${bumpChecked ? '+ Protector de Pantalla + Funda' : ''}
+                
+                Total a pagar: $${totalPrice.toLocaleString('es-CO')} COP
+                
+                ¡Pagarás solo cuando recibas tu pedido!
+            `;
+            
+            alert(orderSummary);
+            
+            // Here you would normally send the data to your backend
+            console.log('Order data:', { ...data, bumpChecked, totalPrice });
+            
+            // Show upsell after initial order (simulating the flow)
+            if (data.product !== 'upsell' && Math.random() > 0.5) {
+                setTimeout(() => {
+                    showUpsell();
+                }, 1000);
+            }
+        });
+        
+        // Retargeting Pixel Simulation
+        function fireRetargetingPixel(event) {
+            // Simulate Facebook/Google pixel events
+            console.log('Retargeting event:', event);
+            
+            // In real implementation, you would use:
+            // fbq('track', event);
+            // gtag('event', event);
+        }
+        
+        // Fire page view event
+        fireRetargetingPixel('PageView');
+        
+        // Fire add to cart when CTA is clicked
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                fireRetargetingPixel('AddToCart');
+            });
+        });
+        
+        // Fire purchase event when form is submitted
+        document.getElementById('orderForm').addEventListener('submit', function() {
+            fireRetargetingPixel('Purchase');
+        });
+        
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            animateUnits();
+            updateTotalPrice();
+        });
+        
+        // Exit intent popup (optional enhancement)
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY < 10) {
+                // Show exit intent popup
+                console.log('User is leaving - show exit intent popup');
+            }
+        });
+    </script>
+</body>
+</html>
