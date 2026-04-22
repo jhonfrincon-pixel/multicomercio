@@ -50,6 +50,11 @@ export interface Review {
 export interface CartItem {
   product: Product;
   quantity: number;
+  orderBump?: boolean;
+  tripwirePrice?: number;
+  totalPrice?: number;
+  isUpsell?: boolean;
+  upsellPrice?: number;
 }
 
 export interface FooterSettings {
