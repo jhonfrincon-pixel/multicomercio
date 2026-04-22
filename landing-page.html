@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrector de Postura Inteligente - Recupera tu Salud y Confianza</title>
+    <meta name="description" content="Transforma tu salud con tecnología de postura inteligente. Entrena tu memoria muscular y elimina el dolor cervical. Paga al recibir en Colombia.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Corrector de Postura Inteligente - Recupera tu Salud y Confianza">
+    <meta property="og:description" content="Transforma tu salud con tecnología de postura inteligente. Entrena tu memoria muscular y elimina el dolor cervical.">
+    
+    <!-- CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Colors */
+        :root {
+            --primary-turquoise: #00CED1;
+            --electric-turquoise: #40E0D0;
+            --vibrant-orange: #FF6B35;
+            --dark-blue: #1e3a8a;
+            --light-gray: #f8f9fa;
+            --text-dark: #2c3e50;
+            --success-green: #27ae60;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        .cta-button {
+            background: var(--vibrant-orange);
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255,107,53,0.4);
+        }
+        
+        /* Hook Section */
+        .hook {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+        
+        .hook h2 {
+            font-size: 2.2rem;
+            color: var(--dark-blue);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card h3 {
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+        
+        .stat-card p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        /* Story Section */
+        .story {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .story h2 {
+            font-size: 2.2rem;
+            color: var(--dark-blue);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .story-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary-turquoise);
+            margin-bottom: 20px;
+        }
+        
+        .story-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .tech-specs {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .tech-specs h4 {
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .tech-specs ul {
+            list-style: none;
+        }
+        
+        .tech-specs li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            color: #555;
+        }
+        
+        .tech-specs li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Offer Section */
+        .offer {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .offer h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .offer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .offer-card {
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .offer-card.featured {
+            border: 3px solid var(--vibrant-orange);
+            transform: scale(1.05);
+        }
+        
+        .offer-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-turquoise);
+            margin: 20px 0;
+        }
+        
+        .original-price {
+            font-size: 1.5rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 10px;
+        }
+        
+        .offer-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .offer-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .offer-features li::before {
+            content: 'â';
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+        
+        .testimonials h2 {
+            font-size: 2.2rem;
+            color: var(--dark-blue);
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+        
+        .testimonial-location {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .faq h2 {
+            font-size: 2.2rem;
+            color: var(--dark-blue);
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .faq-item {
+            background: var(--light-gray);
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            font-weight: 600;
+            color: var(--dark-blue);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: #e8f4f8;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #555;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 300px;
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .form-section h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-turquoise);
+        }
+        
+        .submit-button {
+            width: 100%;
+            background: var(--vibrant-orange);
+            color: white;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.4);
+        }
+        
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .trust-badge-icon {
+            font-size: 1.5rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .story-content,
+            .offer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .offer-card.featured {
+                transform: scale(1);
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .trust-badges {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 40px 0 30px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Transforma tu salud y recupera tu confianza con tecnología de postura inteligente</h1>
+                <p class="hero-subtitle">Entrena tu memoria muscular y elimina el dolor cervical con el sensor de vibración de 25°. ¡Paga en efectivo al recibir en la puerta de tu casa!</p>
+                <a href="#form" class="cta-button">¡PEDIR AHORA Y PAGAR AL RECIBIR!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hook Section -->
+    <section class="hook" id="hook">
+        <div class="container">
+            <h2>Tu espalda está gritando por ayuda (y quizás no lo sabías)</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">ðª</div>
+                    <h3>Fatiga Muscular</h3>
+                    <p>El 80% de los colombianos sufre dolores por mala postura</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">ð¾</div>
+                    <h3>Dolor de Hombros</h3>
+                    <p>Pasar horas frente al celular o computador destruye tu columna</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">ð</div>
+                    <h3>Encorvamiento</h3>
+                    <p>Las fajas comunes son incómodas y se notan... Necesitas algo inteligente</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story" id="story">
+        <div class="container">
+            <h2>La ciencia detrás de la vibración: Recupera tu postura natural</h2>
+            
+            <div class="story-content">
+                <div class="story-text">
+                    <h3>A diferencia de las fajas que te aprietan...</h3>
+                    <p>Nuestro sensor inteligente monitoriza tu posición a tiempo real. Si te encorvas más de 25 grados, el dispositivo vibra suavemente.</p>
+                    <p>No estamos vendiendo una faja elástica tradicional que debilita los músculos. Estamos vendiendo un "Entrenador Bio-Tecnológico". El ángulo es la Memoria Muscular: el dispositivo no hace el trabajo por ti, enseña a tu cuerpo a hacerlo solo.</p>
+                    
+                    <div class="tech-specs">
+                        <h4>Especificaciones Técnicas</h4>
+                        <ul>
+                            <li><strong>Material:</strong> Nailon elástico y plástico ABS de alta resistencia</li>
+                            <li><strong>Batería:</strong> 500mah / 3.7V (Larga duración - 15 días)</li>
+                            <li><strong>Versatilidad:</strong> Ajustable para personas entre 15kg y 95kg (Unisex)</li>
+                            <li><strong>Uso:</strong> Invisible bajo la ropa, ideal para oficina, casa o viajes largos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offer Section -->
+    <section class="offer" id="offer">
+        <div class="container">
+            <h2>Oferta Especial por Tiempo Limitado</h2>
+            
+            <div class="offer-grid">
+                <div class="offer-card">
+                    <h3>Corrector Inteligente Pro</h3>
+                    <div class="original-price">Valor: $140.000</div>
+                    <div class="price">$89.900 COP</div>
+                    <ul class="offer-features">
+                        <li>Corrector Inteligente Pro</li>
+                        <li>Cable de Carga USB Ultra-rápido</li>
+                        <li>Guía Digital: 5 Ejercicios para espalda</li>
+                        <li>Envío Gratis a nivel nacional</li>
+                        <li>Garantía Total de 30 días</li>
+                    </ul>
+                    <a href="#form" class="cta-button">¡PEDIR AHORA!</a>
+                </div>
+                
+                <div class="offer-card featured">
+                    <h3>COMBO FAMILIAR</h3>
+                    <div class="original-price">Valor: $280.000</div>
+                    <div class="price">$150.000 COP</div>
+                    <ul class="offer-features">
+                        <li>2 Correctores Inteligentes Pro</li>
+                        <li>2 Cables de Carga USB</li>
+                        <li>Guía Digital: 5 Ejercicios para espalda</li>
+                        <li>Envío Gratis Express</li>
+                        <li>Garantía Total de 30 días</li>
+                    </ul>
+                    <a href="#form" class="cta-button">¡AHORRAR $130.000!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>Clientes Satisfechos en Colombia</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">"Llegó súper rápido y mi hijo ya no se encorva. El producto es exacto como lo describen, muy cómodo y efectivo."</div>
+                    <div class="testimonial-author">María González</div>
+                    <div class="testimonial-location">Bogotá, Cundinamarca</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">"Trabajo 8 horas frente al computador y el dolor de espalda era insoportable. Ahora con el dispositivo me mantengo recto sin esfuerzo."</div>
+                    <div class="testimonial-author">Carlos Rodríguez</div>
+                    <div class="testimonial-location">Medellín, Antioquia</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">"Me encantó que pude pagar al recibir. El servicio es confiable y el producto funciona de maravilla. ¡Recomendado!"</div>
+                    <div class="testimonial-author">Ana Patricia</div>
+                    <div class="testimonial-location">Cali, Valle del Cauca</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2>Preguntas Frecuentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Sirve para niños?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    SÍ, es totalmente ajustable y perfecto para crear hábitos desde temprana edad. Es ideal para niños y adolescentes que pasan mucho tiempo estudiando o usando dispositivos móviles.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Cuánto dura la batería?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Con su capacidad de 500mah, dura varios días de uso constante. En promedio, con uso normal de 8 horas diarias, la batería dura hasta 15 días antes de necesitar recarga.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Es cómodo?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Sí, pesa solo 62g, lo que lo hace casi imperceptible bajo la camisa. El material de nailon elástico es suave y se adapta perfectamente a tu cuerpo sin causar irritación.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Tengo que pagar antes?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    NO, pagas en efectivo solo cuando tengas el producto en tus manos. Ofrecemos pago contraentrega en toda Colombia para tu total tranquilidad.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    ¿Cuánto tarda en llegar?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    El tiempo de entrega varía según tu ciudad: Bogotá y ciudades principales 2-3 días hábiles, otras ciudades 3-5 días hábiles. Trabajamos con Servientrega, Interrapidisimo y Envía.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="form">
+        <div class="container">
+            <h2>¿Cómo funciona el pago contraentrega?</h2>
+            
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">â</span>
+                    <span>1. Llenas tus datos</span>
+                </div>
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">â</span>
+                    <span>2. Confirmamos tu pedido</span>
+                </div>
+                <div class="trust-badge">
+                    <span class="trust-badge-icon">â</span>
+                    <span>3. Recibes y pagas</span>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo *</label>
+                        <input type="text" id="name" name="name" required placeholder="Ej: Juan Pérez">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Número de Celular (WhatsApp) *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Ej: 3001234567">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">Departamento / Ciudad *</label>
+                        <select id="city" name="city" required>
+                            <option value="">Selecciona tu ciudad</option>
+                            <option value="bogota">Bogotá, Cundinamarca</option>
+                            <option value="medellin">Medellín, Antioquia</option>
+                            <option value="cali">Cali, Valle del Cauca</option>
+                            <option value="barranquilla">Barranquilla, Atlántico</option>
+                            <option value="cartagena">Cartagena, Bolívar</option>
+                            <option value="bucaramanga">Bucaramanga, Santander</option>
+                            <option value="pereira">Pereira, Risaralda</option>
+                            <option value="manizales">Manizales, Caldas</option>
+                            <option value="other">Otra ciudad</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Dirección de Entrega *</label>
+                        <input type="text" id="address" name="address" required placeholder="Ej: Calle 123 #45-67, Apt 302">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product">Selecciona tu producto *</label>
+                        <select id="product" name="product" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="single">Corrector Inteligente Pro - $89.900 COP</option>
+                            <option value="combo">Combo Familiar (2 unidades) - $150.000 COP</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">¡CONFIRMAR MI PEDIDO CONTRAENTREGA!</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Form validation and submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                city: document.getElementById('city').value,
+                address: document.getElementById('address').value,
+                product: document.getElementById('product').value
+            };
+            
+            // Basic validation
+            if (!formData.name || !formData.phone || !formData.city || !formData.address || !formData.product) {
+                alert('Por favor completa todos los campos obligatorios.');
+                return;
+            }
+            
+            // Phone validation (Colombian format)
+            const phoneRegex = /^[3][0-9]{9}$/;
+            if (!phoneRegex.test(formData.phone)) {
+                alert('Por favor ingresa un número de celular válido (10 dígitos, comenzando con 3).');
+                return;
+            }
+            
+            // Show success message
+            const submitButton = document.querySelector('.submit-button');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = '¡PROCESANDO TU PEDIDO...';
+            submitButton.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('¡Gracias por tu pedido! Nos comunicaremos contigo en las próximas horas para confirmar los detalles de entrega. Recuerda que pagarás solo cuando recibas el producto.');
+                
+                // Reset form
+                this.reset();
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                
+                // Scroll to top
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 2000);
+        });
+        
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+        
+        // Add urgency timer
+        function createUrgencyTimer() {
+            const timerElement = document.createElement('div');
+            timerElement.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--vibrant-orange);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-weight: bold;
+                z-index: 1000;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                animation: pulse 2s infinite;
+            `;
+            
+            let timeLeft = 900; // 15 minutes in seconds
+            
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.innerHTML = `â OFERTA EXPIRA EN: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    timerElement.innerHTML = 'â OFERTA EXPIRADA';
+                    clearInterval(timerInterval);
+                }
+                
+                timeLeft--;
+            }
+            
+            updateTimer();
+            const timerInterval = setInterval(updateTimer, 1000);
+            
+            document.body.appendChild(timerElement);
+        }
+        
+        // Start urgency timer when page loads
+        window.addEventListener('load', createUrgencyTimer);
+    </script>
+</body>
+</html>
