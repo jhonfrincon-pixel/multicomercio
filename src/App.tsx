@@ -9,6 +9,7 @@ import { Checkout } from '@/sections/Checkout';
 import { CheckoutColombia } from '@/sections/CheckoutColombia';
 import { Footer } from '@/sections/Footer';
 import { TrustSection } from '@/sections/TrustSection';
+import { SobreNosotros } from '@/pages/SobreNosotros';
 import { AIChatbot } from '@/components/AIChatbot';
 import { Newsletter } from '@/components/Newsletter';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
@@ -46,8 +47,8 @@ function App() {
       // Metadatos
       document.title = `${brandData.name} - ${brandData.slogan}`;
       const favicon = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
-      if (favicon && brandData.favicon_url) {
-        favicon.href = brandData.favicon_url;
+      if (favicon) {
+        favicon.href = brandData.favicon_url || '/favicon.ico';
       }
 
       // Inyección de variables CSS para branding dinámico
@@ -115,6 +116,9 @@ function App() {
           </div>
         );
 
+      case 'sobre-nosotros' as View:
+        return <SobreNosotros />;
+
       case 'cart':
         return <Cart />;
 
@@ -142,7 +146,7 @@ function App() {
     <div className="min-h-screen bg-white">
       <Header />
       <main>{renderContent()}</main>
-      {currentView === 'home' && <Footer />}
+      {((currentView as string) === 'home' || (currentView as string) === 'sobre-nosotros') && <Footer />}
       <WhatsAppButton />
       <AIChatbot />
       <Toaster position="bottom-right" richColors />

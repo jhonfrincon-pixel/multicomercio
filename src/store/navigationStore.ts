@@ -7,6 +7,7 @@ interface NavigationState {
   setView: (view: View) => void;
   setSelectedProduct: (productId: string | null) => void;
   goToHome: () => void;
+  goToSobreNosotros: () => void;
   goToProduct: (productId: string) => void;
   goToCart: () => void;
   goToCheckout: () => void;
@@ -22,6 +23,9 @@ export const useNavigationStore = create<NavigationState>((set) => ({
   setSelectedProduct: (productId) => set({ selectedProductId: productId }),
 
   goToHome: () => set({ currentView: 'home', selectedProductId: null }),
+
+  goToSobreNosotros: () =>
+    set({ currentView: 'sobre-nosotros' as View, selectedProductId: null }),
 
   goToProduct: (productId) =>
     set({ currentView: 'product', selectedProductId: productId }),

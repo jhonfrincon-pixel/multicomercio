@@ -1,31 +1,52 @@
+import { useMemo } from 'react';
 import { ArrowLeft, Users, Target, Award, Rocket, Heart, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigationStore } from '@/store/navigationStore';
 import { motion } from 'framer-motion';
 
+const VALUES = [
+  {
+    icon: <Award className="w-8 h-8 text-blue-600" />,
+    title: "Calidad Premium",
+    description: "Seleccionamos minuciosamente cada producto para asegurar que supere tus expectativas de durabilidad y diseño."
+  },
+  {
+    icon: <ShieldCheck className="w-8 h-8 text-blue-600" />,
+    title: "Confianza Total",
+    description: "Nuestra garantía de 30 días y sistema de pago contra entrega protegen tu inversión en cada compra."
+  },
+  {
+    icon: <Rocket className="w-8 h-8 text-blue-600" />,
+    title: "Innovación Constante",
+    description: "Buscamos soluciones inteligentes que simplifiquen tu día a día y mejoren tu bienestar."
+  }
+];
+
 export function SobreNosotros() {
   const { goToHome } = useNavigationStore();
 
-  const values = [
-    {
-      icon: <Award className="w-8 h-8 text-blue-600" />,
-      title: "Calidad Premium",
-      description: "Seleccionamos minuciosamente cada producto para asegurar que supere tus expectativas de durabilidad y diseño."
+  // Datos estructurados para Google (Organization Schema)
+  const jsonLd = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Livo Colombia",
+    "url": "https://holalivo.netlify.app/",
+    "logo": "https://holalivo.netlify.app/logo.png",
+    "description": "Expertos en soluciones inteligentes para el hogar en Colombia. Calidad, diseño y confort garantizados.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bogotá",
+      "addressCountry": "CO"
     },
-    {
-      icon: <ShieldCheck className="w-8 h-8 text-blue-600" />,
-      title: "Confianza Total",
-      description: "Nuestra garantía de 30 días y sistema de pago contra entrega protegen tu inversión en cada compra."
-    },
-    {
-      icon: <Rocket className="w-8 h-8 text-blue-600" />,
-      title: "Innovación Constante",
-      description: "Buscamos soluciones inteligentes que simplifiquen tu día a día y mejoren tu bienestar."
-    }
-  ];
+    "sameAs": [
+      "https://facebook.com/livo",
+      "https://instagram.com/livo"
+    ]
+  }), []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">      
+
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
         <div className="container mx-auto px-4 text-center">
@@ -58,16 +79,16 @@ export function SobreNosotros() {
                 <Users className="text-blue-600" /> Nuestra Historia
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Livo nació en Colombia con un propósito claro: democratizar el acceso a productos inteligentes y de alta calidad para el hogar. Entendemos que tu casa es tu refugio, y por eso nos esforzamos en ofrecer soluciones que combinan tecnología avanzada con la simplicidad que tu vida requiere.
+                <strong>Livo</strong> nació en Colombia con un propósito claro: democratizar el acceso a <strong>productos inteligentes y de alta calidad para el hogar</strong>. Entendemos que tu casa es tu refugio, y por eso nos esforzamos en ofrecer soluciones que combinan tecnología avanzada con la simplicidad que tu vida requiere en el día a día.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Desde nuestros inicios, hemos servido a miles de colombianos, llevando bienestar directamente a su puerta con la confianza de nuestro sistema de pago contra entrega.
+                Desde nuestros inicios en el mercado de <strong>E-commerce en Colombia</strong>, hemos servido a miles de colombianos, llevando bienestar directamente a su puerta con la confianza de nuestro sistema de <strong>pago contra entrega</strong> y envíos nacionales garantizados.
               </p>
             </div>
             <div className="bg-gray-100 rounded-2xl aspect-video overflow-hidden shadow-inner">
               <img 
                 src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" 
-                alt="Livo Interior Design" 
+                alt="Diseño de interiores moderno con productos Livo en Colombia" 
                 className="w-full h-full object-cover"
               />
             </div>
@@ -98,7 +119,7 @@ export function SobreNosotros() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-16">Lo que nos define</h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {values.map((value, index) => (
+            {VALUES.map((value, index) => (
               <div key={index} className="text-center p-6 space-y-4">
                 <div className="bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
                   {value.icon}
