@@ -419,7 +419,7 @@ export function CheckoutColombia({}: CheckoutColombiaProps) {
                   type="submit"
                   size="lg"
                   disabled={isSubmitting}
-                  className="w-full bg-orange-600 hover:bg-orange-700 text-white text-lg py-4 rounded-xl transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-4 rounded-xl transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center justify-center">
@@ -476,17 +476,17 @@ export function CheckoutColombia({}: CheckoutColombiaProps) {
               <div className="border-t pt-3">
                 <div className="flex justify-between text-xl font-bold text-gray-800">
                   <span>Total a pagar</span>
-                  <span className="text-orange-600">{formatPrice(totalPrice)}</span>
+                  <span className="text-blue-600">{formatPrice(totalPrice)}</span>
                 </div>
               </div>
             </div>
             
-            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-              <div className="flex items-center gap-2 text-orange-700 font-medium">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="flex items-center gap-2 text-blue-700 font-medium">
                 <AlertCircle className="w-5 h-5" />
                 <span className="text-sm">PAGO CONTRAENTREGA</span>
               </div>
-              <p className="text-sm text-orange-600 mt-2">
+              <p className="text-sm text-blue-600 mt-2">
                 Pagarás en efectivo solo cuando recibas tu pedido en la puerta de tu casa.
               </p>
             </div>

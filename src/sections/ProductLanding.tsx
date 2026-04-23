@@ -151,7 +151,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
         <div className="container mx-auto px-4 py-4">
           <button
             onClick={goToHome}
-            className="flex items-center gap-2 text-stone-600 hover:text-amber-700 transition-colors"
+            className="flex items-center gap-2 text-stone-600 hover:text-blue-700 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm">Volver al catálogo</span>
@@ -204,7 +204,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
 
                 {/* Badge */}
                 {product.badge && (
-                  <Badge className="absolute top-4 left-4 bg-amber-600 text-white border-0 text-sm px-3 py-1">
+                  <Badge className="absolute top-4 left-4 bg-blue-600 text-white border-0 text-sm px-3 py-1">
                     {product.badge}
                   </Badge>
                 )}
@@ -218,7 +218,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
                     onClick={() => setSelectedImage(index)}
                     className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
                       selectedImage === index
-                        ? 'border-amber-600 ring-2 ring-amber-600/20'
+                        ? 'border-blue-600 ring-2 ring-blue-600/20'
                         : 'border-transparent hover:border-stone-300'
                     }`}
                   >
@@ -236,7 +236,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
             <div className="space-y-6">
               {/* Category & Rating */}
               <div className="flex items-center gap-4">
-                <span className="text-sm font-medium text-amber-600 uppercase tracking-wider">
+                <span className="text-sm font-medium text-blue-600 uppercase tracking-wider">
                   {product.category}
                 </span>
                 <div className="flex items-center gap-2">
@@ -246,7 +246,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
                         key={i}
                         className={`w-4 h-4 ${
                           i < Math.floor(product.rating)
-                            ? 'fill-amber-400 text-amber-400'
+                            ? 'fill-blue-400 text-blue-400'
                             : 'text-stone-300'
                         }`}
                       />
@@ -265,7 +265,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
 
               {/* Price */}
               <div className="flex items-center gap-4">
-                <span className="text-4xl font-bold text-amber-700">
+                <span className="text-4xl font-bold text-blue-700">
                   ${product.price.toFixed(2)}
                 </span>
                 {product.originalPrice && (
@@ -296,7 +296,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
               <div className="space-y-2 pt-4 border-t border-stone-100">
                 {product.features.slice(0, 4).map((feature, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
                     <span className="text-stone-700">{feature}</span>
                   </div>
                 ))}
@@ -326,7 +326,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
                 {/* Add to Cart Button */}
                 <Button
                   size="lg"
-                  className="flex-1 bg-amber-600 hover:bg-amber-700 text-white text-lg py-6 rounded-xl"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 rounded-xl"
                   onClick={handleAddToCart}
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
@@ -364,15 +364,15 @@ export function ProductLanding({ product }: ProductLandingProps) {
               {/* Trust Badges */}
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-stone-200">
                 <div className="flex flex-col items-center text-center gap-2">
-                  <Truck className="w-6 h-6 text-amber-600" />
+                  <Truck className="w-6 h-6 text-blue-600" />
                   <span className="text-xs text-stone-600">Envío Gratis +$500</span>
                 </div>
                 <div className="flex flex-col items-center text-center gap-2">
-                  <Shield className="w-6 h-6 text-amber-600" />
+                  <Shield className="w-6 h-6 text-blue-600" />
                   <span className="text-xs text-stone-600">Garantía Incluida</span>
                 </div>
                 <div className="flex flex-col items-center text-center gap-2">
-                  <RotateCcw className="w-6 h-6 text-amber-600" />
+                  <RotateCcw className="w-6 h-6 text-blue-600" />
                   <span className="text-xs text-stone-600">30 Días Devolución</span>
                 </div>
               </div>
@@ -408,8 +408,8 @@ export function ProductLanding({ product }: ProductLandingProps) {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-lg transition-shadow"
                 >
-                  <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Icon className="w-8 h-8 text-amber-600" />
+                  <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Icon className="w-8 h-8 text-blue-600" />
                   </div>
                   <h3 className="text-xl font-semibold text-stone-800 mb-3">
                     {benefit.title}
@@ -449,7 +449,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
                     key={index}
                     className="flex items-start gap-3 p-4 bg-stone-50 rounded-xl"
                   >
-                    <CheckCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                     <span className="text-stone-700">{feature}</span>
                   </div>
                 ))}
@@ -494,7 +494,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
                       key={i}
                       className={`w-6 h-6 ${
                         i < Math.floor(product.rating)
-                          ? 'fill-amber-400 text-amber-400'
+                          ? 'fill-blue-400 text-blue-400'
                           : 'text-stone-300'
                       }`}
                     />
@@ -537,7 +537,7 @@ export function ProductLanding({ product }: ProductLandingProps) {
                                 key={i}
                                 className={`w-4 h-4 ${
                                   i < review.rating
-                                    ? 'fill-amber-400 text-amber-400'
+                                    ? 'fill-blue-400 text-blue-400'
                                     : 'text-stone-300'
                                 }`}
                               />
@@ -577,18 +577,18 @@ export function ProductLanding({ product }: ProductLandingProps) {
       <RelatedProducts currentProduct={product} />
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-amber-600 to-amber-800">
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-blue-800">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             ¿Listo para transformar tu hogar?
           </h2>
-          <p className="text-amber-100 text-lg max-w-2xl mx-auto mb-8">
+          <p className="text-blue-100 text-lg max-w-2xl mx-auto mb-8">
             Agrega {product.name} a tu carrito y disfruta de envío gratis en compras mayores a $500.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-white text-amber-700 hover:bg-amber-50 text-lg px-8 py-6 rounded-xl"
+              className="bg-white text-blue-700 hover:bg-blue-50 text-lg px-8 py-6 rounded-xl"
               onClick={handleAddToCart}
             >
               <ShoppingCart className="w-5 h-5 mr-2" />

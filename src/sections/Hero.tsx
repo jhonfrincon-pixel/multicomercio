@@ -77,7 +77,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="border-blue-600 text-gray-800 bg-white hover:bg-blue-50 px-8 py-6 text-lg rounded-xl font-sans font-semibold shadow-md hover:shadow-lg"
+              className="border-blue-600 text-[#1F2937] bg-white hover:bg-blue-50 px-8 py-6 text-lg rounded-xl font-sans font-semibold shadow-md hover:shadow-lg"
             >
               Pagar al Recibir
             </Button>
