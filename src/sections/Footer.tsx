@@ -114,22 +114,22 @@ export function Footer() {
 
           {/* Customer Service */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-6">Atención al Cliente</h3>
+            <h3 className="text-white font-semibold text-lg mb-6 font-heading">Atención al Cliente</h3>
             <ul className="space-y-3">
               <li>
-                <a href={getLink('mi_cuenta')} className="hover:text-amber-500 transition-colors">
+                <a href={getLink('mi_cuenta')} className="hover:text-blue-400 transition-colors font-sans">
                   Mi Cuenta
                 </a>
               </li>
               <li>
-                <a href={getLink('seguimiento_pedidos')} className="hover:text-amber-500 transition-colors">
+                <a href={getLink('seguimiento_pedidos')} className="hover:text-blue-400 transition-colors font-sans">
                   Seguimiento de Pedidos
                 </a>
               </li>
               <li>
                 <button 
                   onClick={() => handlePolicyClick('politica_devoluciones', 'Política de Devoluciones')}
-                  className="text-left hover:text-amber-500 transition-colors"
+                  className="text-left hover:text-blue-400 transition-colors font-sans"
                 >
                   Política de Devoluciones
                 </button>
@@ -137,7 +137,7 @@ export function Footer() {
               <li>
                 <button 
                   onClick={() => handlePolicyClick('terminos_condiciones', 'Términos y Condiciones')}
-                  className="text-left hover:text-amber-500 transition-colors"
+                  className="text-left hover:text-blue-400 transition-colors font-sans"
                 >
                   Términos y Condiciones
                 </button>
@@ -145,9 +145,33 @@ export function Footer() {
               <li>
                 <button 
                   onClick={() => handlePolicyClick('politica_privacidad', 'Política de Privacidad')}
-                  className="text-left hover:text-amber-500 transition-colors"
+                  className="text-left hover:text-blue-400 transition-colors font-sans"
                 >
                   Política de Privacidad
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handlePolicyClick('politica_calidad', 'Política de Calidad')}
+                  className="text-left hover:text-blue-400 transition-colors font-sans"
+                >
+                  Política de Calidad
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handlePolicyClick('politica_garantias', 'Política de Garantías')}
+                  className="text-left hover:text-blue-400 transition-colors font-sans"
+                >
+                  Garantía de 30 Días
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handlePolicyClick('proteccion_datos', 'Protección de Datos')}
+                  className="text-left hover:text-blue-400 transition-colors font-sans"
+                >
+                  Tratamiento de Datos Personales
                 </button>
               </li>
             </ul>

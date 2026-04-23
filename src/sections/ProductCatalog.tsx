@@ -51,14 +51,14 @@ export function ProductCatalog() {
   };
 
   return (
-    <section id="products-section" className="py-20 bg-stone-50">
+    <section id="products-section" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-stone-800 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-heading">
             Nuestros Productos
           </h2>
-          <p className="text-stone-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto font-sans">
             Explora nuestra colección de productos cuidadosamente seleccionados 
             para transformar cada espacio de tu hogar.
           </p>
@@ -72,10 +72,10 @@ export function ProductCatalog() {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-all ${
+                className={`flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-all font-sans ${
                   selectedCategory === category.id
-                    ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/25'
-                    : 'bg-white text-stone-600 hover:bg-amber-50 hover:text-amber-700 border border-stone-200'
+                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
+                    : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-700 border border-gray-200'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -101,11 +101,11 @@ export function ProductCatalog() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 cursor-pointer"
+                className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer"
                 onClick={() => goToProduct(product.id)}
               >
                 {/* Image Container */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+                <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                   <img
                     src={product.images[0]}
                     alt={product.name}
@@ -114,7 +114,7 @@ export function ProductCatalog() {
                   
                   {/* Badge */}
                   {product.badge && (
-                    <Badge className="absolute top-4 left-4 bg-amber-600 text-white border-0">
+                    <Badge className="absolute top-4 left-4 bg-blue-600 text-white border-0">
                       {product.badge}
                     </Badge>
                   )}
@@ -125,7 +125,7 @@ export function ProductCatalog() {
                     className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all ${
                       isInWishlist(product.id)
                         ? 'bg-red-500 text-white'
-                        : 'bg-white/90 text-stone-600 hover:bg-white hover:text-red-500'
+                        : 'bg-white/90 text-gray-600 hover:bg-white hover:text-red-500'
                     }`}
                   >
                     <Heart className={`w-5 h-5 ${isInWishlist(product.id) ? 'fill-current' : ''}`} />
@@ -136,7 +136,7 @@ export function ProductCatalog() {
                     <Button
                       size="sm"
                       variant="secondary"
-                      className="bg-white text-stone-800 hover:bg-amber-50"
+                      className="bg-white text-gray-800 hover:bg-blue-50"
                       onClick={(e) => {
                         e.stopPropagation();
                         goToProduct(product.id);
@@ -151,34 +151,34 @@ export function ProductCatalog() {
                 {/* Content */}
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-2">
-                    <span className="text-xs font-medium text-amber-600 uppercase tracking-wider">
+                    <span className="text-xs font-medium text-blue-600 uppercase tracking-wider font-sans">
                       {product.category}
                     </span>
                     <SocialProofBadge productId={product.id} />
                   </div>
 
                   <div className="flex items-center gap-1 mb-2">
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <span className="text-sm text-stone-600">
+                    <Star className="w-4 h-4 fill-blue-400 text-blue-400" />
+                    <span className="text-sm text-gray-600 font-sans">
                       {product.rating} ({product.reviewCount})
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-semibold text-stone-800 mb-2 group-hover:text-amber-700 transition-colors line-clamp-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors line-clamp-1 font-heading">
                     {product.name}
                   </h3>
 
-                  <p className="text-sm text-stone-500 line-clamp-2 mb-4">
+                  <p className="text-sm text-gray-500 line-clamp-2 mb-4 font-sans">
                     {product.shortDescription}
                   </p>
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="text-xl font-bold text-stone-800">
+                      <span className="text-xl font-bold text-gray-900 font-heading">
                         ${product.price.toFixed(2)}
                       </span>
                       {product.originalPrice && (
-                        <span className="text-sm text-stone-400 line-through">
+                        <span className="text-sm text-gray-400 line-through font-sans">
                           ${product.originalPrice.toFixed(2)}
                         </span>
                       )}
@@ -186,7 +186,7 @@ export function ProductCatalog() {
 
                     <Button
                       size="sm"
-                      className="bg-amber-600 hover:bg-amber-700 text-white"
+                      className="bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-sans font-semibold"
                       onClick={(e) => handleAddToCart(product, e)}
                     >
                       <ShoppingCart className="w-4 h-4 mr-2" />

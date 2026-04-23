@@ -11,7 +11,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full min-h-[600px] lg:min-h-[700px] overflow-hidden">
+    <section className="relative w-full min-h-[600px] lg:min-h-[700px] overflow-hidden bg-gray-50">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -19,7 +19,7 @@ export function Hero() {
           alt="Livo"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-900/80 via-stone-900/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/70 to-transparent" />
       </div>
 
       {/* Content */}
@@ -30,9 +30,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 bg-green-500/20 backdrop-blur-sm border border-green-400/30 rounded-full px-4 py-2 mb-6">
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              <span className="text-green-100 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl px-4 py-2 mb-6">
+              <CheckCircle className="w-4 h-4 text-white" />
+              <span className="text-white text-sm font-medium font-heading">
                 Envíos a toda Colombia • Pago contra entrega
               </span>
             </div>
@@ -42,10 +42,10 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 font-heading"
           >
             Productos que{' '}
-            <span className="bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
               mejoran tu vida
             </span>
           </motion.h1>
@@ -54,7 +54,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-stone-200 mb-8 leading-relaxed"
+            className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed font-sans"
           >
             Los productos que necesitas, entregados directamente en la puerta de tu casa. 
             Calidad garantizada y la confianza que mereces.
@@ -69,7 +69,7 @@ export function Hero() {
             <Button
               size="lg"
               onClick={scrollToProducts}
-              className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg rounded-xl group"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl font-sans font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
             >
               Comprar Ahora
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -77,7 +77,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl"
+              className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl font-sans font-semibold backdrop-blur-sm"
             >
               Pagar al Recibir
             </Button>
@@ -91,16 +91,16 @@ export function Hero() {
             className="flex flex-wrap gap-6 mt-12"
           >
             <div className="flex items-center gap-2 text-white/80">
-              <Truck className="w-5 h-5 text-green-400" />
-              <span className="text-sm">Envíos 3-7 días hábiles</span>
+              <Truck className="w-5 h-5 text-blue-400" />
+              <span className="text-sm font-sans">Envíos 3-7 días hábiles</span>
             </div>
             <div className="flex items-center gap-2 text-white/80">
-              <Shield className="w-5 h-5 text-green-400" />
-              <span className="text-sm">Pago Contra Entrega</span>
+              <Shield className="w-5 h-5 text-blue-400" />
+              <span className="text-sm font-sans">Pago Contra Entrega</span>
             </div>
             <div className="flex items-center gap-2 text-white/80">
-              <RotateCcw className="w-5 h-5 text-green-400" />
-              <span className="text-sm">Garantía 30 Días</span>
+              <RotateCcw className="w-5 h-5 text-blue-400" />
+              <span className="text-sm font-sans">Garantía 30 Días</span>
             </div>
           </motion.div>
         </div>

@@ -51,14 +51,14 @@ export function TrustSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-heading">
             ¿Por qué confiar en{' '}
-            <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <span className="text-blue-600">
               Livo
             </span>
             ?
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-sans">
             No solo vendemos productos, construimos confianza. Cada compra está respaldada 
             por nuestro compromiso con la calidad y tu satisfacción.
           </p>
@@ -72,19 +72,19 @@ export function TrustSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+              className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-4">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3 font-heading">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">
+                <p className="text-gray-600 mb-4 leading-relaxed font-sans">
                   {item.description}
                 </p>
-                <div className="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                <div className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium font-sans">
                   {item.highlight}
                 </div>
               </div>
@@ -97,24 +97,24 @@ export function TrustSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white"
+          className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-xl p-8 text-white"
         >
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">10,000+</div>
-              <div className="text-green-100">Clientes Felices</div>
+              <div className="text-3xl md:text-4xl font-bold mb-2 font-heading">10,000+</div>
+              <div className="text-blue-100 font-sans">Clientes Felices</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">4.9/5</div>
-              <div className="text-green-100">Calificación Promedio</div>
+              <div className="text-3xl md:text-4xl font-bold mb-2 font-heading">4.9/5</div>
+              <div className="text-blue-100 font-sans">Calificación Promedio</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">98%</div>
-              <div className="text-green-100">Satisfacción Garantizada</div>
+              <div className="text-3xl md:text-4xl font-bold mb-2 font-heading">98%</div>
+              <div className="text-blue-100 font-sans">Satisfacción Garantizada</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">24/7</div>
-              <div className="text-green-100">Soporte Continuo</div>
+              <div className="text-3xl md:text-4xl font-bold mb-2 font-heading">24/7</div>
+              <div className="text-blue-100 font-sans">Soporte Continuo</div>
             </div>
           </div>
         </motion.div>
