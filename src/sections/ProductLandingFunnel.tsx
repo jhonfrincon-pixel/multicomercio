@@ -13,14 +13,12 @@ import {
   Check,
   Shield,
   Truck,
-  RotateCcw,
   Timer,
   Users,
   TrendingUp,
   Zap,
   Crown,
   X,
-  ChevronRight,
 } from 'lucide-react';
 
 interface ProductLandingFunnelProps {
@@ -28,8 +26,7 @@ interface ProductLandingFunnelProps {
 }
 
 export function ProductLandingFunnel({ product }: ProductLandingFunnelProps) {
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity] = useState(1);
   const [orderBump, setOrderBump] = useState(true);
   const [showUpsell, setShowUpsell] = useState(false);
   const [upsellTimer, setUpsellTimer] = useState(300); // 5 minutes

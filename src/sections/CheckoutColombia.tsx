@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useCartStore } from '@/store/cartStore';
 import { useNavigationStore } from '@/store/navigationStore';
 import { Button } from '@/components/ui/button';
