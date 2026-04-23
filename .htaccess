@@ -36,12 +36,4 @@ FileETag none
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# URL rewriting for clean URLs
-RewriteEngine On
-
-# Redirect to corrector page
-RewriteRule ^corrector/?$ corrector.html [L]
-RewriteRule ^home/?$ home.html [L]
-
-# Redirect root to home
-RewriteRule ^$ home.html [L]
+# Basic server configuration for React SPA
