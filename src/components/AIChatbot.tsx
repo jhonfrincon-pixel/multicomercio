@@ -192,7 +192,7 @@ export function AIChatbot() {
             className="fixed bottom-6 right-6 z-50 w-[380px] h-[550px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-stone-200"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-amber-600 to-amber-700 p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#1e3a8a] to-[#1e3a8a]/80 p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                   <Bot className="w-5 h-5 text-white" />
@@ -201,7 +201,7 @@ export function AIChatbot() {
                   <h3 className="font-semibold text-white">Asistente IA</h3>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-xs text-amber-100">En línea</span>
+                    <span className="text-xs text-blue-100">En línea</span>
                   </div>
                 </div>
               </div>
@@ -228,7 +228,7 @@ export function AIChatbot() {
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                         message.role === 'user'
-                          ? 'bg-amber-600'
+                          ? 'bg-[#1e3a8a]'
                           : 'bg-stone-100'
                       }`}
                     >
@@ -241,7 +241,7 @@ export function AIChatbot() {
                     <div
                       className={`max-w-[75%] p-3 rounded-2xl text-sm leading-relaxed ${
                         message.role === 'user'
-                          ? 'bg-amber-600 text-white rounded-br-md'
+                          ? 'bg-[#1e3a8a] text-white rounded-br-md'
                           : 'bg-stone-100 text-stone-700 rounded-bl-md'
                       }`}
                     >
@@ -280,12 +280,12 @@ export function AIChatbot() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Escribe tu mensaje..."
-                  className="flex-1 rounded-full border-stone-300 focus:border-amber-500 focus:ring-amber-500"
+                  className="flex-1 rounded-full border-stone-300 focus:border-[#1e3a8a] focus:ring-[#1e3a8a]"
                 />
                 <Button
                   onClick={handleSend}
                   disabled={!input.trim() || isTyping}
-                  className="w-10 h-10 p-0 rounded-full bg-amber-600 hover:bg-amber-700 disabled:opacity-50"
+                  className="w-10 h-10 p-0 rounded-full bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 disabled:opacity-50"
                 >
                   <Send className="w-4 h-4" />
                 </Button>

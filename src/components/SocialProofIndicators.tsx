@@ -90,8 +90,8 @@ export function SocialProofIndicators({ productId, stock = 15, isOnSale = false 
   // Determine stock level indicator
   const getStockLevel = () => {
     if (stock <= 3) return { level: 'critical', color: 'text-red-600', bgColor: 'bg-red-50', borderColor: 'border-red-200' };
-    if (stock <= 8) return { level: 'low', color: 'text-orange-600', bgColor: 'bg-orange-50', borderColor: 'border-orange-200' };
-    return { level: 'normal', color: 'text-green-600', bgColor: 'bg-green-50', borderColor: 'border-green-200' };
+    if (stock <= 8) return { level: 'low', color: 'text-amber-700', bgColor: 'bg-amber-50', borderColor: 'border-amber-200' };
+    return { level: 'normal', color: 'text-[#1e3a8a]', bgColor: 'bg-blue-50', borderColor: 'border-blue-100' };
   };
 
   const stockInfo = getStockLevel();
@@ -108,7 +108,7 @@ export function SocialProofIndicators({ productId, stock = 15, isOnSale = false 
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
           <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
         </span>
-        <Eye className="w-4 h-4 text-stone-500" />
+        <Eye className="w-4 h-4 text-[#1e3a8a]" />
         <span className="text-stone-600">
           <strong className="text-stone-800">{viewers}</strong> personas viendo este producto
         </span>
@@ -133,9 +133,9 @@ export function SocialProofIndicators({ productId, stock = 15, isOnSale = false 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="flex items-center gap-2 p-3 rounded-xl bg-gradient-to-r from-red-50 to-orange-50 border border-red-200"
+          className="flex items-center gap-2 p-3 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200"
         >
-          <Flame className="w-4 h-4 text-red-500" />
+          <Flame className="w-4 h-4 text-amber-600" />
           <span className="text-sm text-red-700">
             Oferta termina en:{' '}
             <strong className="font-mono">
@@ -154,10 +154,10 @@ export function SocialProofIndicators({ productId, stock = 15, isOnSale = false 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="flex items-center gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200"
+            className="flex items-center gap-2 p-3 rounded-xl bg-blue-50 border border-[#1e3a8a]/20"
           >
-            <ShoppingCart className="w-4 h-4 text-amber-600" />
-            <span className="text-sm text-amber-700">
+            <ShoppingCart className="w-4 h-4 text-[#1e3a8a]" />
+            <span className="text-sm text-[#1e3a8a] font-medium">
               ¡Alguien acaba de comprar este producto!
             </span>
           </motion.div>
@@ -166,7 +166,7 @@ export function SocialProofIndicators({ productId, stock = 15, isOnSale = false 
 
       {/* Total Sold */}
       <div className="flex items-center gap-2 text-sm text-stone-500">
-        <Users className="w-4 h-4" />
+        <Users className="w-4 h-4 text-[#1e3a8a]" />
         <span>
           <strong className="text-stone-700">{50 + recentPurchases}</strong> vendidos en los últimos 30 días
         </span>

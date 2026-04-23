@@ -3,9 +3,10 @@ import { products } from '@/data/products';
 import type { Product } from '@/types';
 import { useNavigationStore } from '@/store/navigationStore';
 import { useCartStore } from '@/store/cartStore';
+import { useWishlistStore } from '@/store/wishlistStore';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Eye, Star } from 'lucide-react';
+import { ShoppingCart, Eye, Star, Heart } from 'lucide-react';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 
@@ -22,6 +23,7 @@ export function RelatedProducts({
 }: RelatedProductsProps) {
   const { goToProduct } = useNavigationStore();
   const addToCart = useCartStore((state) => state.addToCart);
+  const { items: wishlistItems, toggleWishlist } = useWishlistStore();
 
   const relatedProducts = useMemo(() => {
     // Score products based on similarity
@@ -63,6 +65,13 @@ export function RelatedProducts({
     toast.success(`${product.name} agregado al carrito`);
   };
 
+  const handleToggleWishlist = (product: Product, e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleWishlist(product);
+    const isAdded = !wishlistItems.some(i => i.id === product.id);
+    toast.success(isAdded ? 'Agregado a favoritos' : 'Eliminado de favoritos');
+  };
+
   if (relatedProducts.length === 0) return null;
 
   return (
@@ -91,7 +100,7 @@ export function RelatedProducts({
               {/* Image */}
               <div className="relative aspect-square overflow-hidden bg-stone-100">
                 <img
-                  src={product.images[0]}
+                  src={product.images[0] || '/placeholder-image.png'}
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -101,6 +110,19 @@ export function RelatedProducts({
                     {product.badge}
                   </Badge>
                 )}
+
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={`absolute top-3 right-3 rounded-full shadow-sm z-10 transition-colors ${
+                    wishlistItems.some(i => i.id === product.id) 
+                      ? 'bg-red-50 text-red-500 hover:bg-red-100' 
+                      : 'bg-white/80 text-stone-600 hover:bg-white'
+                  }`}
+                  onClick={(e) => handleToggleWishlist(product, e)}
+                >
+                  <Heart className={`w-4 h-4 ${wishlistItems.some(i => i.id === product.id) ? 'fill-current' : ''}`} />
+                </Button>
 
                 {/* Quick Actions */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
@@ -149,8 +171,8 @@ export function RelatedProducts({
                   </div>
 
                   <Button
-                    size="sm"
-                    className="bg-amber-600 hover:bg-amber-700 text-white h-8 w-8 p-0"
+                    size="sm" // Botón "Comprar Ahora"
+                    className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white h-8 w-8 p-0"
                     onClick={(e) => handleAddToCart(product, e)}
                   >
                     <ShoppingCart className="w-3.5 h-3.5" />
@@ -207,7 +229,7 @@ export function FrequentlyBoughtTogether({
           {/* Current Product */}
           <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-xl">
             <img
-              src={currentProduct.images[0]}
+              src={currentProduct.images[0] || '/placeholder-image.png'}
               alt={currentProduct.name}
               className="w-16 h-16 object-cover rounded-lg"
             />
@@ -234,7 +256,7 @@ export function FrequentlyBoughtTogether({
                 onClick={() => goToProduct(product.id)}
               >
                 <img
-                  src={product.images[0]}
+                  src={product.images[0] || '/placeholder-image.png'}
                   alt={product.name}
                   className="w-16 h-16 object-cover rounded-lg"
                 />
@@ -277,7 +299,7 @@ export function FrequentlyBoughtTogether({
             </p>
             <Button
               size="sm"
-              className="w-full mt-3 bg-amber-600 hover:bg-amber-700 text-white"
+              className="w-full mt-3 bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white"
               onClick={handleAddBundle}
             >
               <ShoppingCart className="w-4 h-4 mr-2" />

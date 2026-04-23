@@ -114,7 +114,7 @@ export function SearchBar({ isOpen, onClose }: SearchBarProps) {
                         className="w-full flex items-center gap-4 p-3 hover:bg-stone-50 rounded-xl transition-colors text-left"
                       >
                         <img
-                          src={product.images[0]}
+                          src={product.images.length > 0 ? product.images[0] : '/placeholder-image.png'} // Fallback si no hay imagen
                           alt={product.name}
                           className="w-16 h-16 object-cover rounded-lg"
                         />

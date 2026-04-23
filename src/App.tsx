@@ -12,9 +12,10 @@ import { TrustSection } from '@/sections/TrustSection';
 import { SobreNosotros } from '@/pages/SobreNosotros';
 import { AIChatbot } from '@/components/AIChatbot';
 import { Newsletter } from '@/components/Newsletter';
-import { WhatsAppButton } from '@/components/WhatsAppButton';
+import { FloatingContactGroup } from '@/components/FloatingContactGroup'; // Usamos el componente agrupado de contacto
 import { CRMDashboard } from '@/crm/CRMDashboard';
 import { CRMAccessGate } from '@/crm/CRMAccessGate';
+import { SEO } from '@/components/SEO';
 import { useNavigationStore } from '@/store/navigationStore';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
 import { useBrandStore } from '@/store/brandStore';
@@ -45,7 +46,6 @@ function App() {
   useEffect(() => {
     if (brandData) {
       // Metadatos
-      document.title = `${brandData.name} - ${brandData.slogan}`;
       const favicon = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
       if (favicon) {
         favicon.href = brandData.favicon_url || '/favicon.ico';
@@ -74,7 +74,7 @@ function App() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-        <div className="w-12 h-12 border-4 border-stone-100 border-t-amber-600 rounded-full animate-spin mb-4" />
+        <div className="w-12 h-12 border-4 border-stone-100 border-t-[#1e3a8a] rounded-full animate-spin mb-4" />
         <p className="text-stone-500 font-medium animate-pulse">
           Personalizando tu experiencia...
         </p>
@@ -144,10 +144,53 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      {currentView === 'home' && (
+        <SEO title="Inicio" description={brandData?.slogan} />
+      )}
+      {currentView === 'product' && selectedProductId && (() => {
+        const product = getProductById(selectedProductId);
+        if (!product) return null;
+        return (
+          <SEO 
+            title={product.name}
+            description={product.shortDescription}
+            image={product.images[0]}
+            type="product"
+            schema={{
+              "@context": "https://schema.org/",
+              "@type": "Product",
+              "name": product.name,
+              "image": product.images,
+              "description": product.shortDescription,
+              "brand": {
+                "@type": "Brand",
+                "name": brandData?.name || "Livo"
+              },
+              "offers": {
+                "@type": "Offer",
+                "priceCurrency": "COP",
+                "price": product.price,
+                "availability": product.inStock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": product.rating,
+                "reviewCount": product.reviewCount
+              }
+            }}
+          />
+        );
+      })()}
+      {currentView === 'cart' && (
+        <SEO title="Mi Carrito" description="Gestiona los productos seleccionados en tu carrito de compras." />
+      )}
+      {currentView === 'checkout' && (
+        <SEO title="Finalizar Compra" description="Completa tu pedido de forma segura y rápida." />
+      )}
       <Header />
       <main>{renderContent()}</main>
       {((currentView as string) === 'home' || (currentView as string) === 'sobre-nosotros') && <Footer />}
-      <WhatsAppButton />
+      <FloatingContactGroup /> {/* Reemplazado WhatsAppButton por FloatingContactGroup */}
       <AIChatbot />
       <Toaster position="bottom-right" richColors />
     </div>

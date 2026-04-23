@@ -88,8 +88,20 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 128,
     inStock: 12,
-    tags: ['sillón', 'muebles', 'relax', 'masaje', 'sala'],
-    badge: 'Más Vendido'
+    tags: ['sillón', 'muebles', 'relax', 'masaje', 'sala', 'premium'],
+    badge: 'Más Vendido',
+    tripwirePrice: 1699900,
+    orderBump: {
+      name: 'Kit de Limpieza Cuero Premium',
+      price: 49900,
+      originalPrice: 89900
+    },
+    upsell: {
+      name: 'Garantía Extendida 5 Años + Mantenimiento',
+      price: 250000,
+      originalPrice: 450000,
+      discount: 45
+    }
   },
   {
     id: '2',

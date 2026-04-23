@@ -5,17 +5,27 @@ import { MessageCircle, Bot, X, MessageSquare } from 'lucide-react';
 /**
  * Props para el componente FloatingContactGroup.
  * @param isVisible Controla la visibilidad del grupo de botones.
+ * @param whatsappNumber Número de teléfono en formato internacional.
+ * @param initialMessage Mensaje predeterminado para WhatsApp.
  */
 interface FloatingContactGroupProps {
   isVisible?: boolean;
+  whatsappNumber?: string;
+  initialMessage?: string;
 }
 
 /**
  * Componente que agrupa los botones de contacto (WhatsApp y Agente IA) 
  * en un único menú flotante para evitar solapamientos en la UI.
  */
-export function FloatingContactGroup({ isVisible = true }: FloatingContactGroupProps) {
+export function FloatingContactGroup({ 
+  isVisible = true, 
+  whatsappNumber = "573001234567",
+  initialMessage = "Hola Livo, me gustaría obtener más información."
+}: FloatingContactGroupProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const encodedMessage = encodeURIComponent(initialMessage);
 
   const contactOptions = [
     {
@@ -23,13 +33,13 @@ export function FloatingContactGroup({ isVisible = true }: FloatingContactGroupP
       icon: <MessageCircle className="w-6 h-6" />,
       label: 'WhatsApp',
       color: 'bg-[#25D366]', // Color oficial de WhatsApp
-      href: 'https://wa.me/573001234567', // Reemplazar con el número real de Livo
+      href: `https://wa.me/${whatsappNumber}?text=${encodedMessage}`,
     },
     {
       id: 'ai-agent',
       icon: <Bot className="w-6 h-6" />,
       label: 'Agente IA',
-      color: 'bg-blue-600',
+      color: 'bg-[#1e3a8a]',
       action: () => {
         // Disparamos el evento personalizado que escucha AIChatbot
         window.dispatchEvent(new CustomEvent('open-livo-chat'));
@@ -113,8 +123,8 @@ export function FloatingContactGroup({ isVisible = true }: FloatingContactGroupP
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl text-white transition-all duration-300 ${
-          isOpen ? 'bg-gray-800' : 'bg-blue-600'
+        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl text-white transition-all duration-300 ${ // Main button
+          isOpen ? 'bg-gray-800' : 'bg-[#1e3a8a]'
         }`}
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
