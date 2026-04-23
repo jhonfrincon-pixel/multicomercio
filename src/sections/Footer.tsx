@@ -2,6 +2,7 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'luci
 import { useEffect, useState, useRef } from 'react'; // Importa useRef
 import { useFooterSettingsStore } from '@/store/footerSettingsStore';
 import { PolicyModal } from '@/components/PolicyModal';
+import { useNavigationStore } from '@/store/navigationStore';
 
 interface FooterProps {
   onVisibilityChange?: (isVisible: boolean) => void; // Nueva prop para comunicar la visibilidad
@@ -11,6 +12,7 @@ export function Footer({ onVisibilityChange }: FooterProps) {
   const { settings, loadSettings } = useFooterSettingsStore();
   const [selectedPolicy, setSelectedPolicy] = useState<{ title: string; content: string } | null>(null);
   const footerRef = useRef<HTMLDivElement>(null); // Cambiado a HTMLDivElement para coincidir con el <div> contenedor
+  const { goToSobreNosotros } = useNavigationStore();
 
   // Observador para detectar cuando el footer entra o sale del viewport
   useEffect(() => {
@@ -110,9 +112,12 @@ export function Footer({ onVisibilityChange }: FooterProps) {
             <h3 className="text-white font-semibold text-lg mb-6">Enlaces Rápidos</h3>
             <ul className="space-y-3">
               <li>
-                <a href={getLink('sobre_nosotros')} className="hover:text-amber-500 transition-colors">
+                <button 
+                  onClick={goToSobreNosotros}
+                  className="hover:text-amber-500 transition-colors text-left"
+                >
                   Sobre Nosotros
-                </a>
+                </button>
               </li>
               <li>
                 <a href={getLink('catalogo_productos')} className="hover:text-amber-500 transition-colors">
