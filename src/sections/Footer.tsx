@@ -1,11 +1,36 @@
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react'; // Importa useRef
 import { useFooterSettingsStore } from '@/store/footerSettingsStore';
 import { PolicyModal } from '@/components/PolicyModal';
 
-export function Footer() {
+interface FooterProps {
+  onVisibilityChange?: (isVisible: boolean) => void; // Nueva prop para comunicar la visibilidad
+}
+
+export function Footer({ onVisibilityChange }: FooterProps) {
   const { settings, loadSettings } = useFooterSettingsStore();
   const [selectedPolicy, setSelectedPolicy] = useState<{ title: string; content: string } | null>(null);
+  const footerRef = useRef<HTMLDivElement>(null); // Cambiado a HTMLDivElement para coincidir con el <div> contenedor
+
+  // Observador para detectar cuando el footer entra o sale del viewport
+  useEffect(() => {
+    if (!footerRef.current || !onVisibilityChange) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Si el footer está intersectando (visible), el grupo flotante debe ocultarse (isVisible = false)
+          onVisibilityChange(!entry.isIntersecting);
+        });
+      },
+      {
+        root: null, // El viewport
+        threshold: 0.1, // Dispara cuando el 10% del footer es visible
+      }
+    );
+    observer.observe(footerRef.current);
+    return () => observer.disconnect(); // Limpia el observador al desmontar
+  }, [onVisibilityChange]);
 
   useEffect(() => {
     loadSettings();
@@ -36,8 +61,8 @@ export function Footer() {
   const contactInfo = getContactInfo();
 
   return (
-    <>
-      <footer className="bg-stone-900 text-stone-300">
+    <div ref={footerRef}> {/* Asigna la referencia al div contenedor del footer */}
+      <footer className="bg-stone-900 text-stone-300"> 
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -233,6 +258,6 @@ export function Footer() {
         title={selectedPolicy?.title || ''}
         content={selectedPolicy?.content || ''}
       />
-    </>
+    </div>
   );
 }

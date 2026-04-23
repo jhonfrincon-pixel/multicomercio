@@ -3,10 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Bot, X, MessageSquare } from 'lucide-react';
 
 /**
+ * Props para el componente FloatingContactGroup.
+ * @param isVisible Controla la visibilidad del grupo de botones.
+ */
+interface FloatingContactGroupProps {
+  isVisible?: boolean;
+}
+
+/**
  * Componente que agrupa los botones de contacto (WhatsApp y Agente IA) 
  * en un único menú flotante para evitar solapamientos en la UI.
  */
-export function FloatingContactGroup() {
+export function FloatingContactGroup({ isVisible = true }: FloatingContactGroupProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const contactOptions = [
@@ -23,12 +31,19 @@ export function FloatingContactGroup() {
       label: 'Agente IA',
       color: 'bg-blue-600',
       action: () => {
-        // Lógica personalizada para activar el Agente IA
-        console.log('Abriendo Agente IA...');
-        // Si el agente IA es un widget externo, aquí se llamaría a su API
+        // Disparamos el evento personalizado que escucha AIChatbot
+        window.dispatchEvent(new CustomEvent('open-livo-chat'));
       },
     },
   ];
+
+  // Si el componente no es visible, asegúrate de que el menú esté cerrado
+  if (!isVisible && isOpen) {
+    setIsOpen(false);
+  }
+
+  // No renderizar el componente si no es visible
+  if (!isVisible) return null;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
@@ -48,9 +63,23 @@ export function FloatingContactGroup() {
                     href={option.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center gap-3 p-3 rounded-full shadow-lg text-white ${option.color} hover:brightness-110 transition-all group`}
+                    className={`flex items-center gap-3 p-3 rounded-full shadow-lg text-white ${option.color} hover:brightness-110 transition-all group relative`}
                     title={option.label}
                   >
+                    {option.id === 'whatsapp' && (
+                      <motion.div
+                        className="absolute inset-0 rounded-full bg-[#25D366] -z-10"
+                        animate={{
+                          scale: [1, 1.6],
+                          opacity: [0.6, 0],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeOut"
+                        }}
+                      />
+                    )}
                     <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 font-medium">
                       {option.label}
                     </span>
@@ -78,6 +107,12 @@ export function FloatingContactGroup() {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        animate={isOpen ? { y: 0 } : { y: [0, -10, 0] }}
+        transition={isOpen ? { duration: 0.2 } : {
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
         className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl text-white transition-all duration-300 ${
           isOpen ? 'bg-gray-800' : 'bg-blue-600'
         }`}

@@ -39,6 +39,13 @@ export function AIChatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // Escuchar evento personalizado para abrir el chat desde componentes externos
+  useEffect(() => {
+    const handleOpenChat = () => setIsOpen(true);
+    window.addEventListener('open-livo-chat', handleOpenChat);
+    return () => window.removeEventListener('open-livo-chat', handleOpenChat);
+  }, []);
+
   // Auto-scroll to bottom
   useEffect(() => {
     if (scrollRef.current) {
@@ -175,25 +182,6 @@ export function AIChatbot() {
 
   return (
     <>
-      {/* Floating Button */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform group"
-          >
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white animate-pulse" />
-            <MessageCircle className="w-7 h-7 text-white" />
-            <span className="absolute right-full mr-3 bg-stone-800 text-white text-sm px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-              ¿Necesitas ayuda?
-            </span>
-          </motion.button>
-        )}
-      </AnimatePresence>
-
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
