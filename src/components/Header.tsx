@@ -22,7 +22,7 @@ export function Header() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <button onClick={goToHome} className="flex items-center gap-2">
-            <span className="text-2xl font-bold bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(to right, ${config.primary_color}, ${config.color_palette?.monochromatic?.[2] || '#92400e'})` }}>
+            <span className="text-2xl font-bold text-blue-600 font-heading">
               {config.name}
             </span>
           </button>
@@ -31,8 +31,8 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-8">
             <button
               onClick={goToHome}
-              className={`text-sm font-medium transition-colors hover:text-amber-700 ${
-                currentView === 'home' ? 'text-amber-700' : 'text-stone-600'
+              className={`text-sm font-medium transition-colors hover:text-blue-600 font-sans ${
+                currentView === 'home' ? 'text-blue-600' : 'text-gray-600'
               }`}
             >
               Inicio
@@ -44,7 +44,7 @@ export function Header() {
                   document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' });
                 }, 100);
               }}
-              className="text-sm font-medium text-stone-600 transition-colors hover:text-amber-700"
+              className="text-sm font-medium text-gray-600 transition-colors hover:text-blue-600 font-sans"
             >
               Catálogo
             </button>
