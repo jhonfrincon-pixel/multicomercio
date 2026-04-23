@@ -8,7 +8,7 @@ export function ProteccionDatos() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-4 py-16">
           <Button
             variant="ghost"
@@ -22,7 +22,7 @@ export function ProteccionDatos() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Protección de Datos Personales
           </h1>
-          <p className="text-xl text-green-100 max-w-3xl">
+          <p className="text-xl text-blue-100 max-w-3xl">
             Cumplimos con la Ley 1581 de 2012. Tu información está segura con nosotros. 
             Conoce cómo protegemos y manejamos tus datos personales.
           </p>
@@ -35,19 +35,19 @@ export function ProteccionDatos() {
           {/* Legal Framework */}
           <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
             <div className="flex items-center mb-6">
-              <Shield className="w-8 h-8 text-green-600 mr-3" />
+              <Shield className="w-8 h-8 text-blue-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">Marco Legal</h2>
             </div>
             
-            <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-6">
-              <h3 className="font-semibold text-green-800 mb-3">Ley 1581 de 2012</h3>
-              <p className="text-green-700 mb-3">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
+              <h3 className="font-semibold text-blue-800 mb-3">Ley 1581 de 2012</h3>
+              <p className="text-blue-700 mb-3">
                 Livo cumple con la legislación colombiana sobre protección de datos 
                 personales, garantizando el derecho fundamental que tienen todas las 
                 personas a conocer, actualizar y rectificar las informaciones que 
                 se hayan recogido sobre ellas.
               </p>
-              <p className="text-green-700">
+              <p className="text-blue-700">
                 Somos responsables del tratamiento de tus datos y nos comprometemos 
                 a proteger tu privacidad en todas nuestras operaciones.
               </p>
@@ -65,7 +65,7 @@ export function ProteccionDatos() {
           {/* Data Collection */}
           <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
             <div className="flex items-center mb-6">
-              <Database className="w-8 h-8 text-green-600 mr-3" />
+              <Database className="w-8 h-8 text-blue-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">Información que Recopilamos</h2>
             </div>
             
@@ -134,13 +134,13 @@ export function ProteccionDatos() {
           {/* Rights */}
           <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
             <div className="flex items-center mb-6">
-              <Eye className="w-8 h-8 text-green-600 mr-3" />
+              <Eye className="w-8 h-8 text-blue-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">Tus Derechos ARCO</h2>
             </div>
             
             <div className="space-y-6">
               <div className="flex items-start">
-                <div className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
                   A
                 </div>
                 <div>
@@ -153,7 +153,7 @@ export function ProteccionDatos() {
               </div>
 
               <div className="flex items-start">
-                <div className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
                   R
                 </div>
                 <div>
@@ -166,7 +166,7 @@ export function ProteccionDatos() {
               </div>
 
               <div className="flex items-start">
-                <div className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
                   C
                 </div>
                 <div>
@@ -180,7 +180,7 @@ export function ProteccionDatos() {
               </div>
 
               <div className="flex items-start">
-                <div className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
                   O
                 </div>
                 <div>
@@ -197,13 +197,13 @@ export function ProteccionDatos() {
           {/* Security Measures */}
           <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
             <div className="flex items-center mb-6">
-              <Lock className="w-8 h-8 text-green-600 mr-3" />
+              <Lock className="w-8 h-8 text-blue-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">Medidas de Seguridad</h2>
             </div>
             
             <div className="space-y-4">
               <div className="flex items-start">
-                <CheckCircle className="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
+                <CheckCircle className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">Encriptación de Datos</h3>
                   <p className="text-gray-600">
@@ -214,7 +214,7 @@ export function ProteccionDatos() {
               </div>
 
               <div className="flex items-start">
-                <CheckCircle className="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
+                <CheckCircle className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">Acceso Restringido</h3>
                   <p className="text-gray-600">
@@ -225,7 +225,7 @@ export function ProteccionDatos() {
               </div>
 
               <div className="flex items-start">
-                <CheckCircle className="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
+                <CheckCircle className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">Almacenamiento Seguro</h3>
                   <p className="text-gray-600">
@@ -238,14 +238,14 @@ export function ProteccionDatos() {
           </div>
 
           {/* Contact */}
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Ejerce tus Derechos</h2>
             <p className="text-gray-600 mb-6">
               Si deseas acceder, rectificar, cancelar u oponerte al tratamiento de 
               tus datos personales, contáctanos a través de nuestros canales oficiales.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-green-600 hover:bg-green-700">
+              <Button className="bg-blue-600 hover:bg-blue-700">
                 Enviar Solicitud por Email
               </Button>
               <Button variant="outline">

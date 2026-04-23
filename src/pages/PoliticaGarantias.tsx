@@ -8,7 +8,7 @@ export function PoliticaGarantias() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-4 py-16">
           <Button
             variant="ghost"
@@ -22,7 +22,7 @@ export function PoliticaGarantias() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Política de Garantías
           </h1>
-          <p className="text-xl text-green-100 max-w-3xl">
+          <p className="text-xl text-blue-100 max-w-3xl">
             Tu tranquilidad es nuestra prioridad. Ofrecemos 30 días de garantía 
             total en todos nuestros productos para que compres con total confianza.
           </p>
@@ -35,16 +35,16 @@ export function PoliticaGarantias() {
           {/* Main Guarantee */}
           <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
             <div className="flex items-center mb-6">
-              <Shield className="w-8 h-8 text-green-600 mr-3" />
+              <Shield className="w-8 h-8 text-blue-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">Garantía de Satisfacción 30 Días</h2>
             </div>
             
-            <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
               <div className="flex items-center mb-3">
-                <CheckCircle className="w-6 h-6 text-green-600 mr-2" />
-                <h3 className="font-semibold text-green-800">¿Qué cubre nuestra garantía?</h3>
+                <CheckCircle className="w-6 h-6 text-blue-600 mr-2" />
+                <h3 className="font-semibold text-blue-800">¿Qué cubre nuestra garantía?</h3>
               </div>
-              <ul className="space-y-2 text-green-700">
+              <ul className="space-y-2 text-blue-700">
                 <li>• Defectos de fábrica y mal funcionamiento</li>
                 <li>• Productos que no corresponden a la descripción</li>
                 <li>• Daños durante el transporte (reportados al recibir)</li>
@@ -69,13 +69,13 @@ export function PoliticaGarantias() {
           {/* Process */}
           <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
             <div className="flex items-center mb-6">
-              <Clock className="w-8 h-8 text-green-600 mr-3" />
+              <Clock className="w-8 h-8 text-blue-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">Proceso de Reclamación</h2>
             </div>
             
             <div className="space-y-6">
               <div className="flex items-start">
-                <div className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
                   1
                 </div>
                 <div>
@@ -88,7 +88,7 @@ export function PoliticaGarantias() {
               </div>
 
               <div className="flex items-start">
-                <div className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
                   2
                 </div>
                 <div>
@@ -101,7 +101,7 @@ export function PoliticaGarantias() {
               </div>
 
               <div className="flex items-start">
-                <div className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
                   3
                 </div>
                 <div>
@@ -114,7 +114,7 @@ export function PoliticaGarantias() {
               </div>
 
               <div className="flex items-start">
-                <div className="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
                   4
                 </div>
                 <div>
@@ -188,14 +188,14 @@ export function PoliticaGarantias() {
           </div>
 
           {/* Contact */}
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">¿Necesitas Usar tu Garantía?</h2>
             <p className="text-gray-600 mb-6">
               No esperes más. Contáctanos inmediatamente si tienes algún problema 
               con tu producto. Estamos aquí para ayudarte 24/7.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-green-600 hover:bg-green-700">
+              <Button className="bg-blue-600 hover:bg-blue-700">
                 Activar Garantía por WhatsApp
               </Button>
               <Button variant="outline">

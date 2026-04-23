@@ -181,7 +181,7 @@ export function ProductLandingFunnel({ product }: ProductLandingFunnelProps) {
 
               <Button
                 size="lg"
-                className="bg-orange-600 hover:bg-orange-700 text-white text-xl px-8 py-6 rounded-xl w-full lg:w-auto transform hover:scale-105 transition-all relative overflow-hidden group"
+                className="bg-blue-600 hover:bg-blue-700 text-white text-xl px-8 py-6 rounded-xl w-full lg:w-auto transform hover:scale-105 transition-all relative overflow-hidden group"
                 onClick={handleOrderNow}
               >
                 <span className="relative z-10 flex items-center">
@@ -430,7 +430,7 @@ export function ProductLandingFunnel({ product }: ProductLandingFunnelProps) {
 
               <Button
                 size="lg"
-                className="w-full bg-orange-600 hover:bg-orange-700 text-white text-xl py-6 rounded-xl transform hover:scale-105 transition-all"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xl py-6 rounded-xl transform hover:scale-105 transition-all"
                 onClick={handleOrderNow}
               >
                 <ShoppingCart className="w-6 h-6 mr-3" />
@@ -571,7 +571,7 @@ export function ProductLandingFunnel({ product }: ProductLandingFunnelProps) {
                 <div className="grid grid-cols-2 gap-4">
                   <Button
                     size="lg"
-                    className="bg-green-600 hover:bg-green-700 text-white py-6 rounded-xl transform hover:scale-105 transition-all"
+                    className="bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-xl transform hover:scale-105 transition-all"
                     onClick={handleAcceptUpsell}
                   >
                     <TrendingUp className="w-5 h-5 mr-2" />
