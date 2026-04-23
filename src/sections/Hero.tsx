@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, Truck, Shield, RotateCcw } from 'lucide-react';
+import { ArrowRight, Sparkles, Truck, Shield, RotateCcw, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 
@@ -30,10 +30,10 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 backdrop-blur-sm border border-amber-400/30 rounded-full px-4 py-2 mb-6">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span className="text-amber-100 text-sm font-medium">
-                Nueva Colección 2024
+            <div className="inline-flex items-center gap-2 bg-green-500/20 backdrop-blur-sm border border-green-400/30 rounded-full px-4 py-2 mb-6">
+              <CheckCircle className="w-4 h-4 text-green-400" />
+              <span className="text-green-100 text-sm font-medium">
+                Envíos a toda Colombia • Pago contra entrega
               </span>
             </div>
           </motion.div>
@@ -44,9 +44,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
           >
-            Hazlo simple,{' '}
-            <span className="bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">
-              hazlo Livo
+            Productos que{' '}
+            <span className="bg-gradient-to-r from-green-400 to-emerald-200 bg-clip-text text-transparent">
+              mejoran tu vida
             </span>
           </motion.h1>
 
@@ -56,8 +56,8 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-stone-200 mb-8 leading-relaxed"
           >
-            Descubre nuestra selección de productos premium para el hogar. 
-            Diseño, calidad y confort en cada rincón de tu casa.
+            Los productos que necesitas, entregados directamente en la puerta de tu casa. 
+            Calidad garantizada y la confianza que mereces.
           </motion.p>
 
           <motion.div
@@ -69,9 +69,9 @@ export function Hero() {
             <Button
               size="lg"
               onClick={scrollToProducts}
-              className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-lg rounded-xl group"
+              className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg rounded-xl group"
             >
-              Ver Catálogo
+              Comprar Ahora
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
@@ -79,7 +79,7 @@ export function Hero() {
               variant="outline"
               className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl"
             >
-              Ofertas Especiales
+              Pagar al Recibir
             </Button>
           </motion.div>
 
@@ -91,16 +91,16 @@ export function Hero() {
             className="flex flex-wrap gap-6 mt-12"
           >
             <div className="flex items-center gap-2 text-white/80">
-              <Truck className="w-5 h-5 text-amber-400" />
-              <span className="text-sm">Envío Gratis +$500</span>
+              <Truck className="w-5 h-5 text-green-400" />
+              <span className="text-sm">Envíos 3-7 días hábiles</span>
             </div>
             <div className="flex items-center gap-2 text-white/80">
-              <Shield className="w-5 h-5 text-amber-400" />
-              <span className="text-sm">Garantía de Calidad</span>
+              <Shield className="w-5 h-5 text-green-400" />
+              <span className="text-sm">Pago Contra Entrega</span>
             </div>
             <div className="flex items-center gap-2 text-white/80">
-              <RotateCcw className="w-5 h-5 text-amber-400" />
-              <span className="text-sm">30 Días de Devolución</span>
+              <RotateCcw className="w-5 h-5 text-green-400" />
+              <span className="text-sm">Garantía 30 Días</span>
             </div>
           </motion.div>
         </div>

@@ -8,8 +8,10 @@ import { Cart } from '@/sections/Cart';
 import { Checkout } from '@/sections/Checkout';
 import { CheckoutColombia } from '@/sections/CheckoutColombia';
 import { Footer } from '@/sections/Footer';
+import { TrustSection } from '@/sections/TrustSection';
 import { AIChatbot } from '@/components/AIChatbot';
 import { Newsletter } from '@/components/Newsletter';
+import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { CRMDashboard } from '@/crm/CRMDashboard';
 import { CRMAccessGate } from '@/crm/CRMAccessGate';
 import { useNavigationStore } from '@/store/navigationStore';
@@ -128,6 +130,7 @@ function App() {
         return (
           <>
             <Hero />
+            <TrustSection />
             <ProductCatalog />
             <Newsletter />
           </>
@@ -140,6 +143,7 @@ function App() {
       <Header />
       <main>{renderContent()}</main>
       {currentView === 'home' && <Footer />}
+      <WhatsAppButton />
       <AIChatbot />
       <Toaster position="bottom-right" richColors />
     </div>
