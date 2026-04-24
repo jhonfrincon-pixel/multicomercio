@@ -185,6 +185,32 @@ export class AuthService {
   }
 
   /**
+   * Envía un correo de recuperación de contraseña
+   * @param email - Email del usuario
+   * @returns Promise<{ success: boolean; error?: string }>
+   */
+  static async resetPassword(email: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      if (!supabase) {
+        return { success: false, error: 'Supabase no está configurado' };
+      }
+
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: `${window.location.origin}/crm#type=recovery`,
+      });
+
+      if (error) {
+        return { success: false, error: error.message };
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error('Error en resetPassword:', error);
+      return { success: false, error: 'Error inesperado al enviar el correo de recuperación' };
+    }
+  }
+
+  /**
    * Verifica si hay un código de referido válido en el sessionStorage
    * @returns boolean - True si hay un código válido
    */
@@ -230,6 +256,7 @@ export const useAuthService = () => {
     signUp: AuthService.signUp,
     signIn: AuthService.signIn,
     signOut: AuthService.signOut,
+    resetPassword: AuthService.resetPassword,
     getCurrentUser: AuthService.getCurrentUser,
     getReferralCodeFromStorage: AuthService.getReferralCodeFromStorage,
     hasValidReferralCode: AuthService.hasValidReferralCode,
