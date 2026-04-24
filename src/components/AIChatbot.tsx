@@ -248,7 +248,7 @@ export function AIChatbot() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] h-[550px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-stone-200"
+            className="fixed bottom-6 right-6 z-50 w-[380px] max-h-[80vh] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col border border-stone-200"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#1e3a8a] to-[#1e3a8a]/80 p-4 flex items-center justify-between">
@@ -273,7 +273,7 @@ export function AIChatbot() {
             </div>
 
             {/* Messages */}
-            <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+            <div className="flex-1 p-4 overflow-y-auto" ref={scrollRef}>
               <div className="space-y-4">
                 {messages.map((message) => (
                   <motion.div
@@ -329,10 +329,10 @@ export function AIChatbot() {
                   </motion.div>
                 )}
               </div>
-            </ScrollArea>
+            </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-stone-200 bg-white">
+            <div className="p-4 border-t border-stone-200 bg-white flex-shrink-0">
               <div className="flex gap-2">
                 <Input
                   value={input}
