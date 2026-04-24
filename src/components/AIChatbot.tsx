@@ -20,16 +20,21 @@ const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY || '');
 
 // Modelos configurados para optimización de límites
-const PRIMARY_MODEL = "gemini-2.5-flash"; // 5 req/min - principal
+const PRIMARY_MODEL = "gemini-3.1-pro-preview"; // Modelo principal con thinking
 const FALLBACK_MODEL = "gemini-3.1-flash-lite"; // 15 req/min - fallback
 
 // Estado del modelo actual
 let currentModel = PRIMARY_MODEL;
 let isUsingFallback = false;
 
+// Configuración de thinking para respuestas más precisas
+const thinkingConfig = {
+  thinkingLevel: "HIGH" as const,
+};
+
 const WELCOME_MESSAGE = `¡Hola! 👋 Soy tu asistente de ventas de **Livo**.
 
-🤖 **Modelo actual**: ${isUsingFallback ? 'gemini-3.1-flash-lite (alta capacidad)' : 'gemini-2.5-flash (ultra rápido)'}
+🤖 **Modelo actual**: ${isUsingFallback ? 'gemini-3.1-flash-lite (alta capacidad)' : 'gemini-3.1-pro-preview (thinking avanzado)'}
 
 Estoy aquí para ayudarte a encontrar los mejores productos para tu hogar. Puedo:
 
@@ -124,39 +129,66 @@ export function AIChatbot() {
     setIsTyping(true);
 
     try {
-      // 2. Preparar el historial (Gemini requiere que el historial comience con un mensaje del 'user')
-      // Filtramos el mensaje de bienvenida inicial ya que tiene rol 'model' y causaría un error de validación
-      const history = messages
+      // 2. Preparar el contenido para streaming con el nuevo formato
+      const contents = [
+        {
+          role: 'user',
+          parts: [{ text: userMessage.content }],
+        },
+      ];
+
+      // Añadir contexto del historial si existe
+      const historyMessages = messages
         .filter(m => m.id !== 'welcome')
         .map(m => ({
           role: m.role === 'user' ? 'user' : 'model',
           parts: [{ text: m.content }],
         }));
 
-      const currentModelInstance = getModel();
-      const chat = currentModelInstance.startChat({
-        history,
-      });
-      
-      const result = await chat.sendMessage(userMessage.content);
-      const response = await result.response;
-      const text = response.text();
-      
-      if (!text) throw new Error("Respuesta vacía de la IA");
+      // Combinar historial con mensaje actual
+      const allContents = [...historyMessages, ...contents];
 
+      // Crear respuesta inicial vacía para streaming
       const aiResponse: Message = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: text,
+        content: '',
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, aiResponse]);
+
+      // Usar generateContentStream para respuestas en tiempo real
+      const currentModelInstance = getModel();
+      const response = await currentModelInstance.generateContentStream({
+        contents: allContents,
+      });
+
+      // Procesar streaming chunk por chunk
+      let accumulatedText = '';
+      const stream = response.stream;
+      for await (const chunk of stream) {
+        const chunkText = chunk.text();
+        if (chunkText) {
+          accumulatedText += chunkText;
+          
+          // Actualizar mensaje en tiempo real
+          setMessages(prev => 
+            prev.map(msg => 
+              msg.id === aiResponse.id 
+                ? { ...msg, content: accumulatedText }
+                : msg
+            )
+          );
+        }
+      }
+
+      if (!accumulatedText) throw new Error("Respuesta vacía de la IA");
       
       // Resetear estado de fallback si todo fue bien
       if (isUsingFallback) {
         isUsingFallback = false;
         currentModel = PRIMARY_MODEL;
-        toast.success("Restaurado modelo principal gemini-2.5-flash");
+        toast.success("Restaurado modelo principal gemini-3.1-pro-preview");
       }
     } catch (error: any) {
       console.error("Error calling Gemini API:", error);
