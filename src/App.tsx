@@ -9,10 +9,12 @@ import { Checkout } from '@/sections/Checkout';
 import { CheckoutColombia } from '@/sections/CheckoutColombia';
 import { Footer } from '@/sections/Footer';
 import { TrustSection } from '@/sections/TrustSection';
+import { SocialProof } from '@/sections/SocialProof';
 import { SobreNosotros } from '@/pages/SobreNosotros';
 import { AIChatbot } from '@/components/AIChatbot';
 import { Newsletter } from '@/components/Newsletter';
 import { FloatingContactGroup } from '@/components/FloatingContactGroup'; // Usamos el componente agrupado de contacto
+import { MarketingTags } from '@/components/MarketingTags';
 import { CRMDashboard } from '@/crm/CRMDashboard';
 import { CRMAccessGate } from '@/crm/CRMAccessGate';
 import { SEO } from '@/components/SEO';
@@ -136,6 +138,7 @@ function App() {
             <Hero />
             <TrustSection />
             <ProductCatalog />
+            <SocialProof />
             <Newsletter />
           </>
         );
@@ -144,6 +147,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      <MarketingTags />
       {currentView === 'home' && (
         <SEO title="Inicio" description={brandData?.slogan} />
       )}

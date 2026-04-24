@@ -177,14 +177,14 @@ export function CRMDashboard() {
         <div className="p-6 flex-1 overflow-y-auto">
           <button
             onClick={goToHome}
-            className="flex items-center gap-2 text-stone-600 hover:text-amber-700 transition-colors mb-8"
+            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors mb-8"
           >
             <ArrowLeft className="w-5 h-5" />
             <span className="font-medium">Volver a la tienda</span>
           </button>
 
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-amber-800 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
               <LayoutDashboard className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -202,8 +202,8 @@ export function CRMDashboard() {
                   onClick={() => setActiveSection(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-colors ${
                     activeSection === item.id
-                      ? 'bg-amber-50 text-amber-700'
-                      : 'text-stone-600 hover:bg-stone-50'
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
@@ -274,7 +274,7 @@ function DashboardOverview({
       change: '+8.2%',
       trend: 'up',
       icon: ShoppingBag,
-      color: 'bg-amber-100 text-amber-600',
+      color: 'bg-blue-100 text-blue-600',
     },
     {
       title: 'Clientes',
@@ -320,11 +320,11 @@ function DashboardOverview({
                       <p className="text-2xl font-bold text-stone-800">{stat.value}</p>
                       <div className="flex items-center gap-1 mt-2">
                         {stat.trend === 'up' ? (
-                          <TrendingUp className="w-4 h-4 text-green-500" />
+                          <TrendingUp className="w-4 h-4 text-blue-500" />
                         ) : (
                           <TrendingDown className="w-4 h-4 text-red-500" />
                         )}
-                        <span className={`text-sm ${stat.trend === 'up' ? 'text-green-500' : 'text-red-500'}`}>
+                        <span className={`text-sm ${stat.trend === 'up' ? 'text-blue-500' : 'text-red-500'}`}>
                           {stat.change}
                         </span>
                         <span className="text-sm text-stone-400">vs mes anterior</span>
@@ -433,7 +433,7 @@ function DashboardOverview({
                     <td className="py-3 px-4 font-medium">${order.total.toFixed(2)}</td>
                     <td className="py-3 px-4">
                       <Badge className={`
-                        ${order.status === 'delivered' ? 'bg-green-100 text-green-700' : ''}
+                        ${order.status === 'delivered' ? 'bg-blue-100 text-blue-700' : ''}
                         ${order.status === 'pending' ? 'bg-amber-100 text-amber-700' : ''}
                         ${order.status === 'processing' ? 'bg-blue-100 text-blue-700' : ''}
                         ${order.status === 'shipped' ? 'bg-purple-100 text-purple-700' : ''}
@@ -602,7 +602,7 @@ function InventorySection() {
             Exportar CSV
           </Button>
           <Button 
-            className="bg-amber-600 hover:bg-amber-700 text-white"
+            className="bg-blue-600 hover:bg-blue-700 text-white"
             onClick={handleOpenAdd}
           >
             <Plus className="w-4 h-4 mr-2" />
@@ -668,14 +668,14 @@ function InventorySection() {
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <Badge className={product.inStock > 0 ? (product.inStock < 5 ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700') : 'bg-red-100 text-red-700'}>
+                      <Badge className={product.inStock > 0 ? (product.inStock < 5 ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700') : 'bg-red-100 text-red-700'}>
                         {product.inStock === 0 ? 'Agotado' : product.inStock < 5 ? 'Stock Bajo' : 'Disponible'}
                       </Badge>
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
                         <Button variant="ghost" size="sm" onClick={() => handleOpenEdit(product)}>
-                          <Edit className="w-4 h-4 text-amber-600" />
+                          <Edit className="w-4 h-4 text-blue-600" />
                         </Button>
                         <Button variant="ghost" size="sm" onClick={() => handleDuplicate(product)}>
                           <Copy className="w-4 h-4 text-blue-600" />
@@ -817,7 +817,7 @@ function ProductFormModal({
                   <select 
                     name="category" 
                     defaultValue={productToEdit?.category || 'Muebles'}
-                    className="w-full h-10 px-3 rounded-md border border-stone-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full h-10 px-3 rounded-md border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="Muebles">Muebles</option>
                     <option value="Iluminación">Iluminación</option>
@@ -881,7 +881,7 @@ function ProductFormModal({
                   name="description" 
                   rows={4}
                   defaultValue={productToEdit?.description}
-                  className="w-full p-3 rounded-md border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  className="w-full p-3 rounded-md border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Describe las maravillas de este producto..."
                   required
                 />
@@ -890,7 +890,7 @@ function ProductFormModal({
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <Label>URLs de Imágenes</Label>
-                  <Button type="button" variant="ghost" size="sm" onClick={addImageField} className="text-amber-600 text-xs">
+                  <Button type="button" variant="ghost" size="sm" onClick={addImageField} className="text-blue-600 text-xs">
                     <ImagePlus className="w-4 h-4 mr-1" /> Añadir otra
                   </Button>
                 </div>
@@ -908,7 +908,7 @@ function ProductFormModal({
 
               <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <Button type="button" variant="outline" onClick={onClose} className="flex-1">Cancelar</Button>
-                <Button type="submit" className="flex-1 bg-amber-600 hover:bg-amber-700 text-white">
+                <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white">
                   {isEditMode ? 'Guardar Cambios' : productToEdit ? 'Crear Variante' : 'Publicar Producto'}
                 </Button>
               </div>
@@ -929,7 +929,7 @@ function CustomersSection({ customers }: { customers: any[] }) {
           <h2 className="text-2xl font-bold text-stone-800">Clientes</h2>
           <p className="text-stone-600">Gestiona tus clientes</p>
         </div>
-        <Button className="bg-amber-600 hover:bg-amber-700 text-white">
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
           <UserPlus className="w-4 h-4 mr-2" />
           Nuevo Cliente
         </Button>
@@ -1121,7 +1121,7 @@ function AutomationsSection({ automations, products }: { automations: any[], pro
           <h2 className="text-2xl font-bold text-stone-800">Automatizaciones</h2>
           <p className="text-stone-600">Reglas y flujos de trabajo inteligentes</p>
         </div>
-        <Button className="bg-amber-600 hover:bg-amber-700 text-white">
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
           <Zap className="w-4 h-4 mr-2" />
           Nueva Automatización
         </Button>
@@ -1140,7 +1140,7 @@ function AutomationsSection({ automations, products }: { automations: any[], pro
               <p className="text-stone-500 mb-4">
                 Crea tu primera automatización para ahorrar tiempo
               </p>
-              <Button className="bg-amber-600 hover:bg-amber-700 text-white">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                 Crear Automatización
               </Button>
             </CardContent>
@@ -1185,7 +1185,7 @@ function CampaignsSection({ campaigns }: { campaigns: any[] }) {
           <h2 className="text-2xl font-bold text-stone-800">Campañas de Email</h2>
           <p className="text-stone-600">Gestiona tus campañas de marketing</p>
         </div>
-        <Button className="bg-amber-600 hover:bg-amber-700 text-white">
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
           <Mail className="w-4 h-4 mr-2" />
           Nueva Campaña
         </Button>
@@ -1204,7 +1204,7 @@ function CampaignsSection({ campaigns }: { campaigns: any[] }) {
               <p className="text-stone-500 mb-4">
                 Crea tu primera campaña de email marketing
               </p>
-              <Button className="bg-amber-600 hover:bg-amber-700 text-white">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                 Crear Campaña
               </Button>
             </CardContent>
@@ -1339,7 +1339,7 @@ function SettingsSection() {
               <Label>Teléfono</Label>
               <Input defaultValue="+52 (55) 1234-5678" />
             </div>
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
               Guardar Cambios
             </Button>
           </CardContent>
@@ -1362,7 +1362,7 @@ function SettingsSection() {
               <Label>Costo de Envío Express</Label>
               <Input defaultValue="99.99" prefix="$" />
             </div>
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
               Guardar Cambios
             </Button>
           </CardContent>

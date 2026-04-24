@@ -1,0 +1,9 @@
+<!-- Favicon minimalista "L" azul para Livo -->
+<!-- Este es un placeholder SVG que debe ser convertido a PNG -->
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular azul -->
+  <circle cx="16" cy="16" r="16" fill="#1e3a8a"/>
+  
+  <!-- Letra L minimalista blanca -->
+  <path d="M10 8V24H14V16H22V8H10Z" fill="white"/>
+</svg>

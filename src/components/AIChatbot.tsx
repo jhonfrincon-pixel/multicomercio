@@ -88,7 +88,7 @@ export function AIChatbot() {
     4. Si el usuario pregunta por algo fuera de presupuesto, ofrece alternativas económicas de tu catálogo.`;
 
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.0-flash",
+      model: "gemini-1.5-flash",
       systemInstruction: systemInstruction 
     });
 
@@ -121,6 +121,8 @@ export function AIChatbot() {
       const result = await chat.sendMessage(userMessage.content);
       const response = await result.response;
       const text = response.text();
+      
+      if (!text) throw new Error("Respuesta vacía de la IA");
 
       const aiResponse: Message = {
         id: Date.now().toString(),

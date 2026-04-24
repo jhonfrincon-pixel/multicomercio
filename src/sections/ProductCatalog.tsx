@@ -4,7 +4,7 @@ import { useNavigationStore } from '@/store/navigationStore';
 import { useCartStore } from '@/store/cartStore';
 import { useWishlistStore } from '@/store/wishlistStore';
 import { useProductsStore } from '@/store/productsStore';
-import { ShoppingCart, Eye, Star, Sofa, Lightbulb, Utensils, Palette, Zap, Grid, Heart } from 'lucide-react';
+import { ShoppingCart, Eye, Star, Shield, Sofa, Lightbulb, Utensils, Palette, Zap, Grid, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
@@ -172,26 +172,35 @@ export function ProductCatalog() {
                     {product.shortDescription}
                   </p>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl font-bold text-gray-900 font-heading">
-                        ${product.price.toFixed(2)}
-                      </span>
-                      {product.originalPrice && (
-                        <span className="text-sm text-gray-400 line-through font-sans">
-                          ${product.originalPrice.toFixed(2)}
+                  <div className="space-y-3">
+                    {/* Mobile-first price display */}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xl font-bold text-gray-900 font-heading">
+                          ${product.price.toFixed(2)}
                         </span>
-                      )}
-                    </div>
+                        {product.originalPrice && (
+                          <span className="text-sm text-gray-400 line-through font-sans">
+                            ${product.originalPrice.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
 
-                    <Button
-                      size="sm"
-                      className="bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-sans font-semibold"
-                      onClick={(e) => handleAddToCart(product, e)}
-                    >
-                      <ShoppingCart className="w-4 h-4 mr-2" />
-                      Agregar
-                    </Button>
+                      <Button
+                        size="sm"
+                        className="bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-sans font-semibold w-full sm:w-auto"
+                        onClick={(e) => handleAddToCart(product, e)}
+                      >
+                        <ShoppingCart className="w-4 h-4 mr-2" />
+                        Agregar
+                      </Button>
+                    </div>
+                    
+                    {/* Mobile payment info */}
+                    <div className="flex items-center gap-2 text-xs text-gray-500 font-sans sm:hidden">
+                      <Shield className="w-3 h-3" />
+                      <span>Pago contra entrega</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
