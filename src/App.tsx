@@ -1,208 +1,173 @@
-import { useEffect } from 'react';
-import { Header } from '@/components/Header';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useParams, useNavigate, useSearchParams } from 'react-router-dom';
+
+// Componentes de Interfaz
+import { Header } from '@/components/Header'; // Usamos tu Header de sections
+import { Footer } from '@/sections/Footer';
+import { SEO } from '@/components/SEO';
+import { Toaster } from '@/components/ui/sonner';
+import { MarketingTags } from '@/components/MarketingTags';
+import { FloatingContactGroup } from '@/components/FloatingContactGroup';
+import { AIChatbot } from '@/components/AIChatbot';
+
+// Secciones de la Tienda
 import { Hero } from '@/sections/Hero';
+import { TrustSection } from '@/sections/TrustSection';
 import { ProductCatalog } from '@/sections/ProductCatalog';
 import { ProductLanding } from '@/sections/ProductLanding';
 import { ProductLandingFunnel } from '@/sections/ProductLandingFunnel';
+import { SocialProof } from '@/sections/SocialProof';
+import { Newsletter } from '@/components/Newsletter';
 import { Cart } from '@/sections/Cart';
 import { Checkout } from '@/sections/Checkout';
 import { CheckoutColombia } from '@/sections/CheckoutColombia';
-import { Footer } from '@/sections/Footer';
-import { TrustSection } from '@/sections/TrustSection';
-import { SocialProof } from '@/sections/SocialProof';
-import { SobreNosotros } from '@/pages/SobreNosotros';
 import { MiCuenta } from '@/sections/MiCuenta';
-import { AIChatbot } from '@/components/AIChatbot';
-import { Newsletter } from '@/components/Newsletter';
-import { FloatingContactGroup } from '@/components/FloatingContactGroup'; // Usamos el componente agrupado de contacto
-import { MarketingTags } from '@/components/MarketingTags';
+import { SobreNosotros } from '@/pages/SobreNosotros';
+
+// CRM y Seguridad
 import { CRMDashboard } from '@/crm/CRMDashboard';
 import { CRMAccessGate } from '@/crm/CRMAccessGate';
-import { SEO } from '@/components/SEO';
-import { useNavigationStore } from '@/store/navigationStore';
+import { ProtectedRoute } from './components/ProtectedRoute';
+
+// Hooks y Stores
 import { useCRMAuthStore } from '@/store/crmAuthStore';
 import { useBrandStore } from '@/store/brandStore';
 import { useCartStore } from '@/store/cartStore';
+import { useReferralCapture } from '@/hooks/useReferralCapture';
 import { getProductById } from '@/data/products';
-import { Toaster } from '@/components/ui/sonner';
-import type { View } from '@/types';
 
-function App() {
-  const { currentView, selectedProductId, goToCRM } = useNavigationStore();
-  const { isAuthenticated, isAuthLoading, initializeAuth } = useCRMAuthStore();
+/**
+ * 🛍️ Maneja si mostrar landing estándar o de Funnel (Tripwire)
+ */
+function ProductPageRoute() {
+  const { productId } = useParams();
+  const product = productId ? getProductById(productId) : null;
+
+  if (!product) return <Navigate to="/" replace />;
+
+  return product.tripwirePrice 
+    ? <ProductLandingFunnel product={product} />
+    : <ProductLanding product={product} />;
+}
+
+/**
+ * 💳 Elige el Checkout correcto (Estándar o Colombia)
+ */
+function CheckoutPageRoute() {
   const { items } = useCartStore();
-  
-  // Lógica de Marca dinámica desde Supabase
-  const { 
-    config: brandData, 
-    isLoading, 
-    loadBrandConfig: fetchBrandConfig 
-  } = useBrandStore();
+  const isColombiaFunnel = items.some(item => 
+    item.product.tripwirePrice || item.isUpsell || item.orderBump
+  );
+  return isColombiaFunnel ? <CheckoutColombia /> : <Checkout />;
+}
 
-  // Sincronización inicial de datos y auth
+/**
+ * 🧠 EL CEREBRO DE LA APP: Maneja Auth, Branding y Atajos
+ */
+function AppWrapper({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { initializeAuth, isAuthenticated, isAuthLoading } = useCRMAuthStore();
+  const { config: brandData, isLoading, loadBrandConfig: fetchBrandConfig } = useBrandStore();
+
+  // Captura referidos automáticamente
+  useReferralCapture();
+
   useEffect(() => {
     fetchBrandConfig();
     initializeAuth();
   }, [fetchBrandConfig, initializeAuth]);
 
-  // Actualización dinámica de identidad (Title, Favicon, Estilos)
+  // Atajo de teclado: Ctrl + Shift + A para ir al CRM
+  useEffect(() => {
+    const handleAdminShortcut = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        navigate('/crm');
+      }
+    };
+    window.addEventListener('keydown', handleAdminShortcut);
+    return () => window.removeEventListener('keydown', handleAdminShortcut);
+  }, [navigate]);
+
+  // Branding Dinámico (Favicon y Colores)
   useEffect(() => {
     if (brandData) {
-      // Metadatos
       const favicon = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
-      if (favicon) {
-        favicon.href = brandData.favicon_url || '/favicon.ico';
-      }
-
-      // Inyección de variables CSS para branding dinámico
+      if (favicon) favicon.href = brandData.favicon_url || '/favicon.ico';
       document.documentElement.style.setProperty('--primary-color', brandData.primary_color);
     }
   }, [brandData]);
 
-  useEffect(() => {
-    const handleAdminShortcut = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'a') {
-        event.preventDefault();
-        goToCRM('dashboard');
-      }
-    };
-
-    window.addEventListener('keydown', handleAdminShortcut);
-    return () => {
-      window.removeEventListener('keydown', handleAdminShortcut);
-    };
-  }, [goToCRM]);
-
-  // Pantalla de carga mientras se recupera el "Cerebro" de Supabase
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-        <div className="w-12 h-12 border-4 border-stone-100 border-t-[#1e3a8a] rounded-full animate-spin mb-4" />
-        <p className="text-stone-500 font-medium animate-pulse">
-          Personalizando tu experiencia...
-        </p>
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <div className="w-12 h-12 border-4 border-t-[#1e3a8a] rounded-full animate-spin mb-4" />
+        <p className="text-stone-500 font-medium">Cargando Livo...</p>
       </div>
     );
   }
 
-  const renderContent = () => {
-    // CRM Views
-    if (currentView.startsWith('crm')) {
-      if (isAuthLoading) {
-        return (
-          <div className="min-h-[70vh] flex items-center justify-center">
-            <p className="text-stone-600">Verificando acceso...</p>
-          </div>
-        );
-      }
-      if (!isAuthenticated) {
-        return <CRMAccessGate />;
-      }
-      return <CRMDashboard />;
-    }
+  return <>{children}</>;
+}
 
-    switch (currentView as View) {
-      case 'product':
-        if (selectedProductId) {
-          const product = getProductById(selectedProductId);
-          if (product) {
-            // Use funnel landing page for products with tripwire pricing
-            if (product.tripwirePrice) {
-              return <ProductLandingFunnel product={product} />;
-            }
-            return <ProductLanding product={product} />;
-          }
-        }
-        return (
-          <div className="min-h-screen flex items-center justify-center">
-            <p className="text-stone-600">Producto no encontrado</p>
-          </div>
-        );
-
-      case 'sobre-nosotros' as View:
-        return <SobreNosotros />;
-
-      case 'mi-cuenta' as View:
-        return <MiCuenta />;
-
-      case 'cart':
-        return <Cart />;
-
-      case 'checkout':
-        // Use Colombia checkout for funnel products
-        const hasFunnelProducts = items.some(item => 
-          item.product.tripwirePrice || item.isUpsell || item.orderBump
-        );
-        return hasFunnelProducts ? <CheckoutColombia /> : <Checkout />;
-
-      case 'home':
-      default:
-        return (
-          <>
-            <Hero />
-            <TrustSection />
-            <ProductCatalog />
-            <SocialProof />
-            <Newsletter />
-          </>
-        );
-    }
-  };
-
+/**
+ * 🏠 Página de Inicio
+ */
+function HomePage() {
+  const { config: brandData } = useBrandStore();
   return (
-    <div className="min-h-screen bg-white">
-      <MarketingTags />
-      {currentView === 'home' && (
-        <SEO title="Inicio" description={brandData?.slogan} />
-      )}
-      {currentView === 'product' && selectedProductId && (() => {
-        const product = getProductById(selectedProductId);
-        if (!product) return null;
-        return (
-          <SEO 
-            title={product.name}
-            description={product.shortDescription}
-            image={product.images[0]}
-            type="product"
-            schema={{
-              "@context": "https://schema.org/",
-              "@type": "Product",
-              "name": product.name,
-              "image": product.images,
-              "description": product.shortDescription,
-              "brand": {
-                "@type": "Brand",
-                "name": brandData?.name || "Livo"
-              },
-              "offers": {
-                "@type": "Offer",
-                "priceCurrency": "COP",
-                "price": product.price,
-                "availability": product.inStock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
-              },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": product.rating,
-                "reviewCount": product.reviewCount
-              }
-            }}
-          />
-        );
-      })()}
-      {currentView === 'cart' && (
-        <SEO title="Mi Carrito" description="Gestiona los productos seleccionados en tu carrito de compras." />
-      )}
-      {currentView === 'checkout' && (
-        <SEO title="Finalizar Compra" description="Completa tu pedido de forma segura y rápida." />
-      )}
-      <Header />
-      <main>{renderContent()}</main>
-      {((currentView as string) === 'home' || (currentView as string) === 'sobre-nosotros') && <Footer />}
-      <FloatingContactGroup /> {/* Reemplazado WhatsAppButton por FloatingContactGroup */}
-      <AIChatbot />
-      <Toaster position="bottom-right" richColors />
-    </div>
+    <>
+      <SEO title="Inicio" description={brandData?.slogan} />
+      <Hero />
+      <TrustSection />
+      <ProductCatalog />
+      <SocialProof />
+      <Newsletter />
+    </>
   );
 }
 
-export default App;
+/**
+ * 🚀 COMPONENTE PRINCIPAL
+ */
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppWrapper>
+        <div className="min-h-screen bg-white">
+          <MarketingTags />
+          <Header />
+          <main className="min-h-screen">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/catalogo" element={<ProductCatalog />} />
+              <Route path="/producto/:productId" element={<ProductPageRoute />} />
+              <Route path="/carrito" element={<Cart />} />
+              <Route path="/checkout" element={<CheckoutPageRoute />} />
+              <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+              
+              {/* Ruta protegida para Mi Cuenta */}
+              <Route path="/mi-cuenta" element={
+                <ProtectedRoute>
+                  <MiCuenta />
+                </ProtectedRoute>
+              } />
+
+              {/* Rutas del CRM */}
+              <Route path="/crm/*" element={
+                <CRMAccessGate /> // CRMAccessGate internamente decide si mostrar login o dashboard
+              } />
+
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          <Footer />
+          <FloatingContactGroup />
+          <AIChatbot />
+          <Toaster position="bottom-right" richColors />
+        </div>
+      </AppWrapper>
+    </BrowserRouter>
+  );
+}

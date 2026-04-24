@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Search, X, TrendingUp, Clock, Sparkles } from 'lucide-react';
 import { products } from '@/data/products';
-import { useNavigationStore } from '@/store/navigationStore';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface SearchBarProps {
@@ -17,7 +17,7 @@ export function SearchBar({ isOpen, onClose }: SearchBarProps) {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<typeof products>([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { goToProduct } = useNavigationStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -41,7 +41,7 @@ export function SearchBar({ isOpen, onClose }: SearchBarProps) {
   }, [query]);
 
   const handleProductClick = (productId: string) => {
-    goToProduct(productId);
+    navigate(`/producto/${productId}`);
     setQuery('');
     onClose();
   };

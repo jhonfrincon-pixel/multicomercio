@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Save, ArrowLeft, Link, MapPin, Phone, Mail } from 'lucide-react';
 import { useFooterSettingsStore } from '@/store/footerSettingsStore';
-import { useNavigationStore } from '@/store/navigationStore';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 export function FooterSettings() {
   const { settings, isLoading, error, loadSettings, updateSettings } = useFooterSettingsStore();
-  const { goToCRM } = useNavigationStore();
+  const navigate = useNavigate();
   const [hasChanges, setHasChanges] = useState(false);
   const [formData, setFormData] = useState({
     quick_links: {
@@ -90,11 +90,11 @@ export function FooterSettings() {
 
   const handleBack = () => {
     if (hasChanges) {
-      if (confirm('Tienes cambios sin guardar. ¿Estás seguro de que quieres salir?')) {
-        goToCRM('dashboard');
+      if (window.confirm('Tienes cambios sin guardar. ¿Estás seguro de que quieres salir?')) {
+        navigate('/crm');
       }
     } else {
-      goToCRM('dashboard');
+      navigate('/crm');
     }
   };
 

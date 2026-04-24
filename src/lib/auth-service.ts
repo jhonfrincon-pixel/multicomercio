@@ -19,21 +19,14 @@ interface SignUpResult {
  */
 export class AuthService {
   /**
-   * Captura el parámetro 'ref' de la URL actual
+   * Obtiene el código de referido del sessionStorage (persistencia entre páginas)
    * @returns string | null - Código de referido o null si no existe
    */
-  static getReferralCodeFromURL(): string | null {
+  static getReferralCodeFromStorage(): string | null {
     if (typeof window === 'undefined') return null;
     
-    const urlParams = new URLSearchParams(window.location.search);
-    const refCode = urlParams.get('ref');
-    
-    // Validar que el código tenga formato válido (8 caracteres alfanuméricos)
-    if (refCode && /^[A-Z0-9]{8}$/i.test(refCode)) {
-      return refCode.toUpperCase();
-    }
-    
-    return null;
+    const stored = sessionStorage.getItem('livo_referral_code');
+    return stored && /^[A-Z0-9]{8}$/i.test(stored) ? stored : null;
   }
 
   /**
@@ -50,17 +43,18 @@ export class AuthService {
         };
       }
 
-      // Capturar código de referido de la URL si no se proporcionó explícitamente
-      const referralCode = options.referralCode || this.getReferralCodeFromURL();
+      // Capturar código de referido del sessionStorage si no se proporcionó explícitamente
+      const referralCode = options.referralCode || this.getReferralCodeFromStorage();
 
-      // Preparar metadata para Supabase incluyendo el código de referido
+      // Preparar metadata para Supabase incluyendo el código de referido del sessionStorage
+      const storedReferralCode = sessionStorage.getItem('livo_referral_code');
       const userData = {
         email: options.email,
         password: options.password,
         options: {
           data: {
             full_name: options.fullName || options.email.split('@')[0],
-            referral_code: referralCode, // 🎯 Vital para el trigger de la BD en raw_user_meta_data
+            referral_code: storedReferralCode, // 🎯 Extraído de sessionStorage para raw_user_meta_data
             registered_at: new Date().toISOString()
           }
         }
@@ -191,11 +185,11 @@ export class AuthService {
   }
 
   /**
-   * Verifica si hay un código de referido válido en la URL
+   * Verifica si hay un código de referido válido en el sessionStorage
    * @returns boolean - True si hay un código válido
    */
   static hasValidReferralCode(): boolean {
-    const refCode = this.getReferralCodeFromURL();
+    const refCode = this.getReferralCodeFromStorage();
     return refCode !== null;
   }
 
@@ -237,7 +231,7 @@ export const useAuthService = () => {
     signIn: AuthService.signIn,
     signOut: AuthService.signOut,
     getCurrentUser: AuthService.getCurrentUser,
-    getReferralCodeFromURL: AuthService.getReferralCodeFromURL,
+    getReferralCodeFromStorage: AuthService.getReferralCodeFromStorage,
     hasValidReferralCode: AuthService.hasValidReferralCode,
     storeReferralCode: AuthService.storeReferralCode,
     getStoredReferralCode: AuthService.getStoredReferralCode,

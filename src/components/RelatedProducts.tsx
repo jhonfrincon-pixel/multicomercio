@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { products } from '@/data/products';
 import type { Product } from '@/types';
-import { useNavigationStore } from '@/store/navigationStore';
 import { useCartStore } from '@/store/cartStore';
 import { useWishlistStore } from '@/store/wishlistStore';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,7 @@ export function RelatedProducts({
   maxItems = 4,
   title = 'También te puede interesar'
 }: RelatedProductsProps) {
-  const { goToProduct } = useNavigationStore();
+  const navigate = useNavigate();
   const addToCart = useCartStore((state) => state.addToCart);
   const { items: wishlistItems, toggleWishlist } = useWishlistStore();
 
@@ -95,7 +95,7 @@ export function RelatedProducts({
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 cursor-pointer"
-              onClick={() => goToProduct(product.id)}
+              onClick={() => navigate(`/producto/${product.id}`)}
             >
               {/* Image */}
               <div className="relative aspect-square overflow-hidden bg-stone-100">
@@ -132,7 +132,7 @@ export function RelatedProducts({
                     className="bg-white text-stone-800 hover:bg-amber-50"
                     onClick={(e) => {
                       e.stopPropagation();
-                      goToProduct(product.id);
+                      navigate(`/producto/${product.id}`);
                     }}
                   >
                     <Eye className="w-4 h-4 mr-1" />
@@ -193,7 +193,7 @@ export function FrequentlyBoughtTogether({
 }: { 
   currentProduct: Product 
 }) {
-  const { goToProduct } = useNavigationStore();
+  const navigate = useNavigate();
   const addToCart = useCartStore((state) => state.addToCart);
 
   // Get 2-3 complementary products from different categories
@@ -253,7 +253,7 @@ export function FrequentlyBoughtTogether({
             <div key={product.id} className="flex items-center gap-4">
               <div 
                 className="flex items-center gap-3 p-3 bg-stone-50 rounded-xl cursor-pointer hover:bg-stone-100 transition-colors"
-                onClick={() => goToProduct(product.id)}
+                onClick={() => navigate(`/producto/${product.id}`)}
               >
                 <img
                   src={product.images[0] || '/placeholder-image.png'}

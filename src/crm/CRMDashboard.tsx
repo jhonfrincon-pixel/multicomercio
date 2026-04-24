@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigationStore } from '@/store/navigationStore';
+import { useNavigate } from 'react-router-dom';
 import { useOrdersStore } from '@/store/ordersStore';
 import { useCRMStore } from '@/store/crmStore';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
@@ -92,7 +92,7 @@ const categoryData = [
 
 export function CRMDashboard() {
   const [activeSection, setActiveSection] = useState('dashboard');
-  const { goToHome } = useNavigationStore();
+  const navigate = useNavigate();
   const { logout, userEmail } = useCRMAuthStore();
   const { orders, fetchOrders, getMetrics: getOrderMetrics } = useOrdersStore();
   const { customers, automations, campaigns, loadCRMData, getCustomerMetrics } = useCRMStore();
@@ -175,8 +175,8 @@ export function CRMDashboard() {
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-stone-200 flex-shrink-0 flex flex-col h-screen sticky top-0">
         <div className="p-6 flex-1 overflow-y-auto">
-          <button
-            onClick={goToHome}
+          <button // Changed to button as it's not a direct Link to a route, but an action
+            onClick={() => navigate('/')}
             className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors mb-8"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -229,7 +229,7 @@ export function CRMDashboard() {
             className="w-full mt-4"
             onClick={async () => {
               await logout();
-              goToHome();
+              navigate('/');
             }}
           >
             <LogOut className="w-4 h-4 mr-2" />

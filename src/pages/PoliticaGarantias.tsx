@@ -1,9 +1,9 @@
 import { ArrowLeft, Shield, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useNavigationStore } from '@/store/navigationStore';
+import { useNavigate } from 'react-router-dom';
 
 export function PoliticaGarantias() {
-  const { goToHome } = useNavigationStore();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -12,7 +12,7 @@ export function PoliticaGarantias() {
         <div className="container mx-auto px-4 py-16">
           <Button
             variant="ghost"
-            onClick={goToHome}
+            onClick={() => navigate('/')}
             className="mb-6 text-white hover:bg-white/20"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />

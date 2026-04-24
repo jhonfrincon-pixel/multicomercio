@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AuthService } from '@/lib/auth-service';
-import { useNavigationStore } from '@/store/navigationStore';
 import { Gift, User, Mail, Lock, CheckCircle } from 'lucide-react';
 
 interface RegistrationFormData {
@@ -16,7 +16,7 @@ interface RegistrationFormData {
 }
 
 export function RegistrationForm() {
-  const { goToHome } = useNavigationStore();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<RegistrationFormData>({
     email: '',
     password: '',
@@ -27,8 +27,8 @@ export function RegistrationForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  // 🎯 Capturar código de referido de la URL al montar el componente
-  const referralCode = AuthService.getReferralCodeFromURL();
+  // 🎯 Capturar código de referido del sessionStorage (persistencia entre páginas)
+  const referralCode = AuthService.getReferralCodeFromStorage();
   const hasReferralCode = AuthService.hasValidReferralCode();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,12 +84,12 @@ export function RegistrationForm() {
     setError(null);
     
     try {
-      // 🎯 Llamar a AuthService con captura automática de referido
+      // 🎯 Llamar a AuthService con captura automática de referido desde sessionStorage
       const result = await AuthService.signUp({
         email: formData.email.trim(),
         password: formData.password,
         fullName: formData.fullName.trim()
-        // referralCode se captura automáticamente de la URL
+        // referralCode se captura automáticamente del sessionStorage
       });
       
       if (result.success) {
@@ -98,11 +98,11 @@ export function RegistrationForm() {
         // 🎯 El trigger de la BD asignará automáticamente:
         // - $10,000 de bono de bienvenida en points_balance
         // - Código de referido único
-        // - upline_id si hay referral_code
+        // - upline_id si hay referral_code en sessionStorage
         
-        // Redirigir después de 3 segundos
+        // 🔄 Redirigir a Mi Cuenta usando react-router
         setTimeout(() => {
-          goToHome();
+          navigate('/mi-cuenta');
         }, 3000);
       } else {
         setError(result.error || 'Error al registrar usuario');

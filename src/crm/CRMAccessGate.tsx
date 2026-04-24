@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Lock, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -6,16 +7,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useCRMAuthStore } from '@/store/crmAuthStore';
-import { useNavigationStore } from '@/store/navigationStore';
 import { isSupabaseConfigured } from '@/lib/supabase';
 
 export function CRMAccessGate() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const { login } = useCRMAuthStore();
-  const { goToCRM, goToHome } = useNavigationStore();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,7 +25,7 @@ export function CRMAccessGate() {
 
     if (result.success) {
       toast.success('Acceso autorizado al CRM');
-      goToCRM('dashboard');
+      navigate('/crm');
       setPassword('');
       setIsSubmitting(false);
       return;
@@ -77,7 +77,7 @@ export function CRMAccessGate() {
               <Lock className="w-4 h-4 mr-2" />
               {isSubmitting ? 'Validando...' : 'Entrar al CRM'}
             </Button>
-            <Button type="button" variant="outline" className="w-full" onClick={goToHome}>
+            <Button type="button" variant="outline" className="w-full" onClick={() => navigate('/')}>
               Volver a la tienda
             </Button>
           </form>

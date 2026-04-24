@@ -12,6 +12,7 @@ interface NavigationState {
   goToCart: () => void;
   goToCheckout: () => void;
   goToCRM: (section?: string) => void;
+  goToMiCuenta: () => void;
 }
 
 export const useNavigationStore = create<NavigationState>((set) => ({
@@ -36,14 +37,17 @@ export const useNavigationStore = create<NavigationState>((set) => ({
 
   goToCRM: (section = 'dashboard') => {
     const crmViews: Record<string, View> = {
-      dashboard: 'crm',
-      customers: 'crm-customers',
-      orders: 'crm-orders',
-      automations: 'crm-automations',
-      campaigns: 'crm-campaigns',
-      analytics: 'crm-analytics',
-      settings: 'crm-settings',
+      dashboard: 'crm' as View,
+      customers: 'crm-customers' as View,
+      orders: 'crm-orders' as View,
+      automations: 'crm-automations' as View,
+      campaigns: 'crm-campaigns' as View,
+      analytics: 'crm-analytics' as View,
+      settings: 'crm-settings' as View,
+      footer: 'crm-footer' as View,
     };
     set({ currentView: crmViews[section] || 'crm', selectedProductId: null });
   },
+
+  goToMiCuenta: () => set({ currentView: 'mi-cuenta' as View, selectedProductId: null }),
 }));

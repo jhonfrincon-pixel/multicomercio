@@ -1,8 +1,10 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
-import { useEffect, useState, useRef } from 'react'; // Importa useRef
+import { useState, useRef, useEffect } from 'react';
+import { Facebook, Instagram, Twitter, Youtube, MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useFooterSettingsStore } from '@/store/footerSettingsStore';
+import { useCRMAuthStore } from '@/store/crmAuthStore';
+import { useNavigate, Link } from 'react-router-dom';
 import { Modal } from '@/components/Modal';
-import { useNavigationStore } from '@/store/navigationStore';
+import type { View } from '@/types';
 
 interface FooterProps {
   onVisibilityChange?: (isVisible: boolean) => void; // Nueva prop para comunicar la visibilidad
@@ -12,7 +14,7 @@ export function Footer({ onVisibilityChange }: FooterProps) {
   const { settings, loadSettings } = useFooterSettingsStore();
   const [selectedPolicy, setSelectedPolicy] = useState<{ title: string; content: string } | null>(null);
   const footerRef = useRef<HTMLDivElement>(null); // Cambiado a HTMLDivElement para coincidir con el <div> contenedor
-  const { goToSobreNosotros } = useNavigationStore();
+  const navigate = useNavigate();
 
   // Observador para detectar cuando el footer entra o sale del viewport
   useEffect(() => {
@@ -48,6 +50,23 @@ export function Footer({ onVisibilityChange }: FooterProps) {
     }
   };
 
+  // 🎯 Manejar clic en "Mi Cuenta" con verificación de autenticación
+  const handleMiCuentaClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevenir salto de página
+    navigate('/mi-cuenta'); // ProtectedRoute will handle authentication
+  };
+
+  // 🎯 Manejar clic en "Sobre Nosotros"
+  const handleSobreNosotrosClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/sobre-nosotros');
+  };
+
+  const handleGoToHome = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/');
+  };
+
   const getLink = (key: string) => {
     return settings?.quick_links?.[key as keyof typeof settings.quick_links] || '#';
   };
@@ -80,30 +99,30 @@ export function Footer({ onVisibilityChange }: FooterProps) {
               Tu satisfacción es nuestra prioridad.
             </p>
             <div className="flex gap-4">
-              <a
-                href="#"
+              <button
                 className="w-10 h-10 bg-stone-800 rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors"
+                aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
                 className="w-10 h-10 bg-stone-800 rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors"
+                aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
                 className="w-10 h-10 bg-stone-800 rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors"
+                aria-label="Twitter"
               >
                 <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
                 className="w-10 h-10 bg-stone-800 rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors"
+                aria-label="YouTube"
               >
                 <Youtube className="w-5 h-5" />
-              </a>
+              </button>
             </div>
           </div>
 
@@ -112,8 +131,8 @@ export function Footer({ onVisibilityChange }: FooterProps) {
             <h3 className="text-white font-semibold text-lg mb-6">Enlaces Rápidos</h3>
             <ul className="space-y-3">
               <li>
-                <button 
-                  onClick={goToSobreNosotros}
+                <button
+                  onClick={handleSobreNosotrosClick}
                   className="hover:text-amber-500 transition-colors text-left"
                 >
                   Sobre Nosotros
@@ -147,9 +166,12 @@ export function Footer({ onVisibilityChange }: FooterProps) {
             <h3 className="text-white font-semibold text-lg mb-6 font-heading">Atención al Cliente</h3>
             <ul className="space-y-3">
               <li>
-                <a href={getLink('mi_cuenta')} className="hover:text-blue-400 transition-colors font-sans">
+                <button
+                  onClick={handleMiCuentaClick}
+                  className="text-left hover:text-blue-400 transition-colors font-sans"
+                >
                   Mi Cuenta
-                </a>
+                </button>
               </li>
               <li>
                 <a href={getLink('seguimiento_pedidos')} className="hover:text-blue-400 transition-colors font-sans">

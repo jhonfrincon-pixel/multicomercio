@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { ArrowLeft, Users, Target, Award, Rocket, Heart, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useNavigationStore } from '@/store/navigationStore';
+import { useNavigate } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { motion } from 'framer-motion';
 
@@ -24,7 +24,7 @@ const VALUES = [
 ];
 
 export function SobreNosotros() {
-  const { goToHome } = useNavigationStore();
+  const navigate = useNavigate();
 
   // Datos estructurados para Google (Organization Schema)
   const jsonLd = useMemo(() => ({
@@ -62,8 +62,8 @@ export function SobreNosotros() {
             animate={{ opacity: 1, y: 0 }}
           >
             <Button 
-              variant="ghost" 
-              onClick={goToHome}
+              variant="ghost"
+              onClick={() => navigate('/')}
               className="mb-8 text-white hover:bg-white/10"
             >
               <ArrowLeft className="mr-2 h-4 w-4" /> Volver al inicio

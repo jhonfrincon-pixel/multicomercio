@@ -1,9 +1,9 @@
 import { ArrowLeft, Shield, Lock, Eye, Database, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useNavigationStore } from '@/store/navigationStore';
+import { useNavigate } from 'react-router-dom';
 
 export function ProteccionDatos() {
-  const { goToHome } = useNavigationStore();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -11,8 +11,8 @@ export function ProteccionDatos() {
       <div className="bg-gradient-to-r from-[#1e3a8a] to-[#1e3a8a]/80 text-white">
         <div className="container mx-auto px-4 py-16">
           <Button
-            variant="ghost"
-            onClick={goToHome}
+            variant="ghost" // Changed to button as it's not a direct Link to a route, but an action
+            onClick={() => navigate('/')}
             className="mb-6 text-white hover:bg-white/20"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
