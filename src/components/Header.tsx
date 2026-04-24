@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 export function Header() {
   const totalItems = useCartStore((state) => state.getTotalItems());
   const wishlistCount = useWishlistStore((state) => state.items.length);
-  const { currentView, goToHome, goToCart } = useNavigationStore();
+  const { currentView, goToHome, goToCart, goToProduct } = useNavigationStore();
   const { config } = useBrandStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -58,6 +58,8 @@ export function Header() {
               onClick={() => {
                 goToHome();
                 setTimeout(() => {
+                  // En el futuro, esto podría filtrar por productos con descuento
+                  document.getElementById('offers-section')?.scrollIntoView({ behavior: 'smooth' }) || 
                   document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' });
                 }, 100);
               }}
@@ -66,7 +68,12 @@ export function Header() {
               Ofertas
             </button>
             <button
-              onClick={goToHome}
+              onClick={() => {
+                goToHome();
+                setTimeout(() => {
+                  document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }}
               className="text-sm font-medium text-stone-600 transition-colors hover:text-[#1e3a8a]"
             >
               Contacto
@@ -90,6 +97,7 @@ export function Header() {
               className="relative text-stone-600 hover:text-[#1e3a8a] hover:bg-[#1e3a8a]/5 hidden sm:flex"
               onClick={() => {
                 if (wishlistCount > 0) {
+                  // TODO: Implementar goToWishlist() en navigationStore
                   toast.info(`Tienes ${wishlistCount} productos en tu lista de deseos.`);
                 } else {
                   toast.info('Tu lista de deseos está vacía.');
