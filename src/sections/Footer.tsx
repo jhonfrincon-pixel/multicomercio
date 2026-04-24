@@ -1,7 +1,7 @@
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react'; // Importa useRef
 import { useFooterSettingsStore } from '@/store/footerSettingsStore';
-import { PolicyModal } from '@/components/PolicyModal';
+import { Modal } from '@/components/Modal';
 import { useNavigationStore } from '@/store/navigationStore';
 
 interface FooterProps {
@@ -257,12 +257,17 @@ export function Footer({ onVisibilityChange }: FooterProps) {
       </div>
     </footer>
       
-      <PolicyModal
+      <Modal
         isOpen={!!selectedPolicy}
         onClose={() => setSelectedPolicy(null)}
         title={selectedPolicy?.title || ''}
-        content={selectedPolicy?.content || ''}
-      />
+      >
+        <div className="prose prose-stone max-w-none">
+          <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+            {selectedPolicy?.content || ''}
+          </p>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -95,4 +95,6 @@ export type View =
   | 'crm-campaigns'
   | 'crm-analytics'
   | 'crm-settings'
-  | 'crm-footer';
+  | 'crm-footer'
+  | 'mi-cuenta'
+  | 'sobre-nosotros';

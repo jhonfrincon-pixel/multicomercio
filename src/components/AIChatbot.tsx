@@ -34,8 +34,6 @@ const thinkingConfig = {
 
 const WELCOME_MESSAGE = `¡Hola! 👋 Soy tu asistente de ventas de **Livo**.
 
-🤖 **Modelo actual**: ${isUsingFallback ? 'gemini-3.1-flash-lite (alta capacidad)' : 'gemini-3.1-pro-preview (thinking avanzado)'}
-
 Estoy aquí para ayudarte a encontrar los mejores productos para tu hogar. Puedo:
 
 🔍 **Buscar productos** por categoría o nombre

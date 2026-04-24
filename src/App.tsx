@@ -11,6 +11,7 @@ import { Footer } from '@/sections/Footer';
 import { TrustSection } from '@/sections/TrustSection';
 import { SocialProof } from '@/sections/SocialProof';
 import { SobreNosotros } from '@/pages/SobreNosotros';
+import { MiCuenta } from '@/sections/MiCuenta';
 import { AIChatbot } from '@/components/AIChatbot';
 import { Newsletter } from '@/components/Newsletter';
 import { FloatingContactGroup } from '@/components/FloatingContactGroup'; // Usamos el componente agrupado de contacto
@@ -120,6 +121,9 @@ function App() {
 
       case 'sobre-nosotros' as View:
         return <SobreNosotros />;
+
+      case 'mi-cuenta' as View:
+        return <MiCuenta />;
 
       case 'cart':
         return <Cart />;
