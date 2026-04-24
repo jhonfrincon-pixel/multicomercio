@@ -45,30 +45,34 @@ export function MarketingTags() {
       }
     })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-    // Inicializar Meta Pixel (reemplazar YOUR_PIXEL_ID con el ID real)
-    if (window.fbq) {
-      window.fbq('init', 'YOUR_PIXEL_ID');
+    // Inicializar Meta Pixel usando variable de entorno
+    const pixelId = import.meta.env.VITE_META_PIXEL_ID;
+    if (window.fbq && pixelId) {
+      window.fbq('init', pixelId);
       window.fbq('track', 'PageView');
     }
 
-    // Google Tag Manager
-    const gtmScript = document.createElement('script');
-    gtmScript.innerHTML = `
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-XXXXXXX');
-    `;
-    document.head.appendChild(gtmScript);
+    // Google Tag Manager usando variable de entorno
+    const gtmId = import.meta.env.VITE_GTM_ID;
+    if (gtmId) {
+      const gtmScript = document.createElement('script');
+      gtmScript.innerHTML = `
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','${gtmId}');
+      `;
+      document.head.appendChild(gtmScript);
 
-    // Google Tag Manager noscript
-    const gtmNoScript = document.createElement('noscript');
-    gtmNoScript.innerHTML = `
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    `;
-    document.body.insertBefore(gtmNoScript, document.body.firstChild);
+      // Google Tag Manager noscript
+      const gtmNoScript = document.createElement('noscript');
+      gtmNoScript.innerHTML = `
+        <iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      `;
+      document.body.insertBefore(gtmNoScript, document.body.firstChild);
+    }
 
     // Eventos de conversión personalizados
     const trackEvent = (eventName: string, parameters?: any) => {

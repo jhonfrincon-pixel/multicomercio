@@ -15,11 +15,21 @@ interface Message {
   timestamp: Date;
 }
 
-// Configuración de Gemini (Asegúrate de tener la API KEY en tu .env)
+// Configuración de Gemini con modelos optimizados y fallback automático
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY || '');
 
+// Modelos configurados para optimización de límites
+const PRIMARY_MODEL = "gemini-2.5-flash"; // 5 req/min - principal
+const FALLBACK_MODEL = "gemini-3.1-flash-lite"; // 15 req/min - fallback
+
+// Estado del modelo actual
+let currentModel = PRIMARY_MODEL;
+let isUsingFallback = false;
+
 const WELCOME_MESSAGE = `¡Hola! 👋 Soy tu asistente de ventas de **Livo**.
+
+🤖 **Modelo actual**: ${isUsingFallback ? 'gemini-3.1-flash-lite (alta capacidad)' : 'gemini-2.5-flash (ultra rápido)'}
 
 Estoy aquí para ayudarte a encontrar los mejores productos para tu hogar. Puedo:
 
@@ -76,21 +86,30 @@ export function AIChatbot() {
     Tu catálogo actual:
     ${productCatalog}
 
+    INSTRUCCIONES DE RESPUESTA CONCISA:
+    - Responde de forma directa y concisa (máximo 2-3 frases)
+    - Enfócate en la información más importante primero
+    - Usa formato claro: **Producto** - Precio - Característica clave
+    - Evita explicaciones largas unless el usuario las pida
+
     LÓGICA DE PRESUPUESTO:
-    - Si el usuario menciona un presupuesto (ej: "tengo 200 mil", "busco algo de menos de 1 millón"), filtra el catálogo y sugiere los 2 o 3 productos que mejor se ajusten.
-    - Si un producto excede el presupuesto por muy poco, menciónalo como una "opción premium" que vale la pena el esfuerzo.
-    - Si el presupuesto es muy bajo, sugiere artículos de decoración o accesorios (como el Jarrón o el Corrector de Postura).
+    - Si el usuario menciona presupuesto, sugiere 1-2 productos ajustados
+    - Si excede por poco, llama "opción premium"
+    - Si es muy bajo, sugiere accesorios económicos
 
     REGLAS DE ORO:
-    1. Formato: Usa Markdown (**negrita** para nombres y precios). Precios siempre con puntos (ej: $89.900).
-    2. Envíos: Menciona que el envío es GRATIS si la compra supera los $500.000 COP.
-    3. Trato: Sé amable, usa español de Colombia (sin exagerar) y enfócate en ayudar a decorar el hogar.
-    4. Si el usuario pregunta por algo fuera de presupuesto, ofrece alternativas económicas de tu catálogo.`;
+    1. Formato: **Producto** - $Precio COP - Stock
+    2. Envíos: Gratis sobre $500.000 COP
+    3. Trato: Español Colombia, amable y directo
+    4. Sé conciso para optimizar solicitudes diarias`;
 
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",
-      systemInstruction: systemInstruction 
-    });
+    // Función para obtener modelo con manejo de rate limiting
+    const getModel = () => {
+      return genAI.getGenerativeModel({ 
+        model: currentModel,
+        systemInstruction: systemInstruction 
+      });
+    };
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -114,7 +133,8 @@ export function AIChatbot() {
           parts: [{ text: m.content }],
         }));
 
-      const chat = model.startChat({
+      const currentModelInstance = getModel();
+      const chat = currentModelInstance.startChat({
         history,
       });
       
@@ -131,8 +151,35 @@ export function AIChatbot() {
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, aiResponse]);
-    } catch (error) {
+      
+      // Resetear estado de fallback si todo fue bien
+      if (isUsingFallback) {
+        isUsingFallback = false;
+        currentModel = PRIMARY_MODEL;
+        toast.success("Restaurado modelo principal gemini-2.5-flash");
+      }
+    } catch (error: any) {
       console.error("Error calling Gemini API:", error);
+      
+      // Manejo específico de rate limiting (429)
+      if (error.message?.includes('429') || error.message?.includes('Too Many Requests')) {
+        if (!isUsingFallback) {
+          // Cambiar al modelo fallback automáticamente
+          isUsingFallback = true;
+          currentModel = FALLBACK_MODEL;
+          toast.warning("Límite alcanzado. Cambiando a modelo con mayor capacidad...");
+          
+          // Reintentar automáticamente con el modelo fallback
+          setTimeout(() => handleSend(), 1000);
+          return;
+        } else {
+          toast.error("Límite de solicitudes alcanzado. Intenta en unos minutos.");
+          setIsTyping(false);
+          return;
+        }
+      }
+      
+      // Error genérico
       toast.error("Hubo un error al conectar con el asistente.");
     } finally {
       setIsTyping(false);

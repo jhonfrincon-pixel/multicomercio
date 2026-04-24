@@ -20,7 +20,7 @@ interface FloatingContactGroupProps {
  */
 export function FloatingContactGroup({ 
   isVisible = true, 
-  whatsappNumber = "573001234567",
+  whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "573001234567",
   initialMessage = "Hola Livo, me gustaría obtener más información."
 }: FloatingContactGroupProps) {
   const [isOpen, setIsOpen] = useState(false);

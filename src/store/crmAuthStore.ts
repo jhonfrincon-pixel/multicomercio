@@ -11,8 +11,8 @@ interface CRMAuthState {
   logout: () => Promise<void>;
 }
 
-const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL ?? 'jhonrincon.marketer@gmail.com';
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? 'CambiaEstaClave123!';
+const ADMIN_EMAIL = import.meta.env.CRM_ADMIN_EMAIL ?? 'admin@livo.com';
+const ADMIN_PASSWORD = import.meta.env.CRM_ADMIN_PASSWORD ?? 'admin123456';
 
 let authListenerInitialized = false;
 
