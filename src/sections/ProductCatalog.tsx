@@ -43,7 +43,7 @@ export function ProductCatalog() {
   const handleWishlist = (product: typeof products[0], e: React.MouseEvent) => {
     e.stopPropagation();
     const added = toggleWishlist(product);
-    if (added) {
+    if (added !== undefined) {
       toast.success('Agregado a favoritos', { icon: '❤️' });
     } else {
       toast.info('Eliminado de favoritos');
@@ -151,7 +151,7 @@ export function ProductCatalog() {
                 {/* Content */}
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-2">
-                    <span className="text-xs font-medium text-blue-600 uppercase tracking-wider font-sans">
+                    <span className="text-xs font-medium text-[var(--primary-color,#2563EB)] uppercase tracking-wider font-sans">
                       {product.category}
                     </span>
                     <SocialProofBadge productId={product.id} />
@@ -188,7 +188,7 @@ export function ProductCatalog() {
 
                       <Button
                         size="sm"
-                        className="bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-sans font-semibold w-full sm:w-auto"
+                        className="bg-[var(--primary-color,#2563EB)] hover:bg-[var(--primary-color-dark,#1d4ed8)] text-white shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-sans font-semibold w-full sm:w-auto"
                         onClick={(e) => handleAddToCart(product, e)}
                       >
                         <ShoppingCart className="w-4 h-4 mr-2" />

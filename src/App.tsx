@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useParams, useNavigate, useSearchParams } from 'react-router-dom';
 
 // Componentes de Interfaz
@@ -10,19 +10,21 @@ import { MarketingTags } from '@/components/MarketingTags';
 import { FloatingContactGroup } from '@/components/FloatingContactGroup';
 import { AIChatbot } from '@/components/AIChatbot';
 
-// Secciones de la Tienda
+// Secciones de la Tienda - Lazy Loading para optimización
 import { Hero } from '@/sections/Hero';
 import { TrustSection } from '@/sections/TrustSection';
-import { ProductCatalog } from '@/sections/ProductCatalog';
-import { ProductLanding } from '@/sections/ProductLanding';
-import { ProductLandingFunnel } from '@/sections/ProductLandingFunnel';
 import { SocialProof } from '@/sections/SocialProof';
 import { Newsletter } from '@/components/Newsletter';
-import { Cart } from '@/sections/Cart';
-import { Checkout } from '@/sections/Checkout';
-import { CheckoutColombia } from '@/sections/CheckoutColombia';
-import { MiCuenta } from '@/sections/MiCuenta';
-import { SobreNosotros } from '@/pages/SobreNosotros';
+
+// Lazy loading para componentes pesados
+const ProductCatalog = lazy(() => import('@/sections/ProductCatalog').then(module => ({ default: module.ProductCatalog })));
+const ProductLanding = lazy(() => import('@/sections/ProductLanding').then(module => ({ default: module.ProductLanding })));
+const ProductLandingFunnel = lazy(() => import('@/sections/ProductLandingFunnel').then(module => ({ default: module.ProductLandingFunnel })));
+const Cart = lazy(() => import('@/sections/Cart').then(module => ({ default: module.Cart })));
+const Checkout = lazy(() => import('@/sections/Checkout').then(module => ({ default: module.Checkout })));
+const CheckoutColombia = lazy(() => import('@/sections/CheckoutColombia').then(module => ({ default: module.CheckoutColombia })));
+const MiCuenta = lazy(() => import('@/sections/MiCuenta').then(module => ({ default: module.MiCuenta })));
+const SobreNosotros = lazy(() => import('@/pages/SobreNosotros').then(module => ({ default: module.SobreNosotros })));
 
 // CRM y Seguridad
 import { CRMDashboard } from '@/crm/CRMDashboard';
@@ -95,7 +97,18 @@ function AppWrapper({ children }: { children: React.ReactNode }) {
     if (brandData) {
       const favicon = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
       if (favicon) favicon.href = brandData.favicon_url || '/favicon.ico';
-      document.documentElement.style.setProperty('--primary-color', brandData.primary_color);
+      
+      // Set CSS variables with fallbacks
+      document.documentElement.style.setProperty('--primary-color', brandData.primary_color || '#2563EB');
+      
+      // Generate color variations
+      const primaryColor = brandData.primary_color || '#2563EB';
+      // Simple color manipulation for dark/light variants
+      const darkerColor = primaryColor + 'cc'; // Add transparency for darker
+      const lighterColor = primaryColor + '20'; // Add transparency for lighter
+      
+      document.documentElement.style.setProperty('--primary-color-dark', darkerColor);
+      document.documentElement.style.setProperty('--primary-color-light', lighterColor);
     }
   }, [brandData]);
 
@@ -121,7 +134,13 @@ function HomePage() {
       <SEO title="Inicio" description={brandData?.slogan} />
       <Hero />
       <TrustSection />
-      <ProductCatalog />
+      <Suspense fallback={
+        <div className="py-20 flex items-center justify-center">
+          <div className="w-12 h-12 border-4 border-t-[#1e3a8a] rounded-full animate-spin"></div>
+        </div>
+      }>
+        <ProductCatalog />
+      </Suspense>
       <SocialProof />
       <Newsletter />
     </>

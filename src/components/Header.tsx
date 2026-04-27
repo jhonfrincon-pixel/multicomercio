@@ -44,17 +44,14 @@ export function Header() {
             >
               Inicio
             </Link>
-            <button
-              onClick={() => {
-                navigate('/');
-                setTimeout(() => {
-                  document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
-              className="text-sm font-medium text-gray-600 transition-colors hover:text-[#1e3a8a] font-sans"
+            <Link
+              to="/catalogo"
+              className={`text-sm font-medium transition-colors hover:text-[#1e3a8a] font-sans ${
+                location.pathname === '/catalogo' ? 'text-[#1e3a8a]' : 'text-gray-600'
+              }`}
             >
               Catálogo
-            </button>
+            </Link>
             <button
               onClick={() => {
                 navigate('/');

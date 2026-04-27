@@ -139,24 +139,33 @@ export function Footer({ onVisibilityChange }: FooterProps) {
                 </button>
               </li>
               <li>
-                <a href={getLink('catalogo_productos')} className="hover:text-amber-500 transition-colors">
+                <Link to="/catalogo" className="hover:text-amber-500 transition-colors">
                   Catálogo de Productos
-                </a>
+                </Link>
               </li>
               <li>
-                <a href={getLink('ofertas_especiales')} className="hover:text-amber-500 transition-colors">
+                <button 
+                  onClick={handleGoToHome}
+                  className="hover:text-amber-500 transition-colors text-left"
+                >
                   Ofertas Especiales
-                </a>
+                </button>
               </li>
               <li>
-                <a href={getLink('blog_decoracion')} className="hover:text-amber-500 transition-colors">
+                <button 
+                  onClick={handleGoToHome}
+                  className="hover:text-amber-500 transition-colors text-left"
+                >
                   Blog de Decoración
-                </a>
+                </button>
               </li>
               <li>
-                <a href={getLink('preguntas_frecuentes')} className="hover:text-amber-500 transition-colors">
+                <button 
+                  onClick={handleGoToHome}
+                  className="hover:text-amber-500 transition-colors text-left"
+                >
                   Preguntas Frecuentes
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -174,9 +183,12 @@ export function Footer({ onVisibilityChange }: FooterProps) {
                 </button>
               </li>
               <li>
-                <a href={getLink('seguimiento_pedidos')} className="hover:text-blue-400 transition-colors font-sans">
+                <button 
+                  onClick={handleGoToHome}
+                  className="hover:text-blue-400 transition-colors font-sans text-left"
+                >
                   Seguimiento de Pedidos
-                </a>
+                </button>
               </li>
               <li>
                 <button 

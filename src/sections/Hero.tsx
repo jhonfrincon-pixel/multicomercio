@@ -69,7 +69,7 @@ export function Hero() {
             <Button
               size="lg"
               onClick={scrollToProducts}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl font-sans font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              className="bg-[var(--primary-color,#2563EB)] hover:bg-[var(--primary-color-dark,#1d4ed8)] text-white px-8 py-6 text-lg rounded-xl font-sans font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
             >
               Comprar Ahora
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -77,7 +77,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="border-blue-600 text-[#1F2937] bg-white hover:bg-blue-50 px-8 py-6 text-lg rounded-xl font-sans font-semibold shadow-md hover:shadow-lg"
+              className="border-[var(--primary-color,#2563EB)] text-[#1F2937] bg-white hover:bg-[var(--primary-color-light,#dbeafe)] px-8 py-6 text-lg rounded-xl font-sans font-semibold shadow-md hover:shadow-lg"
             >
               Pagar al Recibir
             </Button>
